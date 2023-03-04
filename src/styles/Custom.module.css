@@ -1,0 +1,33 @@
+.entryText {
+    text-align: left;
+    font-size: 1.5rem;
+    max-width: 75ch;
+    margin: 5.5rem auto 1rem auto;
+}
+
+.entryText > li + li {
+    margin-top: 0.75em;
+}
+
+.mainWrapper{
+    max-width: 1200px;
+}
+
+.nameEntry>*{
+    display: block;
+    margin:auto;
+    text-align: center;
+}
+
+.nameEntry > * + * {
+    margin-top: 0.75em;
+}
+
+.nameEntry> button{
+    font-size: 24px;
+    padding:8px 15px;
+}
+
+.debug{
+    position: absolute;
+}
