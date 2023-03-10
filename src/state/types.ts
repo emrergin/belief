@@ -1,5 +1,5 @@
 export const enum Phase {
-    Intro = "INTRO",
-    Qsr = "QSR",
-    Bsr = "BSR"
+	Intro = "INTRO",
+	Intro2 = "INTRO2",
+	Main = "MAIN",
 }

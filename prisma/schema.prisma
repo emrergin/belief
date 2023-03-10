@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Participant {
+  id           String  @id @unique @default(uuid())
+  name_surname String
+  sessionId    String
+  Session      Session @relation(fields: [sessionId], references: [id])
+  Round        Round[]
+  age Int?
+  gpa Float?
+  sex Int?
+  dep String?
+  num_of_econ Int?
+  diff Int?
+  sure Int?
+  gps_risk_willingness Int?
+  gps_future_benefit Int?
+  gps_punish_self Int?
+  gps_punish_other Int?
+  gps_d1 Int?
+  gps_d2 Int?
+  gps_d3 Int?
+  gps_d4 Int?
+  gps_d5 Int?
+  gps_stair_risk Int?
+  gps_gift Int?
+  gps_donation Int?
+  gps_stair_patience Int?
+}
+
+model Round {
+  id                 String      @id @unique @default(uuid())
+  decision_time      Int?
+  chosen_probability Float?
+  is_blue Boolean
+  first_draw_blue Boolean?
+  second_draw_blue Boolean?
+  third_draw_blue Boolean?
+  fourth_draw_blue Boolean?
+  fifth_draw_blue Boolean?
+  sixth_draw_blue Boolean?
+  reward Int
+  participantId      String
+  Participant        Participant @relation(fields: [participantId], references: [id])
+}
+
+model Session {
+  id          String        @id @unique @default(uuid())
+  start_time  DateTime      @default(now())
+  end_time    DateTime?
+  name        String
+  location    String?
+  num_of_blue_a     Int
+  num_of_blue_b      Int
+  treatment          String
+  Participant Participant[]
+  drawn_balls Int[]
+}

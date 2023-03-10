@@ -4,7 +4,13 @@ Web based experimentation for the belief elicitation, specifically quadratic and
 
 Joint project with [Mehmet Yiğit Gürdal](https://econ.boun.edu.tr/mehmet-yigit-gurdal-0).
 
-**Next.js** and **PostgreSQL** is being used. 
+## Techologies Used
+
+- **Next.js** as the **React** framework.
+- Next.js **API routes** for server-side API routes as the backend.
+- **Prisma** as the ORM for migrations and database access.
+- **PostgreSQL** as the database.
+- **TypeScript** as the programming language.
 
 ## Details
 
