@@ -2,6 +2,7 @@
 	text-align: left;
 	font-size: 1.5rem;
 	max-width: 75ch;
+	padding-inline: 2ch;
 	margin: 5.5rem auto 1rem auto;
 }
 
@@ -42,3 +43,48 @@
 .ballText > p {
 	margin-bottom: 2ch;
 }
+
+.bagHolder {
+	display: flex;
+	gap: 10%;
+	margin: 5% 10%;
+}
+
+.bagHolder > * {
+	padding: 2ch;
+	width: 26ch;
+}
+/* div.__className_4b5723:nth-child(1) > div */
+.bagHolder > :nth-child(1) > :not(:last-child),
+.bagHolder > :nth-child(2) > :not(:last-child) {
+	margin-bottom: 2ch;
+}
+
+.bagHolder > :nth-child(1) {
+	border: 5px #dd2e44 solid;
+	border-radius: 3ch;
+}
+
+.bagHolder > :nth-child(2) {
+	border: 5px #55acee solid;
+	border-radius: 3ch;
+}
+
+.embla {
+	overflow: hidden;
+}
+.embla__container {
+	display: flex;
+}
+.embla__slide {
+	flex: 0 0 100%;
+	min-width: 0;
+}
+
+.embla__slide > ul > li {
+	list-style-position: inside;
+}
+
+/* .embla > * {
+	outline: 2px red solid;
+} */

@@ -1,20 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "@/styles/Circles.module.css";
+import Slider from "./experimentComponents/Slider";
 
 function Circles({ bsr }: { bsr: boolean }) {
 	const [redRatio, setRedRatio] = useState(50);
-	const range = useRef<HTMLInputElement>(null);
-	const thumb = useRef<HTMLDivElement>(null);
-	const track = useRef<HTMLDivElement>(null);
 	const whiteCircle1 = useRef<HTMLDivElement>(null);
 	const whiteCircle2 = useRef<HTMLDivElement>(null);
 	const blackCross1 = useRef<HTMLDivElement>(null);
 	const blackCross2 = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		thumb.current!.style.left = `${50}%`;
-		thumb.current!.style.transform = `translate(-${50}%, -50%)`;
-		track.current!.style.width = `${50}%`;
 		whiteCircle1.current!.style.width = `150px`;
 		whiteCircle1.current!.style.height = `150px`;
 		whiteCircle2.current!.style.width = `150px`;
@@ -27,9 +22,6 @@ function Circles({ bsr }: { bsr: boolean }) {
 
 	function updateSlider(e: React.ChangeEvent<HTMLInputElement>) {
 		setRedRatio(Number(e.target.value));
-		thumb.current!.style.left = `${e.target.value}%`;
-		thumb.current!.style.transform = `translate(-${e.target.value}%, -50%)`;
-		track.current!.style.width = `${e.target.value}%`;
 		whiteCircle1.current!.style.width = `${+e.target.value * 3}px`;
 		whiteCircle1.current!.style.height = `${+e.target.value * 3}px`;
 		whiteCircle2.current!.style.width = `${
@@ -48,10 +40,9 @@ function Circles({ bsr }: { bsr: boolean }) {
 		const dist = Math.random() * 150;
 		const x = Math.cos(angle) * dist + 150;
 		const y = Math.sin(angle) * dist + 150;
-		console.log(angle, dist, x, y);
+		// console.log(angle, dist, x, y);
 		blackCross1.current!.style.display = `none`;
 		blackCross2.current!.style.display = `none`;
-		// const chooseCircle = Math.floor(Math.random()*2)+1;
 		const chooseCircle = 1;
 		if (chooseCircle === 1) {
 			blackCross1.current!.style.display = "block";
@@ -76,24 +67,7 @@ function Circles({ bsr }: { bsr: boolean }) {
 	}
 	return (
 		<div>
-			<div className={styles.center}>
-				<div className={styles.wrap}>
-					<input
-						type="range"
-						className={styles.range}
-						ref={range}
-						min="0"
-						max="100"
-						step="1"
-						value={redRatio}
-						onChange={(e) => updateSlider(e)}
-					/>
-					<div className={styles.track}>
-						<div className={styles.trackInner} ref={track}></div>
-					</div>
-					<div className={styles.thumb} ref={thumb}></div>
-				</div>
-			</div>
+			<Slider updatingFunction={updateSlider} value={redRatio} />
 			<div className={styles.circleHolder}>
 				<div
 					className={

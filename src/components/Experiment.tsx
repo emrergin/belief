@@ -7,10 +7,26 @@ import Intro2 from "@/components/Intro2";
 
 import { useStateValue } from "../state";
 import { Session } from "@prisma/client";
+import { useEffect } from "react";
+
+function shuffle(array: number[]) {
+	let resArray = array;
+	for (let i = resArray.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1));
+		[resArray[i], resArray[j]] = [resArray[j], resArray[i]];
+	}
+	return resArray;
+}
 
 function Experiment({ data }: { data: Session }) {
-	console.log(data);
+	// console.log(data);
 	const [{ phase }] = useStateValue();
+	let randomizedTreatments;
+
+	useEffect(() => {
+		let randomizedTreatments = shuffle(data.drawn_balls);
+	}, [data.drawn_balls]);
+
 	return (
 		<main className={styles.main}>
 			<p className={cStyles.debug}>
