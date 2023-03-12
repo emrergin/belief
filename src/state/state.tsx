@@ -2,15 +2,16 @@ import React, { createContext, useContext, useReducer } from "react";
 
 import { Action } from "./reducer";
 import { Phase } from "./types";
+import { Round } from "@prisma/client";
 
 export type State = {
-	phase: Phase;
-	// affiliations: String[];
-	// isTurkish: boolean;
+	phase: Phase,
+	currentRound : Partial<Round>
 };
 
 const initialState: State = {
 	phase: Phase.Intro,
+	currentRound: {}
 };
 
 export const StateContext = createContext<[State, React.Dispatch<Action>]>([

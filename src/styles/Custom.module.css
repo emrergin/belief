@@ -31,6 +31,7 @@
 
 .debug {
 	position: absolute;
+	left: 5px;
 }
 
 .ballText {
@@ -47,12 +48,15 @@
 .bagHolder {
 	display: flex;
 	gap: 10%;
-	margin: 5% 10%;
+	/* margin: 5% 10%; */
+	margin-bottom: 10ch;
+	width: 1000px;
+	justify-content: center;
 }
 
 .bagHolder > * {
 	padding: 2ch;
-	width: 26ch;
+	width: 26ch;	
 }
 /* div.__className_4b5723:nth-child(1) > div */
 .bagHolder > :nth-child(1) > :not(:last-child),
@@ -83,6 +87,11 @@
 
 .embla__slide > ul > li {
 	list-style-position: inside;
+}
+
+.navButton {
+	font-size: 24px;
+	padding: 8px 15px;
 }
 
 /* .embla > * {

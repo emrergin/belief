@@ -4,18 +4,13 @@ import styles from "@/styles/Circles.module.css";
 interface sliderProps {
 	updatingFunction: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	value: number;
+	disabled?: boolean;
 }
 
-function Slider({ updatingFunction, value }: sliderProps) {
+function Slider({ updatingFunction, value, disabled=false }: sliderProps) {
 	const range = useRef<HTMLInputElement>(null);
 	const thumb = useRef<HTMLDivElement>(null);
 	const track = useRef<HTMLDivElement>(null);
-
-	// useEffect(() => {
-	// 	thumb.current!.style.left = `${50}%`;
-	// 	thumb.current!.style.transform = `translate(-${50}%, -50%)`;
-	// 	track.current!.style.width = `${50}%`;
-	// }, []);
 
 	useEffect(() => {
 		thumb.current!.style.left = `${value}%`;
@@ -35,11 +30,12 @@ function Slider({ updatingFunction, value }: sliderProps) {
 					step="1"
 					value={value}
 					onChange={(e) => updatingFunction(e)}
+					disabled={disabled}
 				/>
 				<div className={styles.track}>
 					<div className={styles.trackInner} ref={track}></div>
 				</div>
-				<div className={styles.thumb} ref={thumb}></div>
+				<div className={styles.thumb} ref={thumb}></div>				
 			</div>
 		</div>
 	);

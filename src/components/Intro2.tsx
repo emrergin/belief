@@ -2,13 +2,19 @@ import customStyles from "@/styles/Custom.module.css";
 import circleStyles from "@/styles/Circles.module.css";
 
 import { Inter } from "next/font/google";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
+
+// import { SetStateAction } from "react";
+import { useStateValue, setPhase } from "@/state";
+import { Phase } from "@/state/types";
+
 const inter = Inter({ subsets: ["latin"] });
 
-import Circles from "./Circles";
+import Circles from "./Treatment";
 
 import useEmblaCarousel from "embla-carousel-react";
 import Slider from "./experimentComponents/Slider";
+import BagHolder from "./experimentComponents/BagHolder";
 
 function Intro2({
 	aBlue,
@@ -20,18 +26,35 @@ function Intro2({
 	treatment: string;
 }) {
 	// const [instruction, setInstruction] = useState(1);
-	const isButtonActive = useRef(true);
+	// const isButtonActive = useRef(true);
 	const [sliderValue, setSliderValue] = useState(50);
+	const [slideIndex, setSlideIndex] = useState(0);
+	const [showNextPhase, setShowNextPhase] = useState(false);
 
-	const [emblaRef, emblaApi] = useEmblaCarousel();
+	const [, dispatch] = useStateValue();
+
+	const [emblaRef, emblaApi] = useEmblaCarousel({ draggable: false });
 
 	const scrollPrev = useCallback(() => {
 		if (emblaApi) emblaApi.scrollPrev();
+		setSlideIndex(emblaApi?.selectedScrollSnap() || 0);
 	}, [emblaApi]);
 
 	const scrollNext = useCallback(() => {
 		if (emblaApi) emblaApi.scrollNext();
+		setSlideIndex(emblaApi?.selectedScrollSnap() || 0);
 	}, [emblaApi]);
+
+	useEffect(() => {
+		if (slideIndex === 4) {
+			setShowNextPhase(true);
+		}
+	}, [slideIndex]);
+
+	function startExperiment() {
+		// console.log(Phase.Qsr)
+		dispatch(setPhase(Phase.Main));
+	}
 
 	// function nextInstruction() {
 	// 	// setInstruction(instruction + 1);
@@ -92,64 +115,7 @@ function Intro2({
 						</ul>
 					</div>
 					<div className={customStyles.embla__slide}>
-						<div className={customStyles.bagHolder}>
-							<div className={inter.className}>
-								<div>
-									<b className={circleStyles.redText}>
-										Kırmızı Torba:
-									</b>{" "}
-									<b>{aBlue}</b> adet{" "}
-									<b className={circleStyles.blueText}>
-										{" "}
-										mavi
-									</b>{" "}
-									bilye, <b>{100 - aBlue}</b> adet{" "}
-									<b className={circleStyles.redText}>
-										kırmızı
-									</b>{" "}
-									bilye
-								</div>
-
-								<div>
-									{[...Array(aBlue)].map((e, i) => (
-										<span key={i}>🔵 </span>
-									))}
-									{[...Array(100 - aBlue)].map((e, i) => (
-										<span key={i}>🔴 </span>
-									))}
-								</div>
-
-								<div>
-									Zar sonucu 1, 2 veya 3 ise kullanılır.
-								</div>
-							</div>
-							<div className={inter.className}>
-								<div>
-									<b className={circleStyles.blueText}>
-										Mavi Torba:
-									</b>{" "}
-									<b>{bBlue}</b> adet{" "}
-									<b className={circleStyles.blueText}>
-										{" "}
-										mavi
-									</b>{" "}
-									bilye, <b>{100 - bBlue}</b> adet{" "}
-									<b className={circleStyles.redText}>
-										kırmızı
-									</b>{" "}
-									bilye
-								</div>
-								<div>
-									{[...Array(bBlue)].map((e, i) => (
-										<span key={i}>🔵 </span>
-									))}
-									{[...Array(100 - bBlue)].map((e, i) => (
-										<span key={i}>🔴 </span>
-									))}
-								</div>
-								<div>Zar sonucu 4,5 veya 6 ise kullanılır.</div>
-							</div>
-						</div>
+						<BagHolder aBlue={aBlue} bBlue={bBlue} />
 					</div>
 					<div className={customStyles.embla__slide}>
 						<ul className={customStyles.entryText}>
@@ -287,8 +253,31 @@ function Intro2({
 			{/* <button disabled={!isButtonActive} onClick={nextInstruction}>
 				Devam
 			</button> */}
-			<button onClick={scrollPrev}>Önceki</button>
-			<button onClick={scrollNext}>Sonraki</button>
+			{slideIndex + 1}
+			<div style={{ display: "flex" }}>
+				<button
+					className={inter.className + " " + customStyles.navButton}
+					onClick={scrollPrev}
+				>
+					Önceki
+				</button>
+				<button
+					className={inter.className + " " + customStyles.navButton}
+					onClick={scrollNext}
+				>
+					Sonraki
+				</button>
+				{showNextPhase && (
+					<button
+						className={
+							inter.className + " " + customStyles.navButton
+						}
+						onClick={startExperiment}
+					>
+						Deneye Başla!
+					</button>
+				)}
+			</div>
 		</>
 	);
 }

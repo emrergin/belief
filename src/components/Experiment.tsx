@@ -2,12 +2,13 @@ import styles from "@/styles/Home.module.css";
 import cStyles from "@/styles/Custom.module.css";
 
 import Intro from "@/components/Intro";
-import Circles from "@/components/Circles";
+// import Circles from "@/components/Treatment";
 import Intro2 from "@/components/Intro2";
 
 import { useStateValue } from "../state";
 import { Session } from "@prisma/client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Treatment from "@/components/Treatment";
 
 function shuffle(array: number[]) {
 	let resArray = array;
@@ -20,15 +21,20 @@ function shuffle(array: number[]) {
 
 function Experiment({ data }: { data: Session }) {
 	// console.log(data);
-	const [{ phase }] = useStateValue();
-	let randomizedTreatments;
+	const [{ phase },] = useStateValue();
+	const randomizedDraws = useRef(shuffle(data.drawn_balls));
 
-	useEffect(() => {
-		let randomizedTreatments = shuffle(data.drawn_balls);
-	}, [data.drawn_balls]);
+	// useEffect(() => {
+	// 	let randomizedTreatments = shuffle(data.drawn_balls);
+	// 	console.log(randomizedTreatments)
+	// }, [data.drawn_balls]);
+
+	// useEffect(()=>{
+	// 	console.log(currentRound)
+	// },[currentRound.first_draw_blue,currentRound])
 
 	return (
-		<main className={styles.main}>
+		<main className={styles.main} style={{ userSelect: "none" }}>
 			<p className={cStyles.debug}>
 				{phase} - {data.treatment}
 			</p>
@@ -40,12 +46,24 @@ function Experiment({ data }: { data: Session }) {
 					treatment={data.treatment}
 				/>
 			)}
-			{phase === "MAIN" && data.treatment === "QSR" && (
-				<Circles bsr={false} />
+			{phase === "MAIN"  && (
+				<Treatment
+					bsr={data.treatment === "BSR"}
+					arrayOfDraws={randomizedDraws.current}
+					priors={data.prior}
+					aBlue={data.num_of_blue_a}
+					bBlue={data.num_of_blue_b}
+				/>
 			)}
-			{phase === "MAIN" && data.treatment === "BSR" && (
-				<Circles bsr={true} />
-			)}
+			{/* {phase === "MAIN" && data.treatment === "BSR" && (
+				<Treatment
+					bsr={true}
+					arrayOfDraws={randomizedDraws.current}
+					priors={data.prior}
+					aBlue={data.num_of_blue_a}
+					bBlue={data.num_of_blue_b}
+				/>
+			)} */}
 		</main>
 	);
 }

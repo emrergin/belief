@@ -62,4 +62,5 @@ model Session {
   treatment          String
   Participant Participant[]
   drawn_balls Int[]
+  prior Int[] @default([3,3])
 }
