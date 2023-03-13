@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import { reducer, StateProvider } from "../state";
+// import { reducer, StateProvider } from "../state";
 import Experiment from "@/components/Experiment";
 
 import { InferGetServerSidePropsType } from "next";
@@ -27,9 +27,9 @@ export default function Home({
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<>
-				<StateProvider reducer={reducer}>
-					<Experiment data={data} />
-				</StateProvider>
+				{/* <StateProvider reducer={reducer}> */}
+			<Experiment data={data} />
+				{/* </StateProvider> */}
 			</>
 		</>
 	);

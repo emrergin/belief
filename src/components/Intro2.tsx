@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { useRef, useState, useCallback, useEffect } from "react";
 
 // import { SetStateAction } from "react";
-import { useStateValue, setPhase } from "@/state";
+// import { useStateValue, setPhase } from "@/state";
 import { Phase } from "@/state/types";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,10 +20,12 @@ function Intro2({
 	aBlue,
 	bBlue,
 	treatment,
+	phaseFunction
 }: {
 	aBlue: number;
 	bBlue: number;
 	treatment: string;
+	phaseFunction: (p:Phase)=>void;
 }) {
 	// const [instruction, setInstruction] = useState(1);
 	// const isButtonActive = useRef(true);
@@ -31,7 +33,7 @@ function Intro2({
 	const [slideIndex, setSlideIndex] = useState(0);
 	const [showNextPhase, setShowNextPhase] = useState(false);
 
-	const [, dispatch] = useStateValue();
+	// const [, dispatch] = useStateValue();
 
 	const [emblaRef, emblaApi] = useEmblaCarousel({ draggable: false });
 
@@ -51,10 +53,10 @@ function Intro2({
 		}
 	}, [slideIndex]);
 
-	function startExperiment() {
-		// console.log(Phase.Qsr)
-		dispatch(setPhase(Phase.Main));
-	}
+	// function startExperiment() {
+	// 	// console.log(Phase.Qsr)
+	// 	dispatch(setPhase(Phase.Main));
+	// }
 
 	// function nextInstruction() {
 	// 	// setInstruction(instruction + 1);
@@ -272,7 +274,7 @@ function Intro2({
 						className={
 							inter.className + " " + customStyles.navButton
 						}
-						onClick={startExperiment}
+						onClick={()=>phaseFunction(Phase.Main)}
 					>
 						Deneye Başla!
 					</button>

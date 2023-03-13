@@ -156,6 +156,11 @@ button.exp {
 }
 
 .invis.blue,
-.invis.red {
+.invis.red,
+.invis.white {
 	background-color: rgba(0, 0, 0, 0);
+}
+
+.correctAnswer{
+	outline: 5px gold solid;
 }

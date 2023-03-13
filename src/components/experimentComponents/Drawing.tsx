@@ -3,27 +3,21 @@ import { useRef } from "react";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import customStyles from "@/styles/Custom.module.css";
+import { DrawingT } from "@/state/types";
 
-import { useStateValue, updateRound } from "@/state";
+// import { useStateValue, updateRound } from "@/state";
 
 
 
 interface drawingProps {
 	numberofBlues: number;
 	numberOfDraws: number;
-    nextFunction: ()=> void;
+    nextFunction: (d:DrawingT)=> void;
 }
 
-// is_blue: boolean;
-// first_draw_blue: boolean | null;
-// second_draw_blue: boolean | null;
-// third_draw_blue: boolean | null;
-// fourth_draw_blue: boolean | null;
-// fifth_draw_blue: boolean | null;
-// sixth_draw_blue: boolean | null;
 
 function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
-    const [, dispatch] = useStateValue();
+    // const [, dispatch] = useStateValue();
 
 	let draws = useRef(
 		Array.from({ length: numberOfDraws }, () =>
@@ -33,15 +27,14 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 
     function nextSubPhase(){
         
-        dispatch(updateRound({
+        nextFunction({
             first_draw_blue: draws.current[0]===undefined ? null: Boolean(draws.current[0])
             ,second_draw_blue: draws.current[1] ===undefined ? null: Boolean(draws.current[1])
             ,third_draw_blue: draws.current[2] ===undefined ? null: Boolean(draws.current[2])
             ,fourth_draw_blue:draws.current[3]===undefined ? null: Boolean(draws.current[3])
             ,fifth_draw_blue: draws.current[4] ===undefined ? null: Boolean(draws.current[4])
             ,sixth_draw_blue: draws.current[5] ===undefined ? null: Boolean(draws.current[5])
-        }));
-        nextFunction();
+        });
     }
 
 	return (

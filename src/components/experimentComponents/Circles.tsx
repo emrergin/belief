@@ -5,10 +5,12 @@ function Circles({
 	value,
 	bsr,
 	showResult,
+	chooseCircle
 }: {
 	value: number;
 	bsr: boolean;
 	showResult: boolean;
+	chooseCircle: 0|1
 }) {
 	const whiteCircle1 = useRef<HTMLDivElement>(null);
 	const whiteCircle2 = useRef<HTMLDivElement>(null);
@@ -34,11 +36,9 @@ function Circles({
 		const dist = Math.random() * 150;
 		const x = Math.cos(angle) * dist + 150;
 		const y = Math.sin(angle) * dist + 150;
-		// console.log(angle, dist, x, y);
 		blackCross1.current!.style.display = `none`;
 		blackCross2.current!.style.display = `none`;
-		const chooseCircle = 1;
-		if (chooseCircle === 1) {
+		if (chooseCircle === 0) {
 			blackCross1.current!.style.display = "block";
 			blackCross1.current!.style.top = `${y}px`;
 			blackCross1.current!.style.left = `${x}px`;
@@ -59,6 +59,21 @@ function Circles({
 			return "";
 		}
 	}
+
+	function addCorrectMark(correct:number,number2?:number){
+		if(showResult){
+			if((chooseCircle===correct && number2===undefined)|| (chooseCircle===correct && value!==number2)){
+				return ` ${styles.correctAnswer}`;
+			}
+			else{
+				return ` ${styles.invis}`;
+			}
+		}
+
+		else{
+			return "";
+		}
+	}
 	return (
 		<div className={styles.circleHolder}>
 			<div
@@ -68,7 +83,8 @@ function Circles({
 					styles.blue +
 					" " +
 					styles.circle +
-					addInvis(100)
+					addInvis(100) + 
+					addCorrectMark(0)
 				}
 			>
 				{bsr && (
@@ -89,7 +105,8 @@ function Circles({
 						" " +
 						styles.white +
 						" " +
-						styles.smallCircle
+						styles.smallCircle+
+						addCorrectMark(0,0)
 					}
 					ref={whiteCircle1}
 				></div>
@@ -102,7 +119,8 @@ function Circles({
 					" " +
 					styles.circle +
 					" " +
-					addInvis(0)
+					addInvis(0)+
+					addCorrectMark(1)
 				}
 			>
 				<div
@@ -111,7 +129,8 @@ function Circles({
 						" " +
 						styles.white +
 						" " +
-						styles.smallCircle
+						styles.smallCircle+
+						addCorrectMark(1,100)
 					}
 					ref={whiteCircle2}
 				>

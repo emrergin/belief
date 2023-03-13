@@ -2,10 +2,10 @@ import customStyles from "@/styles/Custom.module.css";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import { SetStateAction, useState } from "react";
-import { useStateValue, setPhase } from "@/state";
+// import { useStateValue, setPhase } from "@/state";
 import { Phase } from "@/state/types";
 
-function Intro() {
+function Intro({phaseFunction,nameFunction}:{phaseFunction:(a:Phase)=>void,nameFunction:(a:string)=>void}) {
 	const [name, setName] = useState("");
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) => {
@@ -13,11 +13,13 @@ function Intro() {
 	};
 
 	function assignName() {
+		nameFunction(name);
+		phaseFunction(Phase.Intro2);
 		// console.log(Phase.Qsr)
-		dispatch(setPhase(Phase.Intro2));
+		// dispatch(setPhase(Phase.Intro2));
 	}
 
-	const [, dispatch] = useStateValue();
+	// const [, dispatch] = useStateValue();
 	return (
 		<div className={customStyles.mainWrapper}>
 			<ul className={customStyles.entryText}>
