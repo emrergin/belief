@@ -5,12 +5,12 @@ function Circles({
 	value,
 	bsr,
 	showResult,
-	chooseCircle
+	chooseCircle,
 }: {
 	value: number;
 	bsr: boolean;
 	showResult: boolean;
-	chooseCircle: 0|1
+	chooseCircle: 0 | 1;
 }) {
 	const whiteCircle1 = useRef<HTMLDivElement>(null);
 	const whiteCircle2 = useRef<HTMLDivElement>(null);
@@ -60,17 +60,17 @@ function Circles({
 		}
 	}
 
-	function addCorrectMark(correct:number,number2?:number){
-		if(showResult){
-			if((chooseCircle===correct && number2===undefined)|| (chooseCircle===correct && value!==number2)){
+	function addCorrectMark(correct: number, number2?: number) {
+		if (showResult) {
+			if (
+				(chooseCircle === correct && number2 === undefined) ||
+				(chooseCircle === correct && value !== number2)
+			) {
 				return ` ${styles.correctAnswer}`;
-			}
-			else{
+			} else {
 				return ` ${styles.invis}`;
 			}
-		}
-
-		else{
+		} else {
 			return "";
 		}
 	}
@@ -83,7 +83,7 @@ function Circles({
 					styles.blue +
 					" " +
 					styles.circle +
-					addInvis(100) + 
+					addInvis(100) +
 					addCorrectMark(0)
 				}
 			>
@@ -105,8 +105,8 @@ function Circles({
 						" " +
 						styles.white +
 						" " +
-						styles.smallCircle+
-						addCorrectMark(0,0)
+						styles.smallCircle +
+						addCorrectMark(0, 0)
 					}
 					ref={whiteCircle1}
 				></div>
@@ -119,7 +119,7 @@ function Circles({
 					" " +
 					styles.circle +
 					" " +
-					addInvis(0)+
+					addInvis(0) +
 					addCorrectMark(1)
 				}
 			>
@@ -129,8 +129,8 @@ function Circles({
 						" " +
 						styles.white +
 						" " +
-						styles.smallCircle+
-						addCorrectMark(1,100)
+						styles.smallCircle +
+						addCorrectMark(1, 100)
 					}
 					ref={whiteCircle2}
 				>

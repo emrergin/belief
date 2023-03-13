@@ -5,6 +5,8 @@ import Intro from "@/components/Intro";
 // import Circles from "@/components/Treatment";
 import Intro2 from "@/components/Intro2";
 
+import Footer from "./Footer";
+
 // import { useStateValue } from "../state";
 import { Session } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
@@ -22,10 +24,10 @@ function shuffle(array: number[]) {
 function Experiment({ data }: { data: Session }) {
 	// console.log(data);
 	// const [{ phase },] = useStateValue();
-	const [phase, setPhase ] = useState("INTRO");
+	const [phase, setPhase] = useState("INTRO");
 	const [name, setName] = useState("");
 	const randomizedDraws = useRef(shuffle(data.drawn_balls));
-	const [points,setPoints] = useState(0);
+	const [points, setPoints] = useState(0);
 
 	// useEffect(() => {
 	// 	let randomizedTreatments = shuffle(data.drawn_balls);
@@ -41,7 +43,9 @@ function Experiment({ data }: { data: Session }) {
 			<p className={cStyles.debug}>
 				{phase} - {data.treatment}
 			</p>
-			{phase === "INTRO" && <Intro phaseFunction={setPhase} nameFunction= {setName}/>}
+			{phase === "INTRO" && (
+				<Intro phaseFunction={setPhase} nameFunction={setName} />
+			)}
 			{phase === "INTRO2" && (
 				<Intro2
 					aBlue={data.num_of_blue_a}
@@ -50,7 +54,7 @@ function Experiment({ data }: { data: Session }) {
 					phaseFunction={setPhase}
 				/>
 			)}
-			{phase === "MAIN"  && (
+			{phase === "MAIN" && (
 				<Treatment
 					bsr={data.treatment === "BSR"}
 					arrayOfDraws={randomizedDraws.current}
@@ -61,11 +65,10 @@ function Experiment({ data }: { data: Session }) {
 					pointFunction={setPoints}
 				/>
 			)}
-			{phase === "END" &&
-				<div>
-					Deney Bitti. Kazandığınız toplam puan: {points}
-				</div>
-			}
+			{phase === "END" && (
+				<div>Deney Bitti. Kazandığınız toplam puan: {points}</div>
+			)}
+			<Footer/>
 		</main>
 	);
 }

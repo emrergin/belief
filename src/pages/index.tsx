@@ -28,8 +28,9 @@ export default function Home({
 			</Head>
 			<>
 				{/* <StateProvider reducer={reducer}> */}
-			<Experiment data={data} />
+				<Experiment data={data} />
 				{/* </StateProvider> */}
+
 			</>
 		</>
 	);

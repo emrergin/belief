@@ -18,15 +18,15 @@ function Treatment({
 	aBlue,
 	bBlue,
 	phaseFunction,
-	pointFunction
+	pointFunction,
 }: {
 	bsr: boolean;
 	arrayOfDraws: number[];
 	priors: number[];
 	aBlue: number;
 	bBlue: number;
-	phaseFunction: (p:Phase) => void;
-	pointFunction: (p:number) => void;
+	phaseFunction: (p: Phase) => void;
+	pointFunction: (p: number) => void;
 }) {
 	const [redRatio, setRedRatio] = useState(50);
 	const [currentRound, setCurrentRound] = useState(1);
@@ -34,8 +34,8 @@ function Treatment({
 	const [subPhase, setSubPhase] = useState<"drawing" | "input" | "result">(
 		"drawing"
 	);
-	const [selectedBag, setSelectedBag] = useState<0|1>(
-		Math.random() < (priors[1] / (priors[0] + priors[1])) ? 1 : 0
+	const [selectedBag, setSelectedBag] = useState<0 | 1>(
+		Math.random() < priors[1] / (priors[0] + priors[1]) ? 1 : 0
 	);
 	const [point, setPoint] = useState(0);
 
@@ -46,50 +46,46 @@ function Treatment({
 	}
 
 	function nextSubPhase() {
-		if(subPhase==="input"){
-
+		if (subPhase === "input") {
 			setSubPhase("result");
-		}
-		else{
+		} else {
 			nextRound();
 		}
 		console.log("placeholder, nextSubPhase - Treatment.tsx");
 	}
 
-	function endDrawing(drawing:DrawingT){
+	function endDrawing(drawing: DrawingT) {
 		setCurrentRoundData({
 			...currentRoundData,
-			...drawing
-		})
-		setSubPhase("input" );
+			...drawing,
+		});
+		setSubPhase("input");
 	}
 
-	function calculatePointsForRound(){
-		if (selectedBag===0){
-			return (100-redRatio)**2
-		}
-		else{
-			return redRatio**2
+	function calculatePointsForRound() {
+		if (selectedBag === 0) {
+			return (100 - redRatio) ** 2;
+		} else {
+			return redRatio ** 2;
 		}
 	}
 
-	function nextRound(){
-		
-		if(currentRound<numberOfRounds){
-			setPoint(calculatePointsForRound()+point);
-			pointFunction(calculatePointsForRound()+point);
+	function nextRound() {
+		if (currentRound < numberOfRounds) {
+			setPoint(calculatePointsForRound() + point);
+			pointFunction(calculatePointsForRound() + point);
 
-			const newBag = Math.random() < (priors[1] / (priors[0] + priors[1])) ? 1 : 0;
+			const newBag =
+				Math.random() < priors[1] / (priors[0] + priors[1]) ? 1 : 0;
 			setSelectedBag(newBag);
 			setSubPhase("drawing");
 			setCurrentRoundData({
-					...currentRoundData,
-					isBlue: newBag===1? true: false
-			})
-			setCurrentRound(currentRound+1);
+				...currentRoundData,
+				isBlue: newBag === 1 ? true : false,
+			});
+			setCurrentRound(currentRound + 1);
 			setRedRatio(50);
-		}
-		else{
+		} else {
 			phaseFunction(Phase.End);
 			pointFunction(point);
 		}
@@ -103,28 +99,50 @@ function Treatment({
 					<Drawing
 						numberOfDraws={arrayOfDraws[currentRound]}
 						numberofBlues={selectedBag === 0 ? aBlue : bBlue}
-						nextFunction={(d)=>endDrawing(d)}
+						nextFunction={(d) => endDrawing(d)}
 					/>
 				</>
 			)}
-			{(subPhase === "input" || subPhase==="result") &&
-			<>
-				<Slider updatingFunction={updateSlider} value={redRatio} disabled={subPhase!=="input"}/>
-				<Circles bsr={bsr} value={redRatio} showResult={subPhase==="result"} chooseCircle={selectedBag}/>
-			
+			{(subPhase === "input" || subPhase === "result") && (
+				<>
+					<Slider
+						updatingFunction={updateSlider}
+						value={redRatio}
+						disabled={subPhase !== "input"}
+					/>
+					<Circles
+						bsr={bsr}
+						value={redRatio}
+						showResult={subPhase === "result"}
+						chooseCircle={selectedBag}
+					/>
 
-				{subPhase==="result" && <div className={customStyles.reward+" "+inter.className}>
-					{`${calculatePointsForRound()} kazandınız.`}
-				</div>}
+					{subPhase === "result" && (
+						<div
+							className={
+								customStyles.reward + " " + inter.className
+							}
+						>
+							{`${calculatePointsForRound()} kazandınız.`}
+						</div>
+					)}
 
-				<button className={styles.exp+" "+inter.className + " " + customStyles.navButton} onClick={nextSubPhase}
-
-				
-				style={{marginTop:"3ch"}}>
-					{subPhase==="input" ? "Karar Verdim":"Sonraki Tur"}
-				</button>
-			</>
-			}
+					<button
+						className={
+							styles.exp +
+							" " +
+							inter.className +
+							" " +
+							customStyles.navButton
+						}
+						onClick={nextSubPhase}
+						style={{ marginTop: "3ch" }}
+					>
+						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
+					</button>
+				</>
+			)}
+		
 		</div>
 	);
 }

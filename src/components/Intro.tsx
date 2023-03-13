@@ -5,7 +5,13 @@ import { SetStateAction, useState } from "react";
 // import { useStateValue, setPhase } from "@/state";
 import { Phase } from "@/state/types";
 
-function Intro({phaseFunction,nameFunction}:{phaseFunction:(a:Phase)=>void,nameFunction:(a:string)=>void}) {
+function Intro({
+	phaseFunction,
+	nameFunction,
+}: {
+	phaseFunction: (a: Phase) => void;
+	nameFunction: (a: string) => void;
+}) {
 	const [name, setName] = useState("");
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) => {

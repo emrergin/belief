@@ -7,7 +7,7 @@ interface sliderProps {
 	disabled?: boolean;
 }
 
-function Slider({ updatingFunction, value, disabled=false }: sliderProps) {
+function Slider({ updatingFunction, value, disabled = false }: sliderProps) {
 	const range = useRef<HTMLInputElement>(null);
 	const thumb = useRef<HTMLDivElement>(null);
 	const track = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ function Slider({ updatingFunction, value, disabled=false }: sliderProps) {
 				<div className={styles.track}>
 					<div className={styles.trackInner} ref={track}></div>
 				</div>
-				<div className={styles.thumb} ref={thumb}></div>				
+				<div className={styles.thumb} ref={thumb}></div>
 			</div>
 		</div>
 	);

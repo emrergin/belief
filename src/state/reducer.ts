@@ -2,13 +2,15 @@ import { Round } from "@prisma/client";
 import { State } from "./state";
 import { Phase } from "./types";
 
-export type Action = {
-	type: "SET_PHASE";
-	payload: Phase;
-}|{
-	type: "UPDATE_ROUND";
-	payload: Partial<Round>;
-}
+export type Action =
+	| {
+			type: "SET_PHASE";
+			payload: Phase;
+	  }
+	| {
+			type: "UPDATE_ROUND";
+			payload: Partial<Round>;
+	  };
 
 export const reducer = (state: State, action: Action): State => {
 	switch (action.type) {
@@ -23,7 +25,7 @@ export const reducer = (state: State, action: Action): State => {
 			// return newState;
 			return {
 				...state,
-				currentRound: {...state.currentRound, ...action.payload},
+				currentRound: { ...state.currentRound, ...action.payload },
 			};
 		default:
 			return state;
@@ -37,9 +39,9 @@ export const setPhase = (phase: Phase): Action => {
 	};
 };
 
-export const updateRound = (roundDetails: Partial<Round>): Action =>{
+export const updateRound = (roundDetails: Partial<Round>): Action => {
 	return {
 		type: "UPDATE_ROUND",
-		payload: roundDetails
+		payload: roundDetails,
 	};
-}
+};

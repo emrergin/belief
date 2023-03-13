@@ -5,13 +5,13 @@ import { Phase } from "./types";
 import { Round } from "@prisma/client";
 
 export type State = {
-	phase: Phase,
-	currentRound : Partial<Round>
+	phase: Phase;
+	currentRound: Partial<Round>;
 };
 
 const initialState: State = {
 	phase: Phase.Intro,
-	currentRound: {}
+	currentRound: {},
 };
 
 export const StateContext = createContext<[State, React.Dispatch<Action>]>([

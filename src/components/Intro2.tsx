@@ -20,12 +20,12 @@ function Intro2({
 	aBlue,
 	bBlue,
 	treatment,
-	phaseFunction
+	phaseFunction,
 }: {
 	aBlue: number;
 	bBlue: number;
 	treatment: string;
-	phaseFunction: (p:Phase)=>void;
+	phaseFunction: (p: Phase) => void;
 }) {
 	// const [instruction, setInstruction] = useState(1);
 	// const isButtonActive = useRef(true);
@@ -274,7 +274,7 @@ function Intro2({
 						className={
 							inter.className + " " + customStyles.navButton
 						}
-						onClick={()=>phaseFunction(Phase.Main)}
+						onClick={() => phaseFunction(Phase.Main)}
 					>
 						Deneye Başla!
 					</button>
