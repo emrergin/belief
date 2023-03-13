@@ -10,7 +10,7 @@ import { Phase } from "@/state/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-import Circles from "./Treatment";
+import Circles from "./Round";
 
 import useEmblaCarousel from "embla-carousel-react";
 import Slider from "./experimentComponents/Slider";
@@ -52,20 +52,7 @@ function Intro2({
 			setShowNextPhase(true);
 		}
 	}, [slideIndex]);
-
-	// function startExperiment() {
-	// 	// console.log(Phase.Qsr)
-	// 	dispatch(setPhase(Phase.Main));
-	// }
-
-	// function nextInstruction() {
-	// 	// setInstruction(instruction + 1);
-	// 	emblaApi?.slideNodes();
-	// 	isButtonActive.current = false;
-	// 	setTimeout(() => {
-	// 		isButtonActive.current = true;
-	// 	}, 1000);
-	// }
+	
 	return (
 		<>
 			<div
@@ -250,11 +237,6 @@ function Intro2({
 				</div>
 			</div>
 
-			{/* </ul> */}
-			{/* </ul> */}
-			{/* <button disabled={!isButtonActive} onClick={nextInstruction}>
-				Devam
-			</button> */}
 			{slideIndex + 1}
 			<div style={{ display: "flex" }}>
 				<button

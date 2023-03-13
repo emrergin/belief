@@ -65,17 +65,18 @@
 }
 
 .bagHolder > :nth-child(1) {
-	border: 5px #dd2e44 solid;
+	border: 5px #55acee solid;
 	border-radius: 3ch;
 }
 
 .bagHolder > :nth-child(2) {
-	border: 5px #55acee solid;
+	border: 5px #dd2e44 solid;
 	border-radius: 3ch;
 }
 
 .embla {
 	overflow: hidden;
+	margin: 0px;
 }
 .embla__container {
 	display: flex;

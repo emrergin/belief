@@ -2,15 +2,13 @@ import styles from "@/styles/Home.module.css";
 import cStyles from "@/styles/Custom.module.css";
 
 import Intro from "@/components/Intro";
-// import Circles from "@/components/Treatment";
 import Intro2 from "@/components/Intro2";
 
 import Footer from "./Footer";
 
-// import { useStateValue } from "../state";
 import { Session } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
-import Treatment from "@/components/Treatment";
+import Round from "@/components/Round";
 
 function shuffle(array: number[]) {
 	let resArray = array;
@@ -22,21 +20,14 @@ function shuffle(array: number[]) {
 }
 
 function Experiment({ data }: { data: Session }) {
-	// console.log(data);
-	// const [{ phase },] = useStateValue();
+
+	useEffect(()=>{
+		console.log(data);
+	},[data]);
 	const [phase, setPhase] = useState("INTRO");
 	const [name, setName] = useState("");
 	const randomizedDraws = useRef(shuffle(data.drawn_balls));
 	const [points, setPoints] = useState(0);
-
-	// useEffect(() => {
-	// 	let randomizedTreatments = shuffle(data.drawn_balls);
-	// 	console.log(randomizedTreatments)
-	// }, [data.drawn_balls]);
-
-	// useEffect(()=>{
-	// 	console.log(currentRound)
-	// },[currentRound.first_draw_blue,currentRound])
 
 	return (
 		<main className={styles.main} style={{ userSelect: "none" }}>
@@ -55,7 +46,7 @@ function Experiment({ data }: { data: Session }) {
 				/>
 			)}
 			{phase === "MAIN" && (
-				<Treatment
+				<Round
 					bsr={data.treatment === "BSR"}
 					arrayOfDraws={randomizedDraws.current}
 					priors={data.prior}

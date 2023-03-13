@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import styles from "@/styles/Circles.module.css";
 import Slider from "./experimentComponents/Slider";
 import Circles from "./experimentComponents/Circles";
@@ -11,7 +11,12 @@ import { Round } from "@prisma/client";
 import { DrawingT, Phase } from "@/state/types";
 const inter = Inter({ subsets: ["latin"] });
 
-function Treatment({
+interface SubTypeRound extends DrawingT{
+	is_blue: boolean,
+	decision_time: number
+}
+
+function Round({
 	bsr,
 	arrayOfDraws,
 	priors,
@@ -30,14 +35,15 @@ function Treatment({
 }) {
 	const [redRatio, setRedRatio] = useState(50);
 	const [currentRound, setCurrentRound] = useState(1);
-	const [currentRoundData, setCurrentRoundData] = useState({});
+	const [selectedBag, setSelectedBag] = useState<0 | 1>(
+		Math.random() < priors[0] / (priors[0] + priors[1]) ? 0 : 1
+	);
+	const roundData = useRef<Partial<Round>>({});
 	const [subPhase, setSubPhase] = useState<"drawing" | "input" | "result">(
 		"drawing"
 	);
-	const [selectedBag, setSelectedBag] = useState<0 | 1>(
-		Math.random() < priors[1] / (priors[0] + priors[1]) ? 1 : 0
-	);
 	const [point, setPoint] = useState(0);
+	const time = useRef(new Date());
 
 	const numberOfRounds = arrayOfDraws.length;
 
@@ -47,18 +53,23 @@ function Treatment({
 
 	function nextSubPhase() {
 		if (subPhase === "input") {
+			roundData.current = {
+				...roundData.current,
+				decision_time: Number(new Date())-Number(time.current)
+
+			}
 			setSubPhase("result");
 		} else {
 			nextRound();
 		}
-		console.log("placeholder, nextSubPhase - Treatment.tsx");
+		// console.log("placeholder, nextSubPhase - Treatment.tsx");
 	}
 
 	function endDrawing(drawing: DrawingT) {
-		setCurrentRoundData({
-			...currentRoundData,
+		roundData.current = {
+			...roundData.current,
 			...drawing,
-		});
+		};
 		setSubPhase("input");
 	}
 
@@ -71,25 +82,37 @@ function Treatment({
 	}
 
 	function nextRound() {
-		if (currentRound < numberOfRounds) {
-			setPoint(calculatePointsForRound() + point);
-			pointFunction(calculatePointsForRound() + point);
+		const lastRound:Round ={
+			...(roundData.current as SubTypeRound),
+			// decision_time: 0,
+			participantId: "0",
+			id: crypto.randomUUID(),
+			chosen_probability: 100-redRatio,
+			// is_blue: selectedBag===0,
+			reward:calculatePointsForRound() 		
+		}
+		console.log(lastRound);
+		setPoint(calculatePointsForRound() + point);
+		pointFunction(calculatePointsForRound() + point);
 
+		if (currentRound < numberOfRounds) {
 			const newBag =
-				Math.random() < priors[1] / (priors[0] + priors[1]) ? 1 : 0;
+				Math.random() < priors[0] / (priors[0] + priors[1]) ? 0 : 1;
 			setSelectedBag(newBag);
 			setSubPhase("drawing");
-			setCurrentRoundData({
-				...currentRoundData,
-				isBlue: newBag === 1 ? true : false,
-			});
+			roundData.current={
+				...roundData.current,
+				is_blue: newBag === 1 ? true : false,
+			};
 			setCurrentRound(currentRound + 1);
 			setRedRatio(50);
-		} else {
+			time.current = new Date();
+		} else{
 			phaseFunction(Phase.End);
 			pointFunction(point);
 		}
 	}
+	
 
 	return (
 		<div>
@@ -98,7 +121,7 @@ function Treatment({
 					<BagHolder aBlue={aBlue} bBlue={bBlue} />
 					<Drawing
 						numberOfDraws={arrayOfDraws[currentRound]}
-						numberofBlues={selectedBag === 0 ? aBlue : bBlue}
+						numberofBlues={selectedBag === 0 ? bBlue : aBlue}
 						nextFunction={(d) => endDrawing(d)}
 					/>
 				</>
@@ -147,4 +170,4 @@ function Treatment({
 	);
 }
 
-export default Treatment;
+export default Round;
