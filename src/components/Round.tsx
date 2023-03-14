@@ -6,6 +6,8 @@ import Drawing from "./experimentComponents/Drawing";
 import BagHolder from "./experimentComponents/BagHolder";
 import customStyles from "@/styles/Custom.module.css";
 
+import { Button } from "@mantine/core";
+
 import { Inter } from "next/font/google";
 import { Round } from "@prisma/client";
 import { DrawingT, Phase } from "@/state/types";
@@ -143,14 +145,14 @@ function Round({
 					{subPhase === "result" && (
 						<div
 							className={
-								customStyles.reward + " " + inter.className
+								customStyles.reward
 							}
 						>
 							{`${calculatePointsForRound()} kazandınız.`}
 						</div>
 					)}
 
-					<button
+					<Button size="lg"
 						className={
 							styles.exp +
 							" " +
@@ -162,7 +164,7 @@ function Round({
 						style={{ marginTop: "3ch" }}
 					>
 						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
-					</button>
+					</Button>
 				</>
 			)}
 		

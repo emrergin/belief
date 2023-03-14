@@ -2,17 +2,19 @@ import customStyles from "@/styles/Custom.module.css";
 import circleStyles from "@/styles/Circles.module.css";
 
 import { Inter } from "next/font/google";
-import { useRef, useState, useCallback, useEffect } from "react";
+import {  useState, useCallback, useEffect } from "react";
 
-// import { SetStateAction } from "react";
-// import { useStateValue, setPhase } from "@/state";
+import { Button, List  } from '@mantine/core';
+
+
 import { Phase } from "@/state/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-import Circles from "./Round";
+import Circles from "./experimentComponents/Circles";
 
-import useEmblaCarousel from "embla-carousel-react";
+import { Carousel,Embla  } from '@mantine/carousel';
+
 import Slider from "./experimentComponents/Slider";
 import BagHolder from "./experimentComponents/BagHolder";
 
@@ -27,46 +29,43 @@ function Intro2({
 	treatment: string;
 	phaseFunction: (p: Phase) => void;
 }) {
-	// const [instruction, setInstruction] = useState(1);
-	// const isButtonActive = useRef(true);
+
 	const [sliderValue, setSliderValue] = useState(50);
 	const [slideIndex, setSlideIndex] = useState(0);
 	const [showNextPhase, setShowNextPhase] = useState(false);
 
-	// const [, dispatch] = useStateValue();
 
-	const [emblaRef, emblaApi] = useEmblaCarousel({ draggable: false });
+	const [embla, setEmbla] = useState<Embla | null>(null);
 
 	const scrollPrev = useCallback(() => {
-		if (emblaApi) emblaApi.scrollPrev();
-		setSlideIndex(emblaApi?.selectedScrollSnap() || 0);
-	}, [emblaApi]);
+		if (!embla){return;} 
+		embla.scrollPrev();
+		setSlideIndex(embla.selectedScrollSnap() || 0);
+	}, [embla]);
 
 	const scrollNext = useCallback(() => {
-		if (emblaApi) emblaApi.scrollNext();
-		setSlideIndex(emblaApi?.selectedScrollSnap() || 0);
-	}, [emblaApi]);
+		if (!embla){return;} 
+		embla.scrollNext();
+		setSlideIndex(embla.selectedScrollSnap() || 0);
+	}, [embla]);
 
 	useEffect(() => {
-		if (slideIndex === 4) {
+		if (slideIndex === 5) {
 			setShowNextPhase(true);
 		}
 	}, [slideIndex]);
 	
 	return (
 		<>
-			<div
-				className={customStyles.embla + " " + customStyles.entryText}
-				ref={emblaRef}
-			>
-				<div className={customStyles.embla__container}>
-					<div className={customStyles.embla__slide}>
-						<ul className={customStyles.entryText}>
-							<li className={inter.className}>
+				<Carousel slideSize="100%" height={700} slideGap="md" dragFree draggable={false} withControls={false}
+				getEmblaApi={setEmbla}>
+					<Carousel.Slide>
+						<List className={customStyles.entryText}>
+							<List.Item>
 								<b>Turlar:</b> Deneyimiz otuz &quot;tur&quot;dan
 								oluşuyor.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								<b>
 									Hangi Torbanın Kullanıldığını Tahmin Etme:
 								</b>{" "}
@@ -76,8 +75,8 @@ function Intro2({
 								adetlerde renkli bilye içeren iki tip torba var.
 								Bilgisayarın hangi torbayı seçmiş olabileceğini
 								düşünerek bir karar vermenizi istiyoruz.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								<b>
 									Bilgisayar Kullanacağı Torbayı Nasıl
 									Seçiyor:
@@ -86,29 +85,29 @@ function Intro2({
 								6 sayılarından birini rastgele seçecek. Bunu,
 								tavla zarı gibi altı yüzlü bir zar atışı olarak
 								düşünebilirsiniz.
-								<ul style={{ margin: "15px" }}>
-									<li>
+								<List style={{ margin: "15px" }}  size="xl">
+									<List.Item>
 										Zar sonucu 1, 2 veya 3 ise, çekiliş daha
 										fazla mavi bilye içeren Mavi torbadan
 										yapılır.
-									</li>
-									<li>
+									</List.Item>
+									<List.Item>
 										Zar sonucu 4, 5 veya 6 ise, çekiliş daha
 										fazla kırmızı bilye içeren Kırmızı
 										torbadan yapılır.
-									</li>
-								</ul>
+									</List.Item>
+								</List>
 								Bu nedenle, iki torbanın da seçilme şansı
 								aynıdır.
-							</li>
-						</ul>
-					</div>
-					<div className={customStyles.embla__slide}>
+							</List.Item>
+						</List>
+					</Carousel.Slide>
+					<Carousel.Slide>
 						<BagHolder aBlue={aBlue} bBlue={bBlue} />
-					</div>
-					<div className={customStyles.embla__slide}>
-						<ul className={customStyles.entryText}>
-							<li className={inter.className}>
+					</Carousel.Slide>
+					<Carousel.Slide>
+						<List className={customStyles.entryText}>
+							<List.Item>
 								<b>Kullanılan Torba:</b> Zar atışının sonucu
 								size önceden söylenmeyecek, bu nedenle çekiliş
 								için hangi torbanın kullanıldığını bilemezsiniz.
@@ -116,8 +115,8 @@ function Intro2({
 								bu nedenle sizin için kullanılan torba deneye
 								katılan başka bir kişi için kullanılan torbayla
 								aynı olabilir veya olmayabilir.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								<b>Çekilişler kişiye özeldir:</b> Bilgisayar zar
 								atışı sonrası kullanılacak torbayı
 								belirlediğinde, o torbadan rastgele çekilecek
@@ -127,8 +126,8 @@ function Intro2({
 								verebilse de, kullanılan torba kişiden kişiye
 								değişebileceğinden, başkaları için kullanılan
 								torba hakkında herhangi bir bilgi sağlamaz.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								<b>Çekilişler birbirinden bağımsızdır:</b> Bazı
 								turlarda aynı torbadan birden fazla çekiliş
 								görebilirsiniz. Bunların sonucunu çekiliş
@@ -141,13 +140,13 @@ function Intro2({
 								bir torbanın içindeki bilyelerin sayıları ve
 								renkleri bütün çekilişlerden önce her zaman aynı
 								olacak.
-							</li>
-						</ul>
-					</div>
+							</List.Item>
+						</List>
+					</Carousel.Slide>
 
-					<div className={customStyles.embla__slide}>
-						<ul className={customStyles.entryText}>
-							<li className={inter.className}>
+					<Carousel.Slide>
+						<List className={customStyles.entryText}>
+							<List.Item>
 								<b>Çekilişler birbirinden bağımsızdır:</b> Bazı
 								turlarda aynı torbadan birden fazla çekiliş
 								görebilirsiniz. Bunların sonucunu çekiliş
@@ -157,8 +156,8 @@ function Intro2({
 								gösterecek, torbaya geri koyacak ve rastgele
 								başka bir bilye çekmeden önce torbayı tekrar
 								karıştıracakmışız gibi düşünebilirsiniz.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								<b>
 									Her çekiliş sonrası bilye torbaya geri
 									konur:
@@ -167,16 +166,16 @@ function Intro2({
 								konmuş gibi olur. Yani bir torbanın içindeki
 								bilyelerin sayıları ve renkleri bütün
 								çekilişlerden önce her zaman aynı olacak.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								Çekiliş sonuçlarını gördükten sonra, kullanılan
 								torbanın Kırmızı torba olma ihtimalinin{" "}
 								<b>
 									<em>100’de kaç olduğuna</em>
 								</b>{" "}
 								karar vermelisiniz.
-							</li>
-							<li className={inter.className}>
+							</List.Item>
+							<List.Item>
 								O tur, hiç çekiliş yapılmayan bir tursa,
 								kararınızı tamamen zar atışının kullanılan
 								torbayı nasıl belirlendiğine dayandırmanız
@@ -185,13 +184,13 @@ function Intro2({
 								seçildiğine hem de alakalı çekiliş veya
 								çekilişlerin sonucuna ilişkin bilgileri
 								kullanabilirsiniz.
-							</li>
-						</ul>
-					</div>
+							</List.Item>
+						</List>
+					</Carousel.Slide>
 
-					<div className={customStyles.embla__slide}>
-						<ul className={customStyles.entryText}>
-							<li className={inter.className}>
+					<Carousel.Slide>
+						<List className={customStyles.entryText}>
+							<List.Item>
 								Şayet kararınız 0 ise, bu Kırmızı torbanın
 								kullanılma ihtimalinin olmadığını düşündüğünüz
 								anlamına gelir. Kararınız 100 ise, Kırmızı
@@ -204,7 +203,7 @@ function Intro2({
 								bir sayı seçin. Mavi torbanın kullanılma
 								ihtimalinin daha yüksek olduğunu düşünüyorsanız
 								50&apos;nin altında bir sayı seçin.
-							</li>
+							</List.Item>
 
 							<Slider
 								value={sliderValue}
@@ -214,7 +213,6 @@ function Intro2({
 							/>
 							<div
 								style={{ textAlign: "center" }}
-								className={inter.className}
 							>
 								Sizce, seçilen torbanın{" "}
 								<b className={circleStyles.redText}>
@@ -224,7 +222,6 @@ function Intro2({
 							</div>
 							<div
 								style={{ textAlign: "center" }}
-								className={inter.className}
 							>
 								Sizce, seçilen torbanın{" "}
 								<b className={circleStyles.blueText}>
@@ -232,36 +229,91 @@ function Intro2({
 								</b>{" "}
 								olma ihtimali: Yüzde {100 - sliderValue}.
 							</div>
-						</ul>
-					</div>
-				</div>
-			</div>
+						</List>
+					</Carousel.Slide>
+					<Carousel.Slide>
+						{treatment==="QSR" ?
+							(<div>
+
+							<List className={customStyles.entryText}>
+								<List.Item>
+									Burada kaydırıcıyı sağa ya da sola sürükleyerek size göre Kırmızı torbanın kullanılmış olma ihtimalini bildireceksiniz. Bu esnada aşağıdaki kırmızı simidin ve mavi simidin büyüklüklerinin değiştiğini görebilirsiniz. Daha büyük bir simit daha çok kazanca karşılık gelir ve bu miktarın nasıl değiştiği de kaydırıcı hareket ettikçe görülebilir.
+								</List.Item>
+								<List.Item>
+									Karar verdikten sonra, gerçekte hangi torbanın kullanıldığı size bildirilecektir. Şayet o turda Kırmızı torba kullanılmış ise, kazancınız kırmızı simidin karşılık geldiği miktar olacak. Şayet o turda Mavi torba kullanılmış ise, kazancınız mavi simidin karşılık geldiği miktar olacak.
+								</List.Item>
+							</List>
+							<div style={{display:"flex", scale:"0.8", justifyContent:"center", gap:"250px", marginLeft:"125px"}}>
+								<Slider
+								value={sliderValue}
+								updatingFunction={(event) => {
+									setSliderValue(Number(event.target.value));
+								}}
+								/>
+								<Circles value={sliderValue} bsr={false} showResult={false} chooseCircle={0}/>
+
+							</div>
+							</div>
+							):
+							(<div>
+
+								<List className={customStyles.entryText}>
+									<List.Item>
+										Burada kaydırıcıyı sağa ya da sola sürükleyerek size göre Kırmızı torbanın kullanılmış olma ihtimalini bildireceksiniz. Bu esnada aşağıdaki kırmızı simidin ve mavi simidin büyüklüklerinin değiştiğini görebilirsiniz.
+									</List.Item>
+									<List.Item>
+										Karar verdikten sonra, gerçekte hangi torbanın kullanıldığı size bildirilecektir. Ardından, seçilen torbanın rengindeki simit ve içindeki alanın teşkil ettiği daireden rastgele bir nokta seçilecek.
+									</List.Item>
+									<List.Item>
+										Eğer bu nokta ilgili simite, yani tam dairenin renkli kısmına denk düşerse, kazancınız 1000 puan, aksi takdirde 0 puan olacak.
+									</List.Item>
+								</List>
+								<div style={{display:"flex", scale:"0.8", justifyContent:"center", gap:"250px", marginLeft:"125px"}}>
+									<Slider
+									value={sliderValue}
+									updatingFunction={(event) => {
+										setSliderValue(Number(event.target.value));
+									}}
+									/>
+									<Circles value={sliderValue} bsr={false} showResult={false} chooseCircle={0}/>
+	
+								</div>
+								</div>
+								)
+						}
+					</Carousel.Slide>
+			</Carousel>
 
 			{slideIndex + 1}
-			<div style={{ display: "flex" }}>
-				<button
-					className={inter.className + " " + customStyles.navButton}
+			{/* <div style={{ display: "flex" }}> */}
+			<Button.Group>
+			<Button variant="light" size="lg"
+					// className={customStyles.navButton}
+					disabled={slideIndex===0}
 					onClick={scrollPrev}
 				>
 					Önceki
-				</button>
-				<button
-					className={inter.className + " " + customStyles.navButton}
+				</Button>
+				<Button variant="light" size="lg"
+					disabled={slideIndex===5}
+					// className={customStyles.navButton}
 					onClick={scrollNext}
 				>
 					Sonraki
-				</button>
+				</Button>
 				{showNextPhase && (
-					<button
-						className={
-							inter.className + " " + customStyles.navButton
-						}
+					<Button size="lg"
+					// variant="gradient" gradient={{ from: 'teal', to: 'blue', deg: 60 }}
+						// className={
+						// 	customStyles.navButton
+						// }
 						onClick={() => phaseFunction(Phase.Main)}
 					>
 						Deneye Başla!
-					</button>
+					</Button>
 				)}
-			</div>
+			{/* </div> */}
+			</Button.Group>
 		</>
 	);
 }

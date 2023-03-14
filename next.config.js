@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   basePath: '/belief',
+  output: 'standalone',
 };
 
 module.exports = nextConfig;

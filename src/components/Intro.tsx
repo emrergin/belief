@@ -1,9 +1,8 @@
 import customStyles from "@/styles/Custom.module.css";
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
 import { SetStateAction, useState } from "react";
-// import { useStateValue, setPhase } from "@/state";
 import { Phase } from "@/state/types";
+
+import { Button,TextInput, List  } from '@mantine/core';
 
 function Intro({
 	phaseFunction,
@@ -21,47 +20,59 @@ function Intro({
 	function assignName() {
 		nameFunction(name);
 		phaseFunction(Phase.Intro2);
-		// console.log(Phase.Qsr)
-		// dispatch(setPhase(Phase.Intro2));
 	}
 
-	// const [, dispatch] = useStateValue();
 	return (
 		<div className={customStyles.mainWrapper}>
-			<ul className={customStyles.entryText}>
-				<li className={inter.className}>
+			{/* <ul className={customStyles.entryText}>
+				<li>
 					Hoş geldiniz. Bu deneyde sizden bazı olasılıkları
 					değerlendirmenizi isteyeceğiz.
 				</li>
-				<li className={inter.className}>
+				<li>
 					Oyunlarda kazancınızı &quot;puan&quot; cinsinden
 					hesaplayacağız. Toplam puanınızın parasal değerini ve ek
 					olarak bir katılım ücretini size deney sonunda nakit olarak
 					ödeyeceğiz.
 				</li>
-				<li className={inter.className}>
+				<li>
 					Oyunları tamamladıktan sonra size dair bazı demografik
 					bilgileri sorduğumuz bir anket olacak.
 				</li>
-				<li className={inter.className}>
+				<li>
 					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı
 					değiştirmeniz ve yenilemeniz gibi durumlarda da deneyden
 					erken ayrılmış sayılacaksınız. Erken ayrılmanız durumunda o
 					zamana kadarki kararlarınız değerlendirilecek.
 				</li>
-			</ul>
+			</ul> */}
+			<List className={customStyles.entryText}>
+			<List.Item>Hoş geldiniz. Bu deneyde sizden bazı olasılıkları
+					değerlendirmenizi isteyeceğiz.</List.Item>
+			<List.Item>Oyunlarda kazancınızı &quot;puan&quot; cinsinden
+					hesaplayacağız. Toplam puanınızın parasal değerini ve ek
+					olarak bir katılım ücretini size deney sonunda nakit olarak
+					ödeyeceğiz.</List.Item>
+			<List.Item>Oyunları tamamladıktan sonra size dair bazı demografik
+					bilgileri sorduğumuz bir anket olacak.</List.Item>
+			<List.Item>Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı
+					değiştirmeniz ve yenilemeniz gibi durumlarda da deneyden
+					erken ayrılmış sayılacaksınız. Erken ayrılmanız durumunda o
+					zamana kadarki kararlarınız değerlendirilecek.</List.Item>
+			</List>
 			<div className={customStyles.nameEntry}>
-				<p className={inter.className}>
+				<p >
 					Çalışmaya katılmayı kabul ediyorum.
 				</p>
-				<input
-					className={inter.className}
+				<TextInput 
 					type="text"
 					placeholder="Ad Soyad"
 					value={name}
 					onChange={onChange}
+					style={{width:"350px"}}
 				/>
-				{name && <button onClick={assignName}>Deneye başla!</button>}
+				
+				{name && <Button size="lg" onClick={assignName}>Deneye başla!</Button>}
 			</div>
 		</div>
 	);

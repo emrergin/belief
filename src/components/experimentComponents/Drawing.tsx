@@ -1,9 +1,9 @@
 import { useRef } from "react";
 
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"] });
 import customStyles from "@/styles/Custom.module.css";
 import { DrawingT } from "@/state/types";
+
+import { Button } from "@mantine/core";
 
 // import { useStateValue, updateRound } from "@/state";
 
@@ -53,7 +53,7 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 
 	return (
 		<>
-			<h2 className={inter.className} style={{ textAlign: "center" }}>
+			<h2 style={{ textAlign: "center" }}>
 				Çekilen toplar:
 			</h2>
 			<div
@@ -72,17 +72,17 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 						</span>
 					))}
 			</div>
-			<button
+			<Button  size="lg"
 				style={{
 					marginInline: "auto",
 					display: "block",
 					marginTop: "4ch",
 				}}
-				className={inter.className + " " + customStyles.navButton}
+				className={customStyles.navButton}
 				onClick={nextSubPhase}
 			>
 				Tahmine hazırım!
-			</button>
+			</Button>
 		</>
 	);
 }
