@@ -13,9 +13,9 @@ import { Round } from "@prisma/client";
 import { DrawingT, Phase } from "@/state/types";
 const inter = Inter({ subsets: ["latin"] });
 
-interface SubTypeRound extends DrawingT{
-	is_blue: boolean,
-	decision_time: number
+interface SubTypeRound extends DrawingT {
+	is_blue: boolean;
+	decision_time: number;
 }
 
 function Round({
@@ -26,6 +26,7 @@ function Round({
 	bBlue,
 	phaseFunction,
 	pointFunction,
+	participantId,
 }: {
 	bsr: boolean;
 	arrayOfDraws: number[];
@@ -34,13 +35,16 @@ function Round({
 	bBlue: number;
 	phaseFunction: (p: Phase) => void;
 	pointFunction: (p: number) => void;
+	participantId: string;
 }) {
 	const [redRatio, setRedRatio] = useState(50);
 	const [currentRound, setCurrentRound] = useState(1);
-	const [selectedBag, setSelectedBag] = useState<0 | 1>(
-		Math.random() < priors[0] / (priors[0] + priors[1]) ? 0 : 1
+	const [selectedBag, setSelectedBag] = useState<"blue" | "red">(
+		Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red"
 	);
-	const roundData = useRef<Partial<Round>>({});
+	const roundData = useRef<Partial<Round>>({
+		is_blue: selectedBag === "blue",
+	});
 	const [subPhase, setSubPhase] = useState<"drawing" | "input" | "result">(
 		"drawing"
 	);
@@ -57,9 +61,8 @@ function Round({
 		if (subPhase === "input") {
 			roundData.current = {
 				...roundData.current,
-				decision_time: Number(new Date())-Number(time.current)
-
-			}
+				decision_time: Number(new Date()) - Number(time.current),
+			};
 			setSubPhase("result");
 		} else {
 			nextRound();
@@ -76,45 +79,55 @@ function Round({
 	}
 
 	function calculatePointsForRound() {
-		if (selectedBag === 0) {
+		if (selectedBag === "blue") {
 			return (100 - redRatio) ** 2;
 		} else {
 			return redRatio ** 2;
 		}
 	}
 
+	async function generateNewRound(lastRound: Omit<Round, "id">) {
+		const respond = await fetch("/belief/api/round", {
+			method: "POST",
+			body: JSON.stringify(lastRound),
+		});
+	}
+
 	function nextRound() {
-		const lastRound:Round ={
+		const lastRound: Omit<Round, "id"> = {
 			...(roundData.current as SubTypeRound),
 			// decision_time: 0,
-			participantId: "0",
-			id: crypto.randomUUID(),
-			chosen_probability: 100-redRatio,
+			participantId: participantId,
+			// id: crypto.randomUUID(),
+			chosen_probability: 100 - redRatio,
 			// is_blue: selectedBag===0,
-			reward:calculatePointsForRound() 		
-		}
+			reward: calculatePointsForRound(),
+			round: currentRound,
+		};
 		console.log(lastRound);
+		generateNewRound(lastRound);
 		setPoint(calculatePointsForRound() + point);
 		pointFunction(calculatePointsForRound() + point);
 
 		if (currentRound < numberOfRounds) {
 			const newBag =
-				Math.random() < priors[0] / (priors[0] + priors[1]) ? 0 : 1;
+				Math.random() < priors[0] / (priors[0] + priors[1])
+					? "blue"
+					: "red";
 			setSelectedBag(newBag);
 			setSubPhase("drawing");
-			roundData.current={
+			roundData.current = {
 				...roundData.current,
-				is_blue: newBag === 1 ? true : false,
+				is_blue: newBag === "blue" ? true : false,
 			};
 			setCurrentRound(currentRound + 1);
 			setRedRatio(50);
 			time.current = new Date();
-		} else{
+		} else {
 			phaseFunction(Phase.End);
 			pointFunction(point);
 		}
 	}
-	
 
 	return (
 		<div>
@@ -123,7 +136,7 @@ function Round({
 					<BagHolder aBlue={aBlue} bBlue={bBlue} />
 					<Drawing
 						numberOfDraws={arrayOfDraws[currentRound]}
-						numberofBlues={selectedBag === 0 ? bBlue : aBlue}
+						numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
 						nextFunction={(d) => endDrawing(d)}
 					/>
 				</>
@@ -143,16 +156,13 @@ function Round({
 					/>
 
 					{subPhase === "result" && (
-						<div
-							className={
-								customStyles.reward
-							}
-						>
+						<div className={customStyles.reward}>
 							{`${calculatePointsForRound()} kazandınız.`}
 						</div>
 					)}
 
-					<Button size="lg"
+					<Button
+						size="lg"
 						className={
 							styles.exp +
 							" " +
@@ -167,7 +177,6 @@ function Round({
 					</Button>
 				</>
 			)}
-		
 		</div>
 	);
 }

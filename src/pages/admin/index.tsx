@@ -1,6 +1,6 @@
-import Head from "next/head";
+// import Head from "next/head";
 
-import { reducer, StateProvider } from "../../state";
+// import { reducer, StateProvider } from "../../state";
 // import Experiment from "@/components/Experiment";
 
 import { InferGetServerSidePropsType } from "next";
@@ -8,13 +8,25 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 
+import { Table, Container } from "@mantine/core";
+
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	// console.log(data)
+
+	// <a href={"./"+session.id} key={session.id}>
+	// </a>
+	const rows = data.map((session) => (
+		<tr key={session.id}>
+			<td>{session.name}</td>
+			<td>{session.start_time.toString()}</td>
+		</tr>
+	));
+
 	return (
-		<>
-			<Head>
+		<Container size="lg" px="md">
+			{/* <Head>
 				<title>Ekonomi Deneyi</title>
 				<meta
 					name="description"
@@ -25,29 +37,38 @@ export default function Home({
 					content="width=device-width, initial-scale=1"
 				/>
 				<link rel="icon" href="/favicon.ico" />
-			</Head>
-			<>
-				<StateProvider reducer={reducer}>
-					<div>{data.name}</div>
-				</StateProvider>
-			</>
-		</>
+			</Head> */}
+			<Table>
+				<thead>
+					<tr>
+						<th>Oturum adı</th>
+						<th>Oturum zamanı</th>
+					</tr>
+				</thead>
+				<tbody>{rows}</tbody>
+			</Table>
+		</Container>
 	);
 }
 
 export const getServerSideProps: GetServerSideProps<{
-	data: Session;
+	data: Session[];
 }> = async () => {
-	const sessionData = (await prisma.session.findFirst()) as Session;
-	sessionData.start_time = JSON.parse(
-		JSON.stringify(sessionData?.start_time)
-	);
-	sessionData.end_time = JSON.parse(JSON.stringify(sessionData?.end_time));
+	let allSessions = (await prisma.session.findMany()) as Session[];
+	allSessions = allSessions.map((a) => ({
+		...a,
+		start_time: JSON.parse(JSON.stringify(a?.start_time)),
+		end_time: JSON.parse(JSON.stringify(a?.end_time)),
+	}));
+	// sessionData.start_time = JSON.parse(
+	// 	JSON.stringify(sessionData?.start_time)
+	// );
+	// sessionData.end_time = JSON.parse(JSON.stringify(sessionData?.end_time));
 	// console.log(sessionData)
 
 	return {
 		props: {
-			data: sessionData as Session,
+			data: allSessions as Session[],
 		},
 	};
 };

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import styles from "@/styles/Circles.module.css";
 
 function Circles({
@@ -10,7 +10,7 @@ function Circles({
 	value: number;
 	bsr: boolean;
 	showResult: boolean;
-	chooseCircle: 0 | 1;
+	chooseCircle: "blue" | "red";
 }) {
 	const whiteCircle1 = useRef<HTMLDivElement>(null);
 	const whiteCircle2 = useRef<HTMLDivElement>(null);
@@ -38,7 +38,7 @@ function Circles({
 		const y = Math.sin(angle) * dist + 150;
 		blackCross1.current!.style.display = `none`;
 		blackCross2.current!.style.display = `none`;
-		if (chooseCircle === 0) {
+		if (chooseCircle === "blue") {
 			blackCross1.current!.style.display = "block";
 			blackCross1.current!.style.top = `${y}px`;
 			blackCross1.current!.style.left = `${x}px`;
@@ -60,7 +60,7 @@ function Circles({
 		}
 	}
 
-	function addCorrectMark(correct: number, number2?: number) {
+	function addCorrectMark(correct: "blue" | "red", number2?: number) {
 		if (showResult) {
 			if (
 				(chooseCircle === correct && number2 === undefined) ||
@@ -68,6 +68,7 @@ function Circles({
 			) {
 				return ` ${styles.correctAnswer}`;
 			} else {
+				// return ` ${styles.inCorrectAnswer}`;
 				return ` ${styles.invis}`;
 			}
 		} else {
@@ -84,7 +85,7 @@ function Circles({
 					" " +
 					styles.circle +
 					addInvis(100) +
-					addCorrectMark(0)
+					addCorrectMark("blue")
 				}
 			>
 				{bsr && (
@@ -106,7 +107,7 @@ function Circles({
 						styles.white +
 						" " +
 						styles.smallCircle +
-						addCorrectMark(0, 0)
+						addCorrectMark("blue", 0)
 					}
 					ref={whiteCircle1}
 				></div>
@@ -120,7 +121,7 @@ function Circles({
 					styles.circle +
 					" " +
 					addInvis(0) +
-					addCorrectMark(1)
+					addCorrectMark("red")
 				}
 			>
 				<div
@@ -130,7 +131,7 @@ function Circles({
 						styles.white +
 						" " +
 						styles.smallCircle +
-						addCorrectMark(1, 100)
+						addCorrectMark("red", 100)
 					}
 					ref={whiteCircle2}
 				>

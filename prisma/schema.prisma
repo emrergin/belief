@@ -46,6 +46,7 @@ model Round {
   fourth_draw_blue Boolean?
   fifth_draw_blue Boolean?
   sixth_draw_blue Boolean?
+  round Int
   reward Int
   participantId      String
   Participant        Participant @relation(fields: [participantId], references: [id])

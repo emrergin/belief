@@ -1,4 +1,4 @@
-import Head from "next/head";
+// import Head from "next/head";
 
 // import { reducer, StateProvider } from "../state";
 import Experiment from "@/components/Experiment";
@@ -12,43 +12,31 @@ export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	// console.log(data)
-	return (
-		<>
-
-			<>
-				{/* <StateProvider reducer={reducer}> */}
-				<Experiment data={data} />
-				{/* </StateProvider> */}
-
-			</>
-		</>
-	);
+	return <Experiment data={data} />;
 }
 
-const defaultSession:Omit<Session,"id"> = {
+const defaultSession: Omit<Session, "id"> = {
 	// id: 'placeholderSession',
 	start_time: new Date(),
 	end_time: null,
-	name: 'alpha_1',
+	name: "alpha_1",
 	location: null,
 	num_of_blue_a: 30,
 	num_of_blue_b: 70,
-	treatment: 'QSR',
-	drawn_balls: [
-	  1, 1, 2, 2, 3,
-	  3, 4, 4, 5, 5,
-	  6, 6
-	],
-	prior: [ 3, 3 ]
-}
+	treatment: "QSR",
+	drawn_balls: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+	prior: [3, 3],
+};
 
 export const getServerSideProps: GetServerSideProps<{
 	data: Session;
 }> = async () => {
-	let sessionData = (await prisma.session.findFirst());
+	let sessionData = await prisma.session.findFirst();
 
-	if (sessionData===null){
-		sessionData = await prisma.session.create({data: {...defaultSession}});
+	if (sessionData === null) {
+		sessionData = await prisma.session.create({
+			data: { ...defaultSession },
+		});
 	}
 	sessionData.start_time = JSON.parse(
 		JSON.stringify(sessionData?.start_time)

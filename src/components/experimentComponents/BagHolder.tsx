@@ -1,12 +1,12 @@
 import customStyles from "@/styles/Custom.module.css";
 import circleStyles from "@/styles/Circles.module.css";
-import { Text } from '@mantine/core';
+import { Text } from "@mantine/core";
 
 function BagHolder({ aBlue, bBlue }: { aBlue: number; bBlue: number }) {
 	return (
 		<div className={customStyles.bagHolder}>
 			<div>
-				<Text  fz="xl">
+				<Text fz="xl">
 					<b className={circleStyles.blueText}>Mavi Torba:</b>{" "}
 					<b>{bBlue}</b> adet{" "}
 					<b className={circleStyles.blueText}> mavi</b> bilye,{" "}
@@ -21,10 +21,10 @@ function BagHolder({ aBlue, bBlue }: { aBlue: number; bBlue: number }) {
 						<div key={i}>🔴 </div>
 					))}
 				</div>
-				<Text  fz="xl">Zar sonucu 1,2 veya 3 ise kullanılır.</Text>
+				<Text fz="xl">Zar sonucu 1,2 veya 3 ise kullanılır.</Text>
 			</div>
 			<div>
-				<Text  fz="xl">
+				<Text fz="xl">
 					<b className={circleStyles.redText}>Kırmızı Torba:</b>{" "}
 					<b>{aBlue}</b> adet{" "}
 					<b className={circleStyles.blueText}> mavi</b> bilye,{" "}
@@ -41,7 +41,7 @@ function BagHolder({ aBlue, bBlue }: { aBlue: number; bBlue: number }) {
 					))}
 				</div>
 
-				<Text  fz="xl">Zar sonucu 4,5 veya 6 ise kullanılır.</Text>
+				<Text fz="xl">Zar sonucu 4,5 veya 6 ise kullanılır.</Text>
 			</div>
 		</div>
 	);

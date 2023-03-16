@@ -7,7 +7,7 @@ Joint project with [Mehmet Yiğit Gürdal](https://econ.boun.edu.tr/mehmet-yigit
 ## Technologies Used
 
 - **Next.js** as the **React** framework.
-- Next.js **API routes** for server-side API routes as the backend.
+- Next.js **API routes** as the backend.
 - **Prisma** as the ORM for migrations and database access.
 - **PostgreSQL** as the database.
 - **TypeScript** as the programming language.
@@ -23,3 +23,4 @@ Some introductory readings for the concepts.
 
 ## Sources
 - https://stackoverflow.com/questions/34189370/how-to-repeat-an-element-n-times-using-jsx-and-lodash
+- https://blog.logrocket.com/effortless-database-schema-migration-prisma/

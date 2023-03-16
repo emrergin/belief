@@ -53,9 +53,7 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 
 	return (
 		<>
-			<h2 style={{ textAlign: "center" }}>
-				Çekilen toplar:
-			</h2>
+			<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
 			<div
 				style={{
 					display: "flex",
@@ -72,7 +70,8 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 						</span>
 					))}
 			</div>
-			<Button  size="lg"
+			<Button
+				size="lg"
 				style={{
 					marginInline: "auto",
 					display: "block",

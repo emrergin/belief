@@ -81,7 +81,7 @@
 	border-radius: 3ch;
 }
 
-.ballHolder{
+.ballHolder {
 	display: grid;
 	grid-template-columns: repeat(10, 1fr);
 	font-size: 3vh;
@@ -120,22 +120,22 @@
 }
 
 .footer {
-    position:fixed;
-    width: 100%;
-    bottom:0px;
-    /* top: calc(100% - 56px); */
-    height: 55px;
-    left:0px;
-    text-align: right;
-    font-weight: 800;
-    padding: 20px;
-    padding-bottom:20px;
-    padding-right: calc(50vw - 600px);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    background-color: rgb(226, 241, 247);
-    margin-top: auto;
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	/* top: calc(100% - 56px); */
+	height: 55px;
+	left: 0px;
+	text-align: right;
+	font-weight: 800;
+	padding: 20px;
+	padding-bottom: 20px;
+	padding-right: calc(50vw - 600px);
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	background-color: rgb(226, 241, 247);
+	margin-top: auto;
 }
 
-.footer>a{
-	color:rgb(47, 47, 203);
+.footer > a {
+	color: rgb(47, 47, 203);
 }

@@ -6,9 +6,12 @@ import Intro2 from "@/components/Intro2";
 
 import Footer from "./Footer";
 
-import { Session } from "@prisma/client";
-import { useEffect, useRef, useState } from "react";
+import { Participant, Session } from "@prisma/client";
+import { useRef, useState } from "react";
+
 import Round from "@/components/Round";
+
+import { Phase } from "@/state/types";
 
 function shuffle(array: number[]) {
 	let resArray = array;
@@ -20,12 +23,18 @@ function shuffle(array: number[]) {
 }
 
 function Experiment({ data }: { data: Session }) {
+	const [participant, setParticipant] = useState<Partial<Participant>>({});
 
-	useEffect(()=>{
-		console.log(data);
-	},[data]);
+	async function generateNewParticipant(name: string) {
+		const respond = await fetch("/belief/api/participant", {
+			method: "POST",
+			body: JSON.stringify({ name_surname: name, sessionId: data.id }),
+		});
+		setParticipant(await respond.json());
+		setPhase(Phase.Intro2);
+	}
+
 	const [phase, setPhase] = useState("INTRO");
-	const [name, setName] = useState("");
 	const randomizedDraws = useRef(shuffle(data.drawn_balls));
 	const [points, setPoints] = useState(0);
 
@@ -35,7 +44,7 @@ function Experiment({ data }: { data: Session }) {
 				{phase} - {data.treatment}
 			</p>
 			{phase === "INTRO" && (
-				<Intro phaseFunction={setPhase} nameFunction={setName} />
+				<Intro nameFunction={generateNewParticipant} />
 			)}
 			{phase === "INTRO2" && (
 				<Intro2
@@ -54,12 +63,13 @@ function Experiment({ data }: { data: Session }) {
 					bBlue={data.num_of_blue_b}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
+					participantId={participant.id as string}
 				/>
 			)}
 			{phase === "END" && (
 				<div>Deney Bitti. Kazandığınız toplam puan: {points}</div>
 			)}
-			<Footer/>
+			<Footer />
 		</main>
 	);
 }

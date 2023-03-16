@@ -159,8 +159,13 @@ button.exp {
 .invis.red,
 .invis.white {
 	background-color: rgba(0, 0, 0, 0);
+	/* display: none; */
 }
 
 .correctAnswer {
 	outline: 5px gold solid;
+}
+
+.inCorrectAnswer {
+	display: none;
 }
