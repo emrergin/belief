@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 
 import Round from "@/components/Round";
 
-import { Phase } from "@/state/types";
+import { Phase } from "@/utilities/types";
 
 function shuffle(array: number[]) {
 	let resArray = array;

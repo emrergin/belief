@@ -89,30 +89,6 @@
 	line-height: 2ch;
 }
 
-/* .embla {
-	overflow: hidden;
-	margin: 0px;
-}
-.embla__container {
-	display: flex;
-}
-.embla__slide {
-	flex: 0 0 100%;
-	min-width: 0;
-}  */
-
-/* .embla__slide > ul > li {
-	list-style-position: inside;
-} */
-
-.navButton {
-	font-size: 24px;
-	padding: 8px 15px;
-}
-
-/* .embla > * {
-	outline: 2px red solid;
-} */
 
 .reward {
 	margin: 3ch;

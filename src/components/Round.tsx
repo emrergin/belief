@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import styles from "@/styles/Circles.module.css";
+// import styles from "@/styles/Circles.module.css";
 import Slider from "./experimentComponents/Slider";
 import Circles from "./experimentComponents/Circles";
 import Drawing from "./experimentComponents/Drawing";
@@ -8,10 +8,8 @@ import customStyles from "@/styles/Custom.module.css";
 
 import { Button } from "@mantine/core";
 
-import { Inter } from "next/font/google";
 import { Round } from "@prisma/client";
-import { DrawingT, Phase } from "@/state/types";
-const inter = Inter({ subsets: ["latin"] });
+import { DrawingT, Phase } from "@/utilities/types";
 
 interface SubTypeRound extends DrawingT {
 	is_blue: boolean;
@@ -163,13 +161,6 @@ function Round({
 
 					<Button
 						size="lg"
-						className={
-							styles.exp +
-							" " +
-							inter.className +
-							" " +
-							customStyles.navButton
-						}
 						onClick={nextSubPhase}
 						style={{ marginTop: "3ch" }}
 					>

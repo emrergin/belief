@@ -24,3 +24,4 @@ Some introductory readings for the concepts.
 ## Sources
 - https://stackoverflow.com/questions/34189370/how-to-repeat-an-element-n-times-using-jsx-and-lodash
 - https://blog.logrocket.com/effortless-database-schema-migration-prisma/
+- https://reacthustle.com/blog/flatten-object-javascript-typescript

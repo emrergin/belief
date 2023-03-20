@@ -18,33 +18,10 @@ function Intro({
 
 	async function assignName() {
 		nameFunction(name);
-		// phaseFunction(Phase.Intro2);
 	}
 
 	return (
 		<div className={customStyles.mainWrapper}>
-			{/* <ul className={customStyles.entryText}>
-				<li>
-					Hoş geldiniz. Bu deneyde sizden bazı olasılıkları
-					değerlendirmenizi isteyeceğiz.
-				</li>
-				<li>
-					Oyunlarda kazancınızı &quot;puan&quot; cinsinden
-					hesaplayacağız. Toplam puanınızın parasal değerini ve ek
-					olarak bir katılım ücretini size deney sonunda nakit olarak
-					ödeyeceğiz.
-				</li>
-				<li>
-					Oyunları tamamladıktan sonra size dair bazı demografik
-					bilgileri sorduğumuz bir anket olacak.
-				</li>
-				<li>
-					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı
-					değiştirmeniz ve yenilemeniz gibi durumlarda da deneyden
-					erken ayrılmış sayılacaksınız. Erken ayrılmanız durumunda o
-					zamana kadarki kararlarınız değerlendirilecek.
-				</li>
-			</ul> */}
 			<List className={customStyles.entryText}>
 				<List.Item>
 					Hoş geldiniz. Bu deneyde sizden bazı olasılıkları

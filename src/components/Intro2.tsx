@@ -5,7 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 
 import { Button, List } from "@mantine/core";
 
-import { Phase } from "@/state/types";
+import { Phase } from "@/utilities/types";
 
 import Circles from "./experimentComponents/Circles";
 

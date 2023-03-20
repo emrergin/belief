@@ -1,11 +1,9 @@
 import { useRef } from "react";
 
-import customStyles from "@/styles/Custom.module.css";
-import { DrawingT } from "@/state/types";
+import { DrawingT } from "@/utilities/types";
 
 import { Button } from "@mantine/core";
 
-// import { useStateValue, updateRound } from "@/state";
 
 interface drawingProps {
 	numberofBlues: number;
@@ -14,7 +12,6 @@ interface drawingProps {
 }
 
 function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
-	// const [, dispatch] = useStateValue();
 
 	let draws = useRef(
 		Array.from({ length: numberOfDraws }, () =>
@@ -72,12 +69,6 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 			</div>
 			<Button
 				size="lg"
-				style={{
-					marginInline: "auto",
-					display: "block",
-					marginTop: "4ch",
-				}}
-				className={customStyles.navButton}
 				onClick={nextSubPhase}
 			>
 				Tahmine hazırım!
