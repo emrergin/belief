@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+// import { useRef, useEffect } from "react";
 import styles from "@/styles/Circles.module.css";
 
 interface sliderProps {
@@ -8,15 +8,17 @@ interface sliderProps {
 }
 
 function Slider({ updatingFunction, value, disabled = false }: sliderProps) {
-	const range = useRef<HTMLInputElement>(null);
-	const thumb = useRef<HTMLDivElement>(null);
-	const track = useRef<HTMLDivElement>(null);
+	// const range = useRef<HTMLInputElement>(null);
+	// const thumb = useRef<HTMLDivElement>(null);
+	// const track = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		thumb.current!.style.left = `${value}%`;
-		thumb.current!.style.transform = `translate(-${value}%, -50%)`;
-		track.current!.style.width = `${value}%`;
-	}, [value]);
+	// useEffect(() => {
+	// if(thumb.current!==null){
+		// thumb.current!.style.left = `${value}%`;
+		// thumb.current!.style.transform = `translate(-${value}%, -50%)`;
+		// track.current!.style.width = `${value}%`;
+	// }
+	// }, [value]);
 
 	return (
 		<div className={styles.center}>
@@ -24,7 +26,6 @@ function Slider({ updatingFunction, value, disabled = false }: sliderProps) {
 				<input
 					type="range"
 					className={styles.range}
-					ref={range}
 					min="0"
 					max="100"
 					step="1"
@@ -33,9 +34,9 @@ function Slider({ updatingFunction, value, disabled = false }: sliderProps) {
 					disabled={disabled}
 				/>
 				<div className={styles.track}>
-					<div className={styles.trackInner} ref={track}></div>
+					<div className={styles.trackInner} style={{width:`${value}%`}}></div>
 				</div>
-				<div className={styles.thumb} ref={thumb}></div>
+				<div className={styles.thumb} style={{left:`${value}%`, transform:`translate(-${value}%, -50%)`}}></div>
 			</div>
 		</div>
 	);

@@ -34,7 +34,7 @@ function Experiment({ data }: { data: Session }) {
 		setPhase(Phase.Intro2);
 	}
 
-	const [phase, setPhase] = useState("INTRO");
+	const [phase, setPhase] = useState("MAIN");
 	const randomizedDraws = useRef(shuffle(data.drawn_balls));
 	const [points, setPoints] = useState(0);
 
