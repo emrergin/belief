@@ -18,7 +18,9 @@ export default async function handler(
 		return res.status(200).json(newRound);
 	}
 	if (req.method==="GET"){
-		// console.log(req.query);
+		if(req.headers?.authorization!==process.env.ADMIN_PASS){
+			return res.status(401).json([]);
+		}
 		let relatedSessions:(string)[]=[];
 		if(req.query!==undefined){
 			if(typeof req.query.sessionId==="string"){

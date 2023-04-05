@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import styles from "@/styles/Circles.module.css";
 
 function Circles({
@@ -12,21 +12,14 @@ function Circles({
 	showResult: boolean;
 	chooseCircle: "blue" | "red";
 }) {
-	const whiteCircle1 = useRef<HTMLDivElement>(null);
-	const whiteCircle2 = useRef<HTMLDivElement>(null);
 	const blackCross1 = useRef<HTMLDivElement>(null);
 	const blackCross2 = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		whiteCircle1.current!.style.width = `${value * 3}px`;
-		whiteCircle1.current!.style.height = `${value * 3}px`;
-		whiteCircle2.current!.style.width = `${300 - Number(value) * 3}px`;
-		whiteCircle2.current!.style.height = `${300 - Number(value) * 3}px`;
-		if (bsr) {
-			blackCross1.current!.style.display = `none`;
-			blackCross2.current!.style.display = `none`;
-		}
-	}, [value, bsr]);
+
+	if (bsr && blackCross1.current!=null && blackCross2.current!==null && showResult) {
+		blackCross1.current!.style.display = `none`;
+		blackCross2.current!.style.display = `none`;
+	}
 
 	function choosePoint() {
 		if (!bsr) {
@@ -109,7 +102,7 @@ function Circles({
 						styles.smallCircle +
 						addCorrectMark("blue", 0)
 					}
-					ref={whiteCircle1}
+					style={{width:`${value * 3}px`,height:`${value * 3}px`}}
 				></div>
 			</div>
 			<div
@@ -133,7 +126,7 @@ function Circles({
 						styles.smallCircle +
 						addCorrectMark("red", 100)
 					}
-					ref={whiteCircle2}
+					style={{width:`${300 - Number(value) * 3}px`, height: `${300 - Number(value) * 3}px`}}
 				>
 					{bsr && (
 						<div

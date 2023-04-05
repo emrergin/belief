@@ -1,4 +1,3 @@
-// import { useRef, useEffect } from "react";
 import styles from "@/styles/Circles.module.css";
 
 interface sliderProps {
@@ -7,18 +6,7 @@ interface sliderProps {
 	disabled?: boolean;
 }
 
-function Slider({ updatingFunction, value, disabled = false }: sliderProps) {
-	// const range = useRef<HTMLInputElement>(null);
-	// const thumb = useRef<HTMLDivElement>(null);
-	// const track = useRef<HTMLDivElement>(null);
-
-	// useEffect(() => {
-	// if(thumb.current!==null){
-		// thumb.current!.style.left = `${value}%`;
-		// thumb.current!.style.transform = `translate(-${value}%, -50%)`;
-		// track.current!.style.width = `${value}%`;
-	// }
-	// }, [value]);
+function Slider({ updatingFunction, value, disabled }: sliderProps) {
 
 	return (
 		<div className={styles.center}>

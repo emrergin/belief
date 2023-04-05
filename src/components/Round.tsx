@@ -65,7 +65,6 @@ function Round({
 		} else {
 			nextRound();
 		}
-		// console.log("placeholder, nextSubPhase - Treatment.tsx");
 	}
 
 	function endDrawing(drawing: DrawingT) {
@@ -94,11 +93,8 @@ function Round({
 	function nextRound() {
 		const lastRound: Omit<Round, "id"> = {
 			...(roundData.current as SubTypeRound),
-			// decision_time: 0,
 			participantId: participantId,
-			// id: crypto.randomUUID(),
 			chosen_probability: 100 - redRatio,
-			// is_blue: selectedBag===0,
 			reward: calculatePointsForRound(),
 			round: currentRound,
 		};
@@ -162,7 +158,7 @@ function Round({
 					<Button
 						size="lg"
 						onClick={nextSubPhase}
-						style={{ marginTop: "3ch" }}
+						style={{ marginTop: "13ch",display: "block",margin:"auto" }}
 					>
 						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
 					</Button>

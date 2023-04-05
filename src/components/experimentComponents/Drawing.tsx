@@ -1,8 +1,9 @@
-import { useRef } from "react";
-
 import { DrawingT } from "@/utilities/types";
 
 import { Button } from "@mantine/core";
+import { useEffect, useState,useRef } from "react";
+import { useInterval } from "@mantine/hooks";
+import autoAnimate from '@formkit/auto-animate';
 
 
 interface drawingProps {
@@ -13,11 +14,32 @@ interface drawingProps {
 
 function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 
-	let draws = useRef(
+	const [numberOfShownBalls,setNumberOfShownBalls]=useState(0);
+	console.log('rerender');
+
+	const interval = useInterval(() => {
+		if(numberOfShownBalls<numberOfDraws){
+			setNumberOfShownBalls((b) => b + 1);
+		}}, 1000);
+
+	useEffect(() => {
+		interval.start();
+		return interval.stop;
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const parent = useRef(null);
+
+	useEffect(() => {
+		parent.current && autoAnimate(parent.current)
+	}, [parent]);
+
+
+
+	const draws = useRef(
 		Array.from({ length: numberOfDraws }, () =>
 			Math.floor(Math.random() * 100)
-		).map((num) => (num < numberofBlues ? 1 : 0))
-	);
+		).map((num) => (num < numberofBlues ? 'blue' : 'red')));
 
 	function nextSubPhase() {
 		nextFunction({
@@ -50,6 +72,7 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 
 	return (
 		<>
+		{/* {numberOfShownBalls}-{numberOfDraws} */}
 			<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
 			<div
 				style={{
@@ -57,10 +80,12 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 					gap: "2ch",
 					justifyContent: "center",
 					marginTop: "3ch",
+					minHeight: "12ch"
 				}}
+				ref={parent}
 			>
-				{draws.current
-					.map((a) => (a === 1 ? "🔵" : "🔴"))
+				{draws.current.slice(0,numberOfShownBalls)
+					.map((a) => (a === 'blue' ? "🔵" : "🔴"))
 					.map((e, i) => (
 						<span key={i} style={{ fontSize: "4rem" }}>
 							{e}
@@ -70,6 +95,8 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 			<Button
 				size="lg"
 				onClick={nextSubPhase}
+				style={{display: "block",margin:"auto"}}
+				disabled={numberOfDraws>numberOfShownBalls-1}
 			>
 				Tahmine hazırım!
 			</Button>
