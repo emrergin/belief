@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 
 import { Container, Button, Center, Modal, TextInput } from "@mantine/core";
 import { DataTable } from "mantine-datatable";
@@ -17,6 +17,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const [selectedSessions, setSelectedSessions] = useState<Session[]>([]);
 	const router = useRouter();
+	const passRef = useRef<HTMLInputElement|null>(null);
 
 	const [pass, setPass] = useLocalStorage({ key: "pass", defaultValue: "" });
 	const [opened, { open, close }] = useDisclosure(false);
@@ -33,7 +34,7 @@ export default function Home({
 					.join("&");
 		}
 		console.log(pass);
-		const respond = await fetch("/belief/api/round" + res, {
+		const respond = await fetch("../api/round" + res, {
 			method: "GET",
 			headers: { Authorization: pass },
 		});
@@ -103,8 +104,7 @@ export default function Home({
 					placeholder="Admin password"
 					label="password"
 					withAsterisk
-					value={pass}
-					onChange={(event) => setPass(event.currentTarget.value)}
+					ref={passRef}
 				/>
 				<Button
 					style={{
@@ -112,8 +112,12 @@ export default function Home({
 						marginInline: "auto",
 						display: "block",
 					}}
-					disabled={pass === ""}
-					onClick={() => close()}
+					onClick={() => {
+						setPass(passRef?.current?.value||"");
+						if(passRef?.current?.value!==""){
+							close();
+						}
+					}}
 				>
 					Save Password
 				</Button>

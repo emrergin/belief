@@ -84,7 +84,7 @@ function Round({
 	}
 
 	async function generateNewRound(lastRound: Omit<Round, "id">) {
-		const respond = await fetch("/belief/api/round", {
+		const respond = await fetch("./api/round", {
 			method: "POST",
 			body: JSON.stringify(lastRound),
 		});

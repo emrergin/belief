@@ -26,7 +26,7 @@ function Experiment({ data }: { data: Session }) {
 	const [participant, setParticipant] = useState<Partial<Participant>>({});
 
 	async function generateNewParticipant(name: string) {
-		const respond = await fetch("/belief/api/participant", {
+		const respond = await fetch("./api/participant", {
 			method: "POST",
 			body: JSON.stringify({ name_surname: name, sessionId: data.id }),
 		});
