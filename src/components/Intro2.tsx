@@ -63,9 +63,13 @@ function Intro2({
 				draggable={false}
 				withControls={false}
 				getEmblaApi={setEmbla}
-				style={{maxWidth:"100vw", display:"flex", marginTop:"-50px"}}
+				style={{
+					maxWidth: "100vw",
+					display: "flex",
+					marginTop: "-50px",
+				}}
 			>
-				<Carousel.Slide  className={customStyles.embla__slide}>
+				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
 						<List.Item>
 							<b>Turlar:</b> Deneyimiz otuz &quot;tur&quot;dan
@@ -108,10 +112,10 @@ function Intro2({
 						</List.Item>
 					</List>
 				</Carousel.Slide>
-				<Carousel.Slide  className={customStyles.embla__slide}>
+				<Carousel.Slide className={customStyles.embla__slide}>
 					<BagHolder aBlue={aBlue} bBlue={bBlue} />
 				</Carousel.Slide>
-				<Carousel.Slide  className={customStyles.embla__slide}>
+				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
 						<List.Item>
 							<b>Kullanılan Torba:</b> Zar atışının sonucu size
@@ -149,7 +153,7 @@ function Intro2({
 					</List>
 				</Carousel.Slide>
 
-				<Carousel.Slide  className={customStyles.embla__slide}>
+				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
 						<List.Item>
 							<b>Çekilişler birbirinden bağımsızdır:</b> Bazı
@@ -189,7 +193,7 @@ function Intro2({
 					</List>
 				</Carousel.Slide>
 
-				<Carousel.Slide  className={customStyles.embla__slide}>
+				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
 						<List.Item>
 							Şayet kararınız 0 ise, bu Kırmızı torbanın
@@ -226,7 +230,7 @@ function Intro2({
 						</div>
 					</List>
 				</Carousel.Slide>
-				<Carousel.Slide  className={customStyles.embla__slide}>
+				<Carousel.Slide className={customStyles.embla__slide}>
 					{treatment === "QSR" ? (
 						<div>
 							<List className={customStyles.entryText}>

@@ -15,8 +15,12 @@ function Circles({
 	const blackCross1 = useRef<HTMLDivElement>(null);
 	const blackCross2 = useRef<HTMLDivElement>(null);
 
-
-	if (bsr && blackCross1.current!=null && blackCross2.current!==null && showResult) {
+	if (
+		bsr &&
+		blackCross1.current != null &&
+		blackCross2.current !== null &&
+		showResult
+	) {
 		blackCross1.current!.style.display = `none`;
 		blackCross2.current!.style.display = `none`;
 	}
@@ -102,7 +106,10 @@ function Circles({
 						styles.smallCircle +
 						addCorrectMark("blue", 0)
 					}
-					style={{width:`${value * 3}px`,height:`${value * 3}px`}}
+					style={{
+						width: `${value * 3}px`,
+						height: `${value * 3}px`,
+					}}
 				></div>
 			</div>
 			<div
@@ -126,7 +133,10 @@ function Circles({
 						styles.smallCircle +
 						addCorrectMark("red", 100)
 					}
-					style={{width:`${300 - Number(value) * 3}px`, height: `${300 - Number(value) * 3}px`}}
+					style={{
+						width: `${300 - Number(value) * 3}px`,
+						height: `${300 - Number(value) * 3}px`,
+					}}
 				>
 					{bsr && (
 						<div

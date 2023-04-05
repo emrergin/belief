@@ -158,7 +158,11 @@ function Round({
 					<Button
 						size="lg"
 						onClick={nextSubPhase}
-						style={{ marginTop: "13ch",display: "block",margin:"auto" }}
+						style={{
+							marginTop: "13ch",
+							display: "block",
+							margin: "auto",
+						}}
 					>
 						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
 					</Button>

@@ -7,7 +7,6 @@ interface sliderProps {
 }
 
 function Slider({ updatingFunction, value, disabled }: sliderProps) {
-
 	return (
 		<div className={styles.center}>
 			<div className={styles.wrap}>
@@ -22,9 +21,18 @@ function Slider({ updatingFunction, value, disabled }: sliderProps) {
 					disabled={disabled}
 				/>
 				<div className={styles.track}>
-					<div className={styles.trackInner} style={{width:`${value}%`}}></div>
+					<div
+						className={styles.trackInner}
+						style={{ width: `${value}%` }}
+					></div>
 				</div>
-				<div className={styles.thumb} style={{left:`${value}%`, transform:`translate(-${value}%, -50%)`}}></div>
+				<div
+					className={styles.thumb}
+					style={{
+						left: `${value}%`,
+						transform: `translate(-${value}%, -50%)`,
+					}}
+				></div>
 			</div>
 		</div>
 	);
