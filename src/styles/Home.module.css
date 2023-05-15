@@ -5,7 +5,12 @@
 	align-items: center;
 	padding: 6rem;
 	min-height: 100vh;
+	/* font-size: 14px; */
 }
+
+/* .main *{
+	font-size: 14px;
+} */
 
 .description {
 	display: inherit;
@@ -51,13 +56,13 @@
 	border-radius: var(--border-radius);
 	background: rgba(var(--card-rgb), 0);
 	border: 1px solid rgba(var(--card-border-rgb), 0);
-	transition: background 200ms, border 200ms;
+	/* transition: background 200ms, border 200ms; */
 }
-
+/* 
 .card span {
 	display: inline-block;
 	transition: transform 200ms;
-}
+} */
 
 .card h2 {
 	font-weight: 600;

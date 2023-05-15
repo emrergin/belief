@@ -1,16 +1,11 @@
-// import "@/styles/globals.css";
-// import type { AppProps } from "next/app";
-
-// export default function App({ Component, pageProps }: AppProps) {
-// 	return <Component {...pageProps} />;
-// }
-
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
+import "@/styles/globals.css";
 
 export default function App(props: AppProps) {
 	const { Component, pageProps } = props;
+	const isProd = process.env.NODE_ENV === "production";
 
 	return (
 		<>
@@ -24,7 +19,10 @@ export default function App(props: AppProps) {
 					name="viewport"
 					content="minimum-scale=1,width=device-width, initial-scale=1"
 				/>
-				<link rel="icon" href="/belief/favicon.ico" />
+				<link
+					rel="icon"
+					href={(isProd ? "/belief/" : "") + "/favicon.ico"}
+				/>
 			</Head>
 
 			<MantineProvider

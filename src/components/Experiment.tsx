@@ -6,12 +6,14 @@ import Intro2 from "@/components/Intro2";
 
 import Footer from "./Footer";
 
-import { Participant, Session } from "@prisma/client";
+import { Participant } from "@prisma/client";
 import { useRef, useState } from "react";
 
 import Round from "@/components/Round";
 
 import { Phase } from "@/utilities/types";
+
+import { SessionType } from "@/pages";
 
 function shuffle(array: number[]) {
 	let resArray = array;
@@ -22,7 +24,7 @@ function shuffle(array: number[]) {
 	return resArray;
 }
 
-function Experiment({ data }: { data: Session }) {
+function Experiment({ data }: { data: SessionType }) {
 	const [participant, setParticipant] = useState<Partial<Participant>>({});
 
 	async function generateNewParticipant(name: string) {
@@ -51,6 +53,7 @@ function Experiment({ data }: { data: Session }) {
 				<Intro2
 					aBlue={data.num_of_blue_a}
 					bBlue={data.num_of_blue_b}
+					priors={data.prior as [number, number]}
 					treatment={data.treatment}
 					phaseFunction={setPhase}
 				/>
@@ -64,7 +67,7 @@ function Experiment({ data }: { data: Session }) {
 					bBlue={data.num_of_blue_b}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
-					participantId={participant.id as string}
+					participantId={participant?.id||"no-id-given"}
 				/>
 			)}
 			{phase === "END" && (

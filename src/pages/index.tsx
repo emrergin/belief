@@ -15,6 +15,10 @@ export default function Home({
 	return <Experiment data={data} />;
 }
 
+export interface SessionType extends Omit<Session, 'prior'> {
+	prior: [number,number]
+}
+
 const defaultSession: Omit<Session, "id"> = {
 	// id: 'placeholderSession',
 	start_time: new Date(),
@@ -29,7 +33,7 @@ const defaultSession: Omit<Session, "id"> = {
 };
 
 export const getServerSideProps: GetServerSideProps<{
-	data: Session;
+	data: SessionType;
 }> = async () => {
 	let sessionData = await prisma.session.findFirst();
 
@@ -45,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<{
 
 	return {
 		props: {
-			data: sessionData as Session,
+			data: sessionData as SessionType,
 		},
 	};
 };

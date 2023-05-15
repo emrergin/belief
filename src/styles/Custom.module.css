@@ -29,8 +29,8 @@
 }
 
 .nameEntry > button {
-	font-size: 24px;
-	padding: 8px 15px;
+	font-size: 1.65rem;
+	padding: 0.6rem 1.1rem;
 }
 
 .debug {

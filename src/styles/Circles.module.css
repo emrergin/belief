@@ -5,8 +5,8 @@
 }
 
 /* .circleHolder>*{
-    outline: red 2px solid;
-  } */
+    outline: green 2px solid;
+} */
 
 .padding-left {
 	padding-left: 2vw;
@@ -89,7 +89,7 @@
 
 .smallestCircle:after {
 	content: "\00d7";
-	font-size: 30px;
+	font-size: 1.9rem;
 	top: 50%;
 	left: 10%;
 	display: inline-block;
@@ -162,10 +162,18 @@ button.exp {
 	/* display: none; */
 }
 
-.correctAnswer {
+/* .correctAnswer {
 	outline: 5px gold solid;
-}
+} */
 
 .inCorrectAnswer {
 	display: none;
+}
+
+.valueBox {
+	position: absolute;
+	bottom: -40px;
+	left: 150px;
+	transform: translateX(-50%);
+	font-size: 20px;
 }

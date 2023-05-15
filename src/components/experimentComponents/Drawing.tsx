@@ -12,8 +12,7 @@ interface drawingProps {
 }
 
 function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
-	const [numberOfShownBalls, setNumberOfShownBalls] = useState(0);
-	console.log("rerender");
+	const [numberOfShownBalls, setNumberOfShownBalls] = useState(-1);
 
 	const interval = useInterval(() => {
 		if (numberOfShownBalls < numberOfDraws) {
@@ -72,6 +71,9 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 		<>
 			{/* {numberOfShownBalls}-{numberOfDraws} */}
 			<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
+			<p style={{ textAlign: "center" }}>
+				Bu turda {numberOfDraws} top çekilecek.
+			</p>
 			<div
 				style={{
 					display: "flex",
@@ -83,7 +85,7 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 				ref={parent}
 			>
 				{draws.current
-					.slice(0, numberOfShownBalls)
+					.slice(0, numberOfShownBalls + 1)
 					.map((a) => (a === "blue" ? "🔵" : "🔴"))
 					.map((e, i) => (
 						<span key={i} style={{ fontSize: "4rem" }}>
@@ -95,7 +97,7 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 				size="lg"
 				onClick={nextSubPhase}
 				style={{ display: "block", margin: "auto" }}
-				disabled={numberOfDraws > numberOfShownBalls - 1}
+				disabled={numberOfDraws > numberOfShownBalls}
 			>
 				Tahmine hazırım!
 			</Button>

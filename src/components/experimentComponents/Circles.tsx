@@ -1,52 +1,30 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import styles from "@/styles/Circles.module.css";
+import autoAnimate from "@formkit/auto-animate";
 
 function Circles({
 	value,
 	bsr,
 	showResult,
 	chooseCircle,
+	style,
 }: {
 	value: number;
 	bsr: boolean;
 	showResult: boolean;
 	chooseCircle: "blue" | "red";
+	style?: React.CSSProperties;
 }) {
-	const blackCross1 = useRef<HTMLDivElement>(null);
-	const blackCross2 = useRef<HTMLDivElement>(null);
+	const parent = useRef(null);
+	const [showBlue, showRed] = [
+		!showResult || chooseCircle === "blue",
+		!showResult || chooseCircle === "red",
+	];
+	// const [show,setShow] = useState([true,true]);
 
-	if (
-		bsr &&
-		blackCross1.current != null &&
-		blackCross2.current !== null &&
-		showResult
-	) {
-		blackCross1.current!.style.display = `none`;
-		blackCross2.current!.style.display = `none`;
-	}
-
-	function choosePoint() {
-		if (!bsr) {
-			return false;
-		}
-		const angle = Math.random() * Math.PI * 2;
-		const dist = Math.random() * 150;
-		const x = Math.cos(angle) * dist + 150;
-		const y = Math.sin(angle) * dist + 150;
-		blackCross1.current!.style.display = `none`;
-		blackCross2.current!.style.display = `none`;
-		if (chooseCircle === "blue") {
-			blackCross1.current!.style.display = "block";
-			blackCross1.current!.style.top = `${y}px`;
-			blackCross1.current!.style.left = `${x}px`;
-			blackCross1.current!.style.transform = `translate(-3px,-3px)`;
-		} else {
-			blackCross2.current!.style.display = "block";
-			blackCross2.current!.style.top = `${y}px`;
-			blackCross2.current!.style.left = `${x}px`;
-			blackCross2.current!.style.transform = `translate(-${y}px,-${x}px)`;
-		}
-	}
+	useEffect(() => {
+		parent.current && autoAnimate(parent.current);
+	}, [parent]);
 
 	function addInvis(target: number) {
 		//this ensures that no clipping remains in the full probabilities.
@@ -57,101 +35,97 @@ function Circles({
 		}
 	}
 
-	function addCorrectMark(correct: "blue" | "red", number2?: number) {
-		if (showResult) {
-			if (
-				(chooseCircle === correct && number2 === undefined) ||
-				(chooseCircle === correct && value !== number2)
-			) {
-				return ` ${styles.correctAnswer}`;
-			} else {
-				// return ` ${styles.inCorrectAnswer}`;
-				return ` ${styles.invis}`;
-			}
+	function addCorrectMark(
+		colorOfThis: "blue" | "red",
+		thresholdForSmallCircle?: number
+	) {
+		if (
+			showResult &&
+			((chooseCircle === colorOfThis &&
+				thresholdForSmallCircle === undefined) ||
+				(chooseCircle === colorOfThis &&
+					value !== thresholdForSmallCircle))
+		) {
+			// if (
+			// 	(chooseCircle === colorOfThis && thresholdForSmallCircle === undefined) ||
+			// 	(chooseCircle === colorOfThis && value !== thresholdForSmallCircle)
+			// ) {
+			// return ` ${styles.correctAnswer}`;
+			return "";
+			// }
+			// else {
+			// 	return ` ${styles.invis}`;
+			// }
 		} else {
 			return "";
 		}
 	}
+
 	return (
-		<div className={styles.circleHolder}>
-			<div
-				className={
-					styles.bigCircle +
-					" " +
-					styles.blue +
-					" " +
-					styles.circle +
-					addInvis(100) +
-					addCorrectMark("blue")
-				}
-			>
-				{bsr && (
+		<div className={styles.circleHolder} ref={parent} style={style}>
+			{showBlue && (
+				<div
+					className={
+						styles.bigCircle +
+						" " +
+						styles.blue +
+						" " +
+						styles.circle +
+						addInvis(100)
+						//  +
+						// addCorrectMark("blue")
+					}
+				>
 					<div
 						className={
 							styles.circle +
 							" " +
-							styles.black +
+							styles.white +
 							" " +
-							styles.smallestCircle
+							styles.smallCircle
+							// +
+							// addCorrectMark("blue", 0)
 						}
-						ref={blackCross1}
+						style={{
+							width: `${value * 3}px`,
+							height: `${value * 3}px`,
+						}}
 					></div>
-				)}
-				<div
-					className={
-						styles.circle +
-						" " +
-						styles.white +
-						" " +
-						styles.smallCircle +
-						addCorrectMark("blue", 0)
-					}
-					style={{
-						width: `${value * 3}px`,
-						height: `${value * 3}px`,
-					}}
-				></div>
-			</div>
-			<div
-				className={
-					styles.bigCircle +
-					" " +
-					styles.red +
-					" " +
-					styles.circle +
-					" " +
-					addInvis(0) +
-					addCorrectMark("red")
-				}
-			>
-				<div
-					className={
-						styles.circle +
-						" " +
-						styles.white +
-						" " +
-						styles.smallCircle +
-						addCorrectMark("red", 100)
-					}
-					style={{
-						width: `${300 - Number(value) * 3}px`,
-						height: `${300 - Number(value) * 3}px`,
-					}}
-				>
-					{bsr && (
-						<div
-							className={
-								styles.circle +
-								" " +
-								styles.black +
-								" " +
-								styles.smallestCircle
-							}
-							ref={blackCross2}
-						></div>
-					)}
+					<p className={styles.valueBox}>{(100 - value) ** 2}</p>
 				</div>
-			</div>
+			)}
+			{showRed && (
+				<div
+					className={
+						styles.bigCircle +
+						" " +
+						styles.red +
+						" " +
+						styles.circle +
+						" " +
+						addInvis(0)
+						// +
+						// addCorrectMark("red")
+					}
+				>
+					<div
+						className={
+							styles.circle +
+							" " +
+							styles.white +
+							" " +
+							styles.smallCircle
+							// +
+							// addCorrectMark("red", 100)
+						}
+						style={{
+							width: `${300 - Number(value) * 3}px`,
+							height: `${300 - Number(value) * 3}px`,
+						}}
+					></div>
+					<p className={styles.valueBox}>{value ** 2}</p>
+				</div>
+			)}
 		</div>
 	);
 }

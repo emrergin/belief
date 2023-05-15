@@ -25,3 +25,9 @@ Some introductory readings for the concepts.
 - https://stackoverflow.com/questions/34189370/how-to-repeat-an-element-n-times-using-jsx-and-lodash
 - https://blog.logrocket.com/effortless-database-schema-migration-prisma/
 - https://reacthustle.com/blog/flatten-object-javascript-typescript
+
+## What I learned
+- This is the first Next.js app I completed.
+- This is the first time I am using Prisma, and also PostgreSQL.
+- For autoanimate to work as expected, the parent element needs to have a specified width.
+- My first use case of Intl.ListFormat.

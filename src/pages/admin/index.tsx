@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { Container, Button, Center, Modal, TextInput } from "@mantine/core";
 import { DataTable } from "mantine-datatable";
@@ -17,7 +17,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const [selectedSessions, setSelectedSessions] = useState<Session[]>([]);
 	const router = useRouter();
-	const passRef = useRef<HTMLInputElement|null>(null);
+	const passRef = useRef<HTMLInputElement | null>(null);
 
 	const [pass, setPass] = useLocalStorage({ key: "pass", defaultValue: "" });
 	const [opened, { open, close }] = useDisclosure(false);
@@ -113,8 +113,8 @@ export default function Home({
 						display: "block",
 					}}
 					onClick={() => {
-						setPass(passRef?.current?.value||"");
-						if(passRef?.current?.value!==""){
+						setPass(passRef?.current?.value || "");
+						if (passRef?.current?.value !== "") {
 							close();
 						}
 					}}

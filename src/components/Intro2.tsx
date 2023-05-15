@@ -7,21 +7,25 @@ import { Button, List } from "@mantine/core";
 
 import { Phase } from "@/utilities/types";
 
+
 import Circles from "./experimentComponents/Circles";
 
 import { Carousel, Embla } from "@mantine/carousel";
 
 import Slider from "./experimentComponents/Slider";
 import BagHolder from "./experimentComponents/BagHolder";
+import { getDiceText } from "@/utilities/functions";
 
 function Intro2({
 	aBlue,
 	bBlue,
+	priors,
 	treatment,
 	phaseFunction,
 }: {
 	aBlue: number;
 	bBlue: number;
+	priors: [number, number];
 	treatment: string;
 	phaseFunction: (p: Phase) => void;
 }) {
@@ -30,6 +34,7 @@ function Intro2({
 	const [showNextPhase, setShowNextPhase] = useState(false);
 
 	const [embla, setEmbla] = useState<Embla | null>(null);
+	const diceText=getDiceText(priors);
 
 	const scrollPrev = useCallback(() => {
 		if (!embla) {
@@ -57,7 +62,7 @@ function Intro2({
 		<>
 			<Carousel
 				slideSize="100%"
-				height={700}
+				height="750px"
 				slideGap="md"
 				dragFree
 				draggable={false}
@@ -66,7 +71,8 @@ function Intro2({
 				style={{
 					maxWidth: "100vw",
 					display: "flex",
-					marginTop: "-50px",
+					marginTop: "-3.6rem",
+					// border:"2px solid red"
 				}}
 			>
 				<Carousel.Slide className={customStyles.embla__slide}>
@@ -92,7 +98,7 @@ function Intro2({
 							düşünebilirsiniz.
 							<List style={{ margin: "15px" }} size="xl">
 								<List.Item>
-									Zar sonucu 1, 2 veya 3 ise, çekiliş daha
+									Zar sonucu {diceText[0]} ise, çekiliş daha
 									fazla mavi bilye içeren{" "}
 									<b className={circleStyles.blueText}>
 										Mavi torba
@@ -100,7 +106,7 @@ function Intro2({
 									dan yapılır.
 								</List.Item>
 								<List.Item>
-									Zar sonucu 4, 5 veya 6 ise, çekiliş daha
+									Zar sonucu {diceText[1]} ise, çekiliş daha
 									fazla kırmızı bilye içeren{" "}
 									<b className={circleStyles.redText}>
 										Kırmızı torba
@@ -113,7 +119,7 @@ function Intro2({
 					</List>
 				</Carousel.Slide>
 				<Carousel.Slide className={customStyles.embla__slide}>
-					<BagHolder aBlue={aBlue} bBlue={bBlue} />
+					<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} />
 				</Carousel.Slide>
 				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
@@ -334,7 +340,7 @@ function Intro2({
 				</Carousel.Slide>
 			</Carousel>
 
-			{slideIndex + 1}
+			{/* {slideIndex + 1} */}
 			<Button.Group>
 				<Button
 					variant="light"

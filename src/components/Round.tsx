@@ -10,6 +10,7 @@ import { Button } from "@mantine/core";
 
 import { Round } from "@prisma/client";
 import { DrawingT, Phase } from "@/utilities/types";
+import { getDiceText } from "@/utilities/functions";
 
 interface SubTypeRound extends DrawingT {
 	is_blue: boolean;
@@ -28,7 +29,7 @@ function Round({
 }: {
 	bsr: boolean;
 	arrayOfDraws: number[];
-	priors: number[];
+	priors: [number, number];
 	aBlue: number;
 	bBlue: number;
 	phaseFunction: (p: Phase) => void;
@@ -50,6 +51,7 @@ function Round({
 	const time = useRef(new Date());
 
 	const numberOfRounds = arrayOfDraws.length;
+	const diceText=getDiceText(priors);
 
 	function updateSlider(e: React.ChangeEvent<HTMLInputElement>) {
 		setRedRatio(Number(e.target.value));
@@ -127,7 +129,7 @@ function Round({
 		<div>
 			{subPhase === "drawing" && (
 				<>
-					<BagHolder aBlue={aBlue} bBlue={bBlue} />
+					<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText}/>
 					<Drawing
 						numberOfDraws={arrayOfDraws[currentRound]}
 						numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
@@ -142,12 +144,18 @@ function Round({
 						value={redRatio}
 						disabled={subPhase !== "input"}
 					/>
+					{/* <div style={{width:"100%"}}> */}
 					<Circles
 						bsr={bsr}
 						value={redRatio}
 						showResult={subPhase === "result"}
 						chooseCircle={selectedBag}
+						style={{
+							width: "850px",
+							justifyContent: "space-evenly",
+						}}
 					/>
+					{/* </div> */}
 
 					{subPhase === "result" && (
 						<div className={customStyles.reward}>
