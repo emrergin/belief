@@ -33,10 +33,10 @@
 	padding: 0.6rem 1.1rem;
 }
 
-.debug {
+/* .debug {
 	position: absolute;
 	left: 5px;
-}
+} */
 
 .ballText {
 	text-align: center;
@@ -114,4 +114,15 @@
 
 .footer > a {
 	color: rgb(47, 47, 203);
+}
+
+.topbar{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	background-color: rgb(226, 241, 247);
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+	margin-top: 0px;
+	padding:1ch 5ch;
 }

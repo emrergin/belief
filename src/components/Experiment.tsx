@@ -3,6 +3,7 @@ import cStyles from "@/styles/Custom.module.css";
 
 import Intro from "@/components/Intro";
 import Intro2 from "@/components/Intro2";
+import TopBar from "@/components/TopBar";
 
 import Footer from "./Footer";
 
@@ -43,9 +44,7 @@ function Experiment({ data }: { data: SessionType }) {
 
 	return (
 		<main className={styles.main} style={{ userSelect: "none" }}>
-			<p className={cStyles.debug}>
-				{phase} - {data.treatment}
-			</p>
+			<TopBar phase={phase}/>
 			{phase === "INTRO" && (
 				<Intro nameFunction={generateNewParticipant} />
 			)}
