@@ -44,33 +44,32 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction,fullView=true }: d
 			first_draw_blue:
 				draws.current[0] === undefined
 					? null
-					: Boolean(draws.current[0]),
+					: draws.current[0]==="blue",
 			second_draw_blue:
 				draws.current[1] === undefined
 					? null
-					: Boolean(draws.current[1]),
+					: draws.current[1]==="blue",
 			third_draw_blue:
 				draws.current[2] === undefined
 					? null
-					: Boolean(draws.current[2]),
+					: draws.current[2]==="blue",
 			fourth_draw_blue:
 				draws.current[3] === undefined
 					? null
-					: Boolean(draws.current[3]),
+					: draws.current[3]==="blue",
 			fifth_draw_blue:
 				draws.current[4] === undefined
 					? null
-					: Boolean(draws.current[4]),
+					: draws.current[4]==="blue",
 			sixth_draw_blue:
 				draws.current[5] === undefined
 					? null
-					: Boolean(draws.current[5]),
+					: draws.current[5]==="blue",
 		});
 	}
 
 	return (
 		<>
-			{/* {numberOfShownBalls}-{numberOfDraws} */}
 			{fullView &&
 			<>
 				<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>

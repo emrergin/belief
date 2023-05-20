@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-// import styles from "@/styles/Circles.module.css";
 import Slider from "./experimentComponents/Slider";
 import Circles from "./experimentComponents/Circles";
 import Drawing from "./experimentComponents/Drawing";
@@ -127,56 +126,50 @@ function Round({
 
 	return (
 		<div>
-			{/* {subPhase === "drawing" && ( */}
-				<>
-					{/* {subPhase!=="result" && 
-					<> */}
-						<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} showBalls={subPhase === "drawing"}/>
-						<Drawing
-							numberOfDraws={arrayOfDraws[currentRound]}
-							numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
-							nextFunction={(d) => endDrawing(d)}
-							fullView={subPhase === "drawing"}
-						/>
-					{/* </>
-					} */}
-					{subPhase==="input" && <Slider
-						updatingFunction={updateSlider}
-						value={redRatio}
-						disabled={subPhase !== "input"}
-					/>}
-					{(subPhase==="input" || subPhase==="result") && <Circles
-						bsr={bsr}
-						value={redRatio}
-						showResult={subPhase === "result"}
-						chooseCircle={selectedBag}
-						style={{
-							// width: "850px",
-							gap:"10ch",
-							justifyContent: "center",
-						}}
-					/>}
+			<>
+				<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} showBalls={subPhase === "drawing"}/>
+				<Drawing
+					numberOfDraws={arrayOfDraws[currentRound]}
+					numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
+					nextFunction={(d) => endDrawing(d)}
+					fullView={subPhase === "drawing"}
+					key={currentRound}
+				/>
+				{subPhase==="input" && <Slider
+					updatingFunction={updateSlider}
+					value={redRatio}
+					disabled={subPhase !== "input"}
+				/>}
+				{(subPhase==="input" || subPhase==="result") && <Circles
+					bsr={bsr}
+					value={redRatio}
+					showResult={subPhase === "result"}
+					chooseCircle={selectedBag}
+					style={{
+						gap:"10ch",
+						justifyContent: "center"
+					}}
+				/>}
 
-					{subPhase === "result" && (
-						<div className={customStyles.reward}>
-							{`${calculatePointsForRound()} kazandınız.`}
-						</div>
-					)}
-					{(subPhase==="input" || subPhase==="result") &&
-						<Button
-							size="lg"
-							onClick={nextSubPhase}
-							style={{
-								marginTop: "13ch",
-								display: "block",
-								margin: "auto",
-							}}
-						>
-					
+				{subPhase === "result" && (
+					<div className={customStyles.reward}>
+						{`${calculatePointsForRound()} kazandınız.`}
+					</div>
+				)}
+				{(subPhase==="input" || subPhase==="result") &&
+					<Button
+						size="lg"
+						onClick={nextSubPhase}
+						style={{
+							marginTop: "13ch",
+							display: "block",
+							margin: "auto",
+						}}
+					>				
 						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
-						</Button>
-					}
-				</>
+					</Button>
+				}
+			</>
 		</div>
 	);
 }
