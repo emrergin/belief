@@ -127,55 +127,56 @@ function Round({
 
 	return (
 		<div>
-			{subPhase === "drawing" && (
+			{/* {subPhase === "drawing" && ( */}
 				<>
-					<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText}/>
-					<Drawing
-						numberOfDraws={arrayOfDraws[currentRound]}
-						numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
-						nextFunction={(d) => endDrawing(d)}
-					/>
-				</>
-			)}
-			{(subPhase === "input" || subPhase === "result") && (
-				<>
-					<Slider
+					{/* {subPhase!=="result" && 
+					<> */}
+						<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} showBalls={subPhase === "drawing"}/>
+						<Drawing
+							numberOfDraws={arrayOfDraws[currentRound]}
+							numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
+							nextFunction={(d) => endDrawing(d)}
+							fullView={subPhase === "drawing"}
+						/>
+					{/* </>
+					} */}
+					{subPhase==="input" && <Slider
 						updatingFunction={updateSlider}
 						value={redRatio}
 						disabled={subPhase !== "input"}
-					/>
-					{/* <div style={{width:"100%"}}> */}
-					<Circles
+					/>}
+					{(subPhase==="input" || subPhase==="result") && <Circles
 						bsr={bsr}
 						value={redRatio}
 						showResult={subPhase === "result"}
 						chooseCircle={selectedBag}
 						style={{
-							width: "850px",
-							justifyContent: "space-evenly",
+							// width: "850px",
+							gap:"10ch",
+							justifyContent: "center",
 						}}
-					/>
-					{/* </div> */}
+					/>}
 
 					{subPhase === "result" && (
 						<div className={customStyles.reward}>
 							{`${calculatePointsForRound()} kazandınız.`}
 						</div>
 					)}
-
-					<Button
-						size="lg"
-						onClick={nextSubPhase}
-						style={{
-							marginTop: "13ch",
-							display: "block",
-							margin: "auto",
-						}}
-					>
+					{(subPhase==="input" || subPhase==="result") &&
+						<Button
+							size="lg"
+							onClick={nextSubPhase}
+							style={{
+								marginTop: "13ch",
+								display: "block",
+								margin: "auto",
+							}}
+						>
+					
 						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
-					</Button>
+						</Button>
+					}
 				</>
-			)}
 		</div>
 	);
 }

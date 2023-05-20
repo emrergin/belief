@@ -30,4 +30,4 @@ Some introductory readings for the concepts.
 - This is the first Next.js app I completed.
 - This is the first time I am using Prisma, and also PostgreSQL.
 - For autoanimate to work as expected, the parent element needs to have a specified width.
-- My first use case of Intl.ListFormat.
+- My first use case of ``Intl.ListFormat``.

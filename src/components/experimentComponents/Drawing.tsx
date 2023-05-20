@@ -9,9 +9,10 @@ interface drawingProps {
 	numberofBlues: number;
 	numberOfDraws: number;
 	nextFunction: (d: DrawingT) => void;
+	fullView?: boolean;
 }
 
-function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
+function Drawing({ numberofBlues, numberOfDraws, nextFunction,fullView=true }: drawingProps) {
 	const [numberOfShownBalls, setNumberOfShownBalls] = useState(-1);
 
 	const interval = useInterval(() => {
@@ -70,10 +71,13 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 	return (
 		<>
 			{/* {numberOfShownBalls}-{numberOfDraws} */}
-			<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
-			<p style={{ textAlign: "center" }}>
-				Bu turda {numberOfDraws} top çekilecek.
-			</p>
+			{fullView &&
+			<>
+				<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
+				<p style={{ textAlign: "center" }}>
+					Bu turda {numberOfDraws} top çekilecek.
+				</p>
+			</>}
 			<div
 				style={{
 					display: "flex",
@@ -93,14 +97,14 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction }: drawingProps) {
 						</span>
 					))}
 			</div>
-			<Button
+			{fullView && <Button
 				size="lg"
 				onClick={nextSubPhase}
 				style={{ display: "block", margin: "auto" }}
 				disabled={numberOfDraws > numberOfShownBalls}
 			>
 				Tahmine hazırım!
-			</Button>
+			</Button>}
 		</>
 	);
 }
