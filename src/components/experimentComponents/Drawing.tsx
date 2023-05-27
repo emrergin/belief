@@ -79,7 +79,9 @@ function Drawing({
 				<>
 					<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
 					<p style={{ textAlign: "center" }}>
-					{numberOfDraws>0 ? `Bu turda ${numberOfDraws} top çekilecek.`: `Bu turda hiç top çekilmeyecek.`}
+						{numberOfDraws > 0
+							? `Bu turda ${numberOfDraws} top çekilecek.`
+							: `Bu turda hiç top çekilmeyecek.`}
 					</p>
 				</>
 			)}

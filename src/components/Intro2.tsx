@@ -200,7 +200,10 @@ function Intro2({
 				<Carousel.Slide className={customStyles.embla__slide}>
 					{treatment === "QSR" ? (
 						<div>
-							<List className={customStyles.entryText} style={{marginTop:"0px",scale: "0.9"}}>
+							<List
+								className={customStyles.entryText}
+								style={{ marginTop: "0px", scale: "0.9" }}
+							>
 								<List.Item>
 									Kullanılan torbanın{" "}
 									<b className={circleStyles.redText}>
@@ -291,21 +294,45 @@ function Intro2({
 						</div>
 					) : (
 						<div>
-							<List className={customStyles.entryText}>
+							<List
+								className={customStyles.entryText}
+								style={{ marginTop: "0px", scale: "0.9" }}
+							>
 								<List.Item>
-									Burada kaydırıcıyı sağa ya da sola
-									sürükleyerek size göre Kırmızı torbanın
-									kullanılmış olma ihtimalini bildireceksiniz.
-									Bu esnada aşağıdaki kırmızı simidin ve mavi
-									simidin büyüklüklerinin değiştiğini
-									görebilirsiniz.
+									Kullanılan torbanın{" "}
+									<b className={circleStyles.redText}>
+										Kırmızı torba
+									</b>{" "}
+									olma ihtimalinin sizce{" "}
+									<b>
+										<i>100&apos;de kaç olduğunu</i>{" "}
+									</b>{" "}
+									bir kaydırıcıyı sağa ya da sola sürükleyerek
+									bildireceksiniz. Bunu aşağıda gördüğünüz
+									özel düzenek yoluyla yapacaksınız. Bu esnada
+									kırmızı simidin ve mavi simidin
+									büyüklüklerinin değiştiğini görebilirsiniz.
 								</List.Item>
 								<List.Item>
+									Karar verdikten sonra, gerçekte hangi
+									torbanın kullanıldığı size bildirilecektir.
 									Karar verdikten sonra, gerçekte hangi
 									torbanın kullanıldığı size bildirilecektir.
 									Ardından, seçilen torbanın rengindeki simit
 									ve içindeki alanın teşkil ettiği daireden
 									rastgele bir nokta seçilecek.
+									{/* Şayet o turda{" "}
+									<b className={circleStyles.redText}>
+										Kırmızı torba
+									</b>{" "}
+									kullanılmış ise, kazancınız kırmızı simidin
+									karşılık geldiği miktar olacak. Şayet o
+									turda{" "}
+									<b className={circleStyles.blueText}>
+										Mavi torba
+									</b>{" "}
+									kullanılmış ise, kazancınız mavi simidin
+									karşılık geldiği miktar olacak. */}
 								</List.Item>
 								<List.Item>
 									Eğer bu nokta ilgili simite, yani tam
@@ -323,14 +350,41 @@ function Intro2({
 									marginLeft: "125px",
 								}}
 							>
-								<Slider
-									value={sliderValue}
-									updatingFunction={(event) => {
-										setSliderValue(
-											Number(event.target.value)
-										);
-									}}
-								/>
+								<div>
+									<Slider
+										value={sliderValue}
+										updatingFunction={(event) => {
+											setSliderValue(
+												Number(event.target.value)
+											);
+										}}
+									/>
+									<div
+										style={{
+											textAlign: "center",
+											scale: "1.5",
+										}}
+									>
+										Sizce, seçilen torbanın{" "}
+										<b className={circleStyles.redText}>
+											kırmızı torba
+										</b>{" "}
+										olma ihtimali: Yüzde {sliderValue}.
+									</div>
+									<div
+										style={{
+											textAlign: "center",
+											scale: "1.5",
+										}}
+									>
+										Sizce, seçilen torbanın{" "}
+										<b className={circleStyles.blueText}>
+											mavi torba
+										</b>{" "}
+										olma ihtimali: Yüzde {100 - sliderValue}
+										.
+									</div>
+								</div>
 								<Circles
 									value={sliderValue}
 									bsr={false}
