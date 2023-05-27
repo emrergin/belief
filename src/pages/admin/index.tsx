@@ -34,10 +34,15 @@ export default function Home({
 					.join("&");
 		}
 		console.log(pass);
-		const respond = await fetch("../api/round" + res, {
-			method: "GET",
-			headers: { Authorization: pass },
-		});
+		const respond = await fetch(
+			process.env.NODE_ENV === "production"
+				? `./api/round`
+				: "../api/round" + res,
+			{
+				method: "GET",
+				headers: { Authorization: pass },
+			}
+		);
 
 		const columnNames = [
 			"id",
@@ -163,7 +168,11 @@ export default function Home({
 				selectedRecords={selectedSessions}
 				onSelectedRecordsChange={setSelectedSessions}
 				onRowClick={(session) => {
-					router.push(`./admin/${session.id}`);
+					router.push(
+						process.env.NODE_ENV === "production"
+							? `./belief/admin/${session.id}`
+							: `./admin/${session.id}`
+					);
 				}}
 			/>
 		</Container>

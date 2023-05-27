@@ -37,11 +37,14 @@ export function downloadDataAsCsv(
 	);
 }
 
-export function getDiceText(prior: [number, number]):[String,String] {
-    const formatter = new Intl.ListFormat('tr', { style: 'long', type: 'disjunction' });
-    const allDice = ["1", "2", "3", "4", "5", "6"];
-    return [
-        formatter.format(allDice.slice(0, prior[0])),
-        formatter.format(allDice.slice(prior[1])),
-    ];
+export function getDiceText(prior: [number, number]): [String, String] {
+	const formatter = new Intl.ListFormat("tr", {
+		style: "long",
+		type: "disjunction",
+	});
+	const allDice = ["1", "2", "3", "4", "5", "6"];
+	return [
+		formatter.format(allDice.slice(0, prior[0])),
+		formatter.format(allDice.slice(prior[1])),
+	];
 }

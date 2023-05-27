@@ -7,7 +7,6 @@ import { Button, List } from "@mantine/core";
 
 import { Phase } from "@/utilities/types";
 
-
 import Circles from "./experimentComponents/Circles";
 
 import { Carousel, Embla } from "@mantine/carousel";
@@ -34,7 +33,7 @@ function Intro2({
 	const [showNextPhase, setShowNextPhase] = useState(false);
 
 	const [embla, setEmbla] = useState<Embla | null>(null);
-	const diceText=getDiceText(priors);
+	const diceText = getDiceText(priors);
 
 	const scrollPrev = useCallback(() => {
 		if (!embla) {
@@ -119,7 +118,15 @@ function Intro2({
 					</List>
 				</Carousel.Slide>
 				<Carousel.Slide className={customStyles.embla__slide}>
-					<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} />
+					<BagHolder
+						aBlue={aBlue}
+						bBlue={bBlue}
+						diceText={diceText}
+					/>
+					<div className={customStyles.entryText}>
+						<b>Renkli Bilyeler: </b> Her iki torbanın içindeki
+						bilyeleri yukarıda görebilirsiniz.
+					</div>
 				</Carousel.Slide>
 				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
@@ -127,21 +134,15 @@ function Intro2({
 							<b>Kullanılan Torba:</b> Zar atışının sonucu size
 							önceden söylenmeyecek, bu nedenle çekiliş için hangi
 							torbanın kullanıldığını bilemezsiniz. Zar, her turda
-							her kişi için ayrı ayrı atılır, bu nedenle sizin
-							için kullanılan torba deneye katılan başka bir kişi
-							için kullanılan torbayla aynı olabilir veya
-							olmayabilir.
+							her kişi için ayrı ayrı atılır.
 						</List.Item>
 						<List.Item>
 							<b>Çekilişler kişiye özeldir:</b> Bilgisayar zar
 							atışı sonrası kullanılacak torbayı belirlediğinde, o
 							torbadan rastgele çekilecek bir veya daha fazla
-							bilye gösterilebilir. Bu çekilişler size sizin
-							gördüğünüz değerler için hangi torbanın kullanıldığı
-							hakkında bilgi verebilse de, kullanılan torba
-							kişiden kişiye değişebileceğinden, başkaları için
-							kullanılan torba hakkında herhangi bir bilgi
-							sağlamaz.
+							bilye gösterilebilir. Bu çekilişler size o turda
+							hangi torbanın kullanıldığı hakkında bilgi
+							verebilir.
 						</List.Item>
 						<List.Item>
 							<b>Çekilişler birbirinden bağımsızdır:</b> Bazı
@@ -156,29 +157,16 @@ function Intro2({
 							bilyelerin sayıları ve renkleri bütün çekilişlerden
 							önce her zaman aynı olacak.
 						</List.Item>
+						<List.Item>
+							<b>Her çekiliş sonrası bilye torbaya geri konur:</b>{" "}
+							Çekilen bilye, her çekilişten sonra torbaya geri
+							konmuş gibi olur.
+						</List.Item>
 					</List>
 				</Carousel.Slide>
 
 				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
-						<List.Item>
-							<b>Çekilişler birbirinden bağımsızdır:</b> Bazı
-							turlarda aynı torbadan birden fazla çekiliş
-							görebilirsiniz. Bunların sonucunu çekiliş sırasıyla
-							göreceksiniz. Çekilişler bağımsız olarak yapılacak,
-							yani sanki torbayı sallayacak, içinden rastgele bir
-							bilye seçecek, bilyeyi size gösterecek, torbaya geri
-							koyacak ve rastgele başka bir bilye çekmeden önce
-							torbayı tekrar karıştıracakmışız gibi
-							düşünebilirsiniz.
-						</List.Item>
-						<List.Item>
-							<b>Her çekiliş sonrası bilye torbaya geri konur:</b>{" "}
-							Çekilen bilye, her çekilişten sonra torbaya geri
-							konmuş gibi olur. Yani bir torbanın içindeki
-							bilyelerin sayıları ve renkleri bütün çekilişlerden
-							önce her zaman aynı olacak.
-						</List.Item>
 						<List.Item>
 							Çekiliş sonuçlarını gördükten sonra, kullanılan
 							torbanın Kırmızı torba olma ihtimalinin{" "}
@@ -188,19 +176,11 @@ function Intro2({
 							karar vermelisiniz.
 						</List.Item>
 						<List.Item>
-							O tur, hiç çekiliş yapılmayan bir tursa, kararınızı
-							tamamen zar atışının kullanılan torbayı nasıl
-							belirlendiğine dayandırmanız gerekir. Aksi takdirde,
-							torbaların içeriğini göz önünde bulundurarak hem
+							Torbaların içeriğini göz önünde bulundurarak, hem
 							torbanın nasıl seçildiğine hem de alakalı çekiliş
 							veya çekilişlerin sonucuna ilişkin bilgileri
 							kullanabilirsiniz.
 						</List.Item>
-					</List>
-				</Carousel.Slide>
-
-				<Carousel.Slide className={customStyles.embla__slide}>
-					<List className={customStyles.entryText}>
 						<List.Item>
 							Şayet kararınız 0 ise, bu Kırmızı torbanın
 							kullanılma ihtimalinin olmadığını düşündüğünüz
@@ -215,48 +195,44 @@ function Intro2({
 							olduğunu düşünüyorsanız 50&apos;nin altında bir sayı
 							seçin.
 						</List.Item>
-
-						<Slider
-							value={sliderValue}
-							updatingFunction={(event) => {
-								setSliderValue(Number(event.target.value));
-							}}
-						/>
-						<div style={{ textAlign: "center" }}>
-							Sizce, seçilen torbanın{" "}
-							<b className={circleStyles.redText}>
-								kırmızı torba
-							</b>{" "}
-							olma ihtimali: Yüzde {sliderValue}.
-						</div>
-						<div style={{ textAlign: "center" }}>
-							Sizce, seçilen torbanın{" "}
-							<b className={circleStyles.blueText}>mavi torba</b>{" "}
-							olma ihtimali: Yüzde {100 - sliderValue}.
-						</div>
 					</List>
 				</Carousel.Slide>
 				<Carousel.Slide className={customStyles.embla__slide}>
 					{treatment === "QSR" ? (
 						<div>
-							<List className={customStyles.entryText}>
+							<List className={customStyles.entryText} style={{marginTop:"0px",scale: "0.9"}}>
 								<List.Item>
-									Burada kaydırıcıyı sağa ya da sola
-									sürükleyerek size göre Kırmızı torbanın
-									kullanılmış olma ihtimalini bildireceksiniz.
-									Bu esnada aşağıdaki kırmızı simidin ve mavi
-									simidin büyüklüklerinin değiştiğini
-									görebilirsiniz. Daha büyük bir simit daha
-									çok kazanca karşılık gelir ve bu miktarın
-									nasıl değiştiği de kaydırıcı hareket ettikçe
+									Kullanılan torbanın{" "}
+									<b className={circleStyles.redText}>
+										Kırmızı torba
+									</b>{" "}
+									olma ihtimalinin sizce{" "}
+									<b>
+										<i>100&apos;de kaç olduğunu</i>{" "}
+									</b>{" "}
+									bir kaydırıcıyı sağa ya da sola sürükleyerek
+									bildireceksiniz. Bunu aşağıda gördüğünüz
+									özel düzenek yoluyla yapacaksınız. Bu esnada
+									kırmızı simidin ve mavi simidin
+									büyüklüklerinin değiştiğini görebilirsiniz.
+									Daha büyük bir simit daha çok puana karşılık
+									gelir. Bu puan simidin tam altında yazar ve
+									kaydırıcı hareket ettikçe nasıl değiştiği
 									görülebilir.
 								</List.Item>
 								<List.Item>
 									Karar verdikten sonra, gerçekte hangi
 									torbanın kullanıldığı size bildirilecektir.
-									Şayet o turda Kırmızı torba kullanılmış ise,
-									kazancınız kırmızı simidin karşılık geldiği
-									miktar olacak. Şayet o turda Mavi torba
+									Şayet o turda{" "}
+									<b className={circleStyles.redText}>
+										Kırmızı torba
+									</b>{" "}
+									kullanılmış ise, kazancınız kırmızı simidin
+									karşılık geldiği miktar olacak. Şayet o
+									turda{" "}
+									<b className={circleStyles.blueText}>
+										Mavi torba
+									</b>{" "}
 									kullanılmış ise, kazancınız mavi simidin
 									karşılık geldiği miktar olacak.
 								</List.Item>
@@ -270,14 +246,41 @@ function Intro2({
 									marginLeft: "125px",
 								}}
 							>
-								<Slider
-									value={sliderValue}
-									updatingFunction={(event) => {
-										setSliderValue(
-											Number(event.target.value)
-										);
-									}}
-								/>
+								<div>
+									<Slider
+										value={sliderValue}
+										updatingFunction={(event) => {
+											setSliderValue(
+												Number(event.target.value)
+											);
+										}}
+									/>
+									<div
+										style={{
+											textAlign: "center",
+											scale: "1.5",
+										}}
+									>
+										Sizce, seçilen torbanın{" "}
+										<b className={circleStyles.redText}>
+											kırmızı torba
+										</b>{" "}
+										olma ihtimali: Yüzde {sliderValue}.
+									</div>
+									<div
+										style={{
+											textAlign: "center",
+											scale: "1.5",
+										}}
+									>
+										Sizce, seçilen torbanın{" "}
+										<b className={circleStyles.blueText}>
+											mavi torba
+										</b>{" "}
+										olma ihtimali: Yüzde {100 - sliderValue}
+										.
+									</div>
+								</div>
 								<Circles
 									value={sliderValue}
 									bsr={false}

@@ -26,7 +26,7 @@ function shuffle(array: number[]) {
 }
 
 function Experiment({ data }: { data: SessionType }) {
-	const [participant, setParticipant] = useState<Participant |{}>({});
+	const [participant, setParticipant] = useState<Participant | {}>({});
 
 	async function generateNewParticipant(name: string) {
 		const respond = await fetch("./api/participant", {
@@ -44,7 +44,7 @@ function Experiment({ data }: { data: SessionType }) {
 
 	return (
 		<main className={styles.main} style={{ userSelect: "none" }}>
-			<TopBar phase={phase}/>
+			<TopBar phase={phase} />
 			{phase === "INTRO" && (
 				<Intro nameFunction={generateNewParticipant} />
 			)}
@@ -66,7 +66,9 @@ function Experiment({ data }: { data: SessionType }) {
 					bBlue={data.num_of_blue_b}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
-					participantId={"id" in participant? participant.id:"no-id-given"}
+					participantId={
+						"id" in participant ? participant.id : "no-id-given"
+					}
 				/>
 			)}
 			{phase === "END" && (

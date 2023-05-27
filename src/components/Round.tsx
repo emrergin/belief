@@ -50,7 +50,7 @@ function Round({
 	const time = useRef(new Date());
 
 	const numberOfRounds = arrayOfDraws.length;
-	const diceText=getDiceText(priors);
+	const diceText = getDiceText(priors);
 
 	function updateSlider(e: React.ChangeEvent<HTMLInputElement>) {
 		setRedRatio(Number(e.target.value));
@@ -127,7 +127,12 @@ function Round({
 	return (
 		<div>
 			<>
-				<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} showBalls={subPhase === "drawing"}/>
+				<BagHolder
+					aBlue={aBlue}
+					bBlue={bBlue}
+					diceText={diceText}
+					showBalls={subPhase === "drawing"}
+				/>
 				<Drawing
 					numberOfDraws={arrayOfDraws[currentRound]}
 					numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
@@ -135,28 +140,32 @@ function Round({
 					fullView={subPhase === "drawing"}
 					key={currentRound}
 				/>
-				{subPhase==="input" && <Slider
-					updatingFunction={updateSlider}
-					value={redRatio}
-					disabled={subPhase !== "input"}
-				/>}
-				{(subPhase==="input" || subPhase==="result") && <Circles
-					bsr={bsr}
-					value={redRatio}
-					showResult={subPhase === "result"}
-					chooseCircle={selectedBag}
-					style={{
-						gap:"10ch",
-						justifyContent: "center"
-					}}
-				/>}
+				{subPhase === "input" && (
+					<Slider
+						updatingFunction={updateSlider}
+						value={redRatio}
+						disabled={subPhase !== "input"}
+					/>
+				)}
+				{(subPhase === "input" || subPhase === "result") && (
+					<Circles
+						bsr={bsr}
+						value={redRatio}
+						showResult={subPhase === "result"}
+						chooseCircle={selectedBag}
+						style={{
+							gap: "10ch",
+							justifyContent: "center",
+						}}
+					/>
+				)}
 
 				{subPhase === "result" && (
 					<div className={customStyles.reward}>
 						{`${calculatePointsForRound()} kazandınız.`}
 					</div>
 				)}
-				{(subPhase==="input" || subPhase==="result") &&
+				{(subPhase === "input" || subPhase === "result") && (
 					<Button
 						size="lg"
 						onClick={nextSubPhase}
@@ -165,10 +174,10 @@ function Round({
 							display: "block",
 							margin: "auto",
 						}}
-					>				
+					>
 						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
 					</Button>
-				}
+				)}
 			</>
 		</div>
 	);

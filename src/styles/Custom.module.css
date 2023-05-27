@@ -92,7 +92,7 @@
 .reward {
 	margin: 3ch;
 	text-align: center;
-	margin-top:5ch;
+	margin-top: 5ch;
 }
 
 .footer {
@@ -116,7 +116,7 @@
 	color: rgb(47, 47, 203);
 }
 
-.topbar{
+.topbar {
 	position: fixed;
 	left: 0px;
 	top: 0px;
@@ -124,5 +124,5 @@
 	background-color: rgb(226, 241, 247);
 	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
 	margin-top: 0px;
-	padding:1ch 5ch;
+	padding: 1ch 5ch;
 }

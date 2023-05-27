@@ -12,7 +12,12 @@ interface drawingProps {
 	fullView?: boolean;
 }
 
-function Drawing({ numberofBlues, numberOfDraws, nextFunction,fullView=true }: drawingProps) {
+function Drawing({
+	numberofBlues,
+	numberOfDraws,
+	nextFunction,
+	fullView = true,
+}: drawingProps) {
 	const [numberOfShownBalls, setNumberOfShownBalls] = useState(-1);
 
 	const interval = useInterval(() => {
@@ -44,39 +49,40 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction,fullView=true }: d
 			first_draw_blue:
 				draws.current[0] === undefined
 					? null
-					: draws.current[0]==="blue",
+					: draws.current[0] === "blue",
 			second_draw_blue:
 				draws.current[1] === undefined
 					? null
-					: draws.current[1]==="blue",
+					: draws.current[1] === "blue",
 			third_draw_blue:
 				draws.current[2] === undefined
 					? null
-					: draws.current[2]==="blue",
+					: draws.current[2] === "blue",
 			fourth_draw_blue:
 				draws.current[3] === undefined
 					? null
-					: draws.current[3]==="blue",
+					: draws.current[3] === "blue",
 			fifth_draw_blue:
 				draws.current[4] === undefined
 					? null
-					: draws.current[4]==="blue",
+					: draws.current[4] === "blue",
 			sixth_draw_blue:
 				draws.current[5] === undefined
 					? null
-					: draws.current[5]==="blue",
+					: draws.current[5] === "blue",
 		});
 	}
 
 	return (
 		<>
-			{fullView &&
-			<>
-				<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
-				<p style={{ textAlign: "center" }}>
-					Bu turda {numberOfDraws} top çekilecek.
-				</p>
-			</>}
+			{fullView && (
+				<>
+					<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
+					<p style={{ textAlign: "center" }}>
+					{numberOfDraws>0 ? `Bu turda ${numberOfDraws} top çekilecek.`: `Bu turda hiç top çekilmeyecek.`}
+					</p>
+				</>
+			)}
 			<div
 				style={{
 					display: "flex",
@@ -96,14 +102,16 @@ function Drawing({ numberofBlues, numberOfDraws, nextFunction,fullView=true }: d
 						</span>
 					))}
 			</div>
-			{fullView && <Button
-				size="lg"
-				onClick={nextSubPhase}
-				style={{ display: "block", margin: "auto" }}
-				disabled={numberOfDraws > numberOfShownBalls}
-			>
-				Tahmine hazırım!
-			</Button>}
+			{fullView && (
+				<Button
+					size="lg"
+					onClick={nextSubPhase}
+					style={{ display: "block", margin: "auto" }}
+					disabled={numberOfDraws > numberOfShownBalls}
+				>
+					Tahmine hazırım!
+				</Button>
+			)}
 		</>
 	);
 }
