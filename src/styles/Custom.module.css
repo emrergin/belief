@@ -71,12 +71,12 @@
 	margin-bottom: 2ch;
 }
 
-.bagHolder > :nth-child(1) {
+.bagHolder > :nth-child(2) {
 	border: 5px #55acee solid;
 	border-radius: 3ch;
 }
 
-.bagHolder > :nth-child(2) {
+.bagHolder > :nth-child(1) {
 	border: 5px #dd2e44 solid;
 	border-radius: 3ch;
 }

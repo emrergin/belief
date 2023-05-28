@@ -36,7 +36,7 @@ function Round({
 	participantId: string;
 }) {
 	const [redRatio, setRedRatio] = useState(50);
-	const [currentRound, setCurrentRound] = useState(1);
+	const [currentRound, setCurrentRound] = useState(0);
 	const [selectedBag, setSelectedBag] = useState<"blue" | "red">(
 		Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red"
 	);
@@ -97,7 +97,7 @@ function Round({
 			participantId: participantId,
 			chosen_probability: 100 - redRatio,
 			reward: calculatePointsForRound(),
-			round: currentRound,
+			round: currentRound + 1,
 		};
 		console.log(lastRound);
 		generateNewRound(lastRound);

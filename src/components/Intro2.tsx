@@ -197,31 +197,64 @@ function Intro2({
 						</List.Item>
 					</List>
 				</Carousel.Slide>
+
+				<Carousel.Slide className={customStyles.embla__slide}>
+					<List className={customStyles.entryText}>
+						<List.Item>
+							Kullanılan torbanın{" "}
+							<b className={circleStyles.redText}>kırmızı</b> veya{" "}
+							<b className={circleStyles.blueText}>mavi</b> olma
+							ihtimalinin{" "}
+							<b>
+								<i>100&apos;de kaç olduğunu</i>
+							</b>{" "}
+							ekrandaki bir kaydırıcıyı sağa ya da sola
+							sürükleyerek bildireceksiniz. Aşağıda bu kaydırıcıyı
+							görebilirsiniz.
+						</List.Item>
+						<List.Item>
+							Şimdi dilerseniz bunu sağa ya da sola sürüklemeyi
+							deneyin. Soldaki ve sağdaki rakamların değiştiğini
+							göreceksiniz. Solda kırmızı renkle yazılan rakam,
+							sizce kullanılan torbanın{" "}
+							<b className={circleStyles.redText}>
+								Kırmızı torba
+							</b>{" "}
+							olma ihtimalinin 100’de kaç olduğunu gösterir. Sağda
+							mavi renkle yazılan rakam sizce kullanılan torbanın{" "}
+							<b className={circleStyles.blueText}>Mavi</b> olma
+							ihtimalinin 100&apos;de kaç olduğunu gösterir.
+						</List.Item>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+							}}
+						>
+							<Slider
+								value={sliderValue}
+								updatingFunction={(event) => {
+									setSliderValue(Number(event.target.value));
+								}}
+							/>
+						</div>
+					</List>
+				</Carousel.Slide>
 				<Carousel.Slide className={customStyles.embla__slide}>
 					{treatment === "QSR" ? (
-						<div>
+						<div style={{ position: "relative" }}>
 							<List
 								className={customStyles.entryText}
-								style={{ marginTop: "0px", scale: "0.9" }}
+								style={{ marginTop: "0px" }}
 							>
 								<List.Item>
-									Kullanılan torbanın{" "}
-									<b className={circleStyles.redText}>
-										Kırmızı torba
-									</b>{" "}
-									olma ihtimalinin sizce{" "}
-									<b>
-										<i>100&apos;de kaç olduğunu</i>{" "}
-									</b>{" "}
-									bir kaydırıcıyı sağa ya da sola sürükleyerek
-									bildireceksiniz. Bunu aşağıda gördüğünüz
-									özel düzenek yoluyla yapacaksınız. Bu esnada
-									kırmızı simidin ve mavi simidin
+									Karar ekranında, bahsettiğimiz kaydırıcının
+									tam altında kırmızı ve mavi birer simit
+									olacak. Kaydırıcıyı sağa yahut sola
+									sürükledikçe kırmızı simidin ve mavi simidin
 									büyüklüklerinin değiştiğini görebilirsiniz.
 									Daha büyük bir simit daha çok puana karşılık
-									gelir. Bu puan simidin tam altında yazar ve
-									kaydırıcı hareket ettikçe nasıl değiştiği
-									görülebilir.
+									gelir. Bu puan simidin tam altında yazar.
 								</List.Item>
 								<List.Item>
 									Karar verdikten sonra, gerçekte hangi
@@ -243,10 +276,10 @@ function Intro2({
 							<div
 								style={{
 									display: "flex",
-									scale: "0.8",
-									justifyContent: "center",
-									gap: "250px",
-									marginLeft: "125px",
+									flexDirection: "column",
+									// width: "1000px",
+									alignContent: "center",
+									marginTop: "-8ch",
 								}}
 							>
 								<div>
@@ -258,31 +291,6 @@ function Intro2({
 											);
 										}}
 									/>
-									<div
-										style={{
-											textAlign: "center",
-											scale: "1.5",
-										}}
-									>
-										Sizce, seçilen torbanın{" "}
-										<b className={circleStyles.redText}>
-											kırmızı torba
-										</b>{" "}
-										olma ihtimali: Yüzde {sliderValue}.
-									</div>
-									<div
-										style={{
-											textAlign: "center",
-											scale: "1.5",
-										}}
-									>
-										Sizce, seçilen torbanın{" "}
-										<b className={circleStyles.blueText}>
-											mavi torba
-										</b>{" "}
-										olma ihtimali: Yüzde {100 - sliderValue}
-										.
-									</div>
 								</div>
 								<Circles
 									value={sliderValue}
@@ -316,23 +324,9 @@ function Intro2({
 								<List.Item>
 									Karar verdikten sonra, gerçekte hangi
 									torbanın kullanıldığı size bildirilecektir.
-									Karar verdikten sonra, gerçekte hangi
-									torbanın kullanıldığı size bildirilecektir.
 									Ardından, seçilen torbanın rengindeki simit
 									ve içindeki alanın teşkil ettiği daireden
 									rastgele bir nokta seçilecek.
-									{/* Şayet o turda{" "}
-									<b className={circleStyles.redText}>
-										Kırmızı torba
-									</b>{" "}
-									kullanılmış ise, kazancınız kırmızı simidin
-									karşılık geldiği miktar olacak. Şayet o
-									turda{" "}
-									<b className={circleStyles.blueText}>
-										Mavi torba
-									</b>{" "}
-									kullanılmış ise, kazancınız mavi simidin
-									karşılık geldiği miktar olacak. */}
 								</List.Item>
 								<List.Item>
 									Eğer bu nokta ilgili simite, yani tam
@@ -417,6 +411,10 @@ function Intro2({
 				</Button>
 				{showNextPhase && (
 					<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
+					{/* <Button
+						size="lg"
+						onClick={() => phaseFunction(Phase.Demographics)}
+					> */}
 						Deneye Başla!
 					</Button>
 				)}

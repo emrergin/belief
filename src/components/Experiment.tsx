@@ -8,9 +8,10 @@ import TopBar from "@/components/TopBar";
 import Footer from "./Footer";
 
 import { Participant } from "@prisma/client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Round from "@/components/Round";
+import Demographics from "@/components/Demographics";
 
 import { Phase } from "@/utilities/types";
 
@@ -37,9 +38,15 @@ function Experiment({ data }: { data: SessionType }) {
 		setPhase(Phase.Intro2);
 	}
 
+	useEffect(() => {
+		console.log(data);
+		shuffle(data.drawn_balls);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const [phase, setPhase] = useState("INTRO");
 	// const [phase, setPhase] = useState("MAIN");
-	const randomizedDraws = useRef(shuffle(data.drawn_balls));
+	const randomizedDraws = useRef(data.drawn_balls);
 	const [points, setPoints] = useState(0);
 
 	return (
@@ -66,6 +73,13 @@ function Experiment({ data }: { data: SessionType }) {
 					bBlue={data.num_of_blue_b}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
+					participantId={
+						"id" in participant ? participant.id : "no-id-given"
+					}
+				/>
+			)}
+			{phase === "DEMO" && (
+				<Demographics
 					participantId={
 						"id" in participant ? participant.id : "no-id-given"
 					}

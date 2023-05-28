@@ -71,3 +71,30 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
+
+.mantine-RadioGroup-root.likert .mantine-Radio-body {
+	flex-direction: column;
+	/* max-width: 30px; */
+	justify-content: center;
+}
+
+.mantine-RadioGroup-root.likert .mantine-Radio-root {
+	margin-top: 5px;
+	align-self: flex-start;
+	width: 35px;
+}
+
+.mantine-Radio-inner {
+	margin-inline: auto;
+}
+
+.likert:before {
+	content: "";
+	position: relative;
+	top: 45px;
+	left: 10px;
+	display: block;
+	background-color: #efefef;
+	height: 4px;
+	width: 495px;
+}

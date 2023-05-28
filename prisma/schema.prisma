@@ -15,6 +15,7 @@ model Participant {
   Round        Round[]
   age Int?
   gpa Float?
+  pre_exp Int?
   sex Int?
   dep String?
   num_of_econ Int?
@@ -24,6 +25,7 @@ model Participant {
   gps_future_benefit Int?
   gps_punish_self Int?
   gps_punish_other Int?
+  gps_charity Int?
   gps_d1 Int?
   gps_d2 Int?
   gps_d3 Int?

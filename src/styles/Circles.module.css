@@ -16,6 +16,7 @@
 	text-align: center;
 	position: relative;
 	min-height: 100px;
+	width: 300px;
 }
 
 .wrap {
@@ -102,6 +103,7 @@
 	gap: 50px;
 	max-width: 100%;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .bar-holder {

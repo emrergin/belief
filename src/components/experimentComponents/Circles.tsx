@@ -63,37 +63,6 @@ function Circles({
 
 	return (
 		<div className={styles.circleHolder} ref={parent} style={style}>
-			{showBlue && (
-				<div
-					className={
-						styles.bigCircle +
-						" " +
-						styles.blue +
-						" " +
-						styles.circle +
-						addInvis(100)
-						//  +
-						// addCorrectMark("blue")
-					}
-				>
-					<div
-						className={
-							styles.circle +
-							" " +
-							styles.white +
-							" " +
-							styles.smallCircle
-							// +
-							// addCorrectMark("blue", 0)
-						}
-						style={{
-							width: `${value * 3}px`,
-							height: `${value * 3}px`,
-						}}
-					></div>
-					<p className={styles.valueBox}>{(100 - value) ** 2}</p>
-				</div>
-			)}
 			{showRed && (
 				<div
 					className={
@@ -124,6 +93,37 @@ function Circles({
 						}}
 					></div>
 					<p className={styles.valueBox}>{value ** 2}</p>
+				</div>
+			)}
+			{showBlue && (
+				<div
+					className={
+						styles.bigCircle +
+						" " +
+						styles.blue +
+						" " +
+						styles.circle +
+						addInvis(100)
+						//  +
+						// addCorrectMark("blue")
+					}
+				>
+					<div
+						className={
+							styles.circle +
+							" " +
+							styles.white +
+							" " +
+							styles.smallCircle
+							// +
+							// addCorrectMark("blue", 0)
+						}
+						style={{
+							width: `${value * 3}px`,
+							height: `${value * 3}px`,
+						}}
+					></div>
+					<p className={styles.valueBox}>{(100 - value) ** 2}</p>
 				</div>
 			)}
 		</div>
