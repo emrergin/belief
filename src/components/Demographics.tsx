@@ -13,22 +13,30 @@ import {
 import { useForm, isNotEmpty } from "@mantine/form";
 
 interface DemographicData {
-	age: number;
-	gpa: number;
-	pre_exp: number;
-	sex: number;
+	age: number | null;
+	gpa: number | null;
+	pre_exp: number | null;
+	sex: number | null;
 	dep: string;
-	num_of_econ: number;
-	diff: number;
-	sure: number;
+	num_of_econ: number | null;
+	diff: number | null;
+	sure: number | null;
 }
 
 function Demographics({ participantId }: { participantId: string }) {
 	async function sendData(data: DemographicData) {
-		console.log(data);
+		const castedData = {
+			...data,
+			gpa: Number(data.gpa),
+			pre_exp: Number(data.pre_exp),
+			sex: Number(data.sex),
+			num_of_econ: Number(data.num_of_econ),
+			diff: Number(data.diff),
+			sure: Number(data.sure),
+		};
 		await fetch(`./api/participant/${participantId}`, {
 			method: "PUT",
-			body: JSON.stringify(data),
+			body: JSON.stringify(castedData),
 		});
 	}
 
@@ -59,7 +67,7 @@ function Demographics({ participantId }: { participantId: string }) {
 	return (
 		<Box
 			component="form"
-			onSubmit={form.onSubmit((data: any) => sendData(data))}
+			onSubmit={form.onSubmit((data) => sendData(data))}
 		>
 			<Grid
 				columns={4}
@@ -74,13 +82,13 @@ function Demographics({ participantId }: { participantId: string }) {
 						label="Yaşınız:"
 						max={120}
 						min={0}
-						required
+						withAsterisk
 					/>
 					<Divider my="sm" />
 					<Select
 						label="Üniversite genel ortalamanız hangi aralıkta?"
 						placeholder="Seçiniz"
-						required
+						withAsterisk
 						{...form.getInputProps("gpa")}
 						data={[
 							{ value: "0.5", label: "0.5-1" },
@@ -98,7 +106,7 @@ function Demographics({ participantId }: { participantId: string }) {
 						name="cinsiyet"
 						label="Cinsiyetiniz:"
 						{...form.getInputProps("sex")}
-						required
+						withAsterisk
 					>
 						<Group mt="xs">
 							<Radio value="0" label="Kadın" />
@@ -110,7 +118,7 @@ function Demographics({ participantId }: { participantId: string }) {
 					<TextInput
 						placeholder="Bölümünüz"
 						label="Bölümünüz:"
-						required
+						withAsterisk
 						{...form.getInputProps("dep")}
 					/>
 					<Divider my="sm" />
@@ -118,7 +126,7 @@ function Demographics({ participantId }: { participantId: string }) {
 						label="Bugüne kadar kaç ekonomi dersi aldınız?"
 						style={{ maxWidth: "200px" }}
 						placeholder="Seçiniz"
-						required
+						withAsterisk
 						{...form.getInputProps("num_of_econ")}
 						data={[
 							{ value: "0", label: "0" },
@@ -137,7 +145,7 @@ function Demographics({ participantId }: { participantId: string }) {
 							düşündünüz?"
 							{...form.getInputProps("diff")}
 							className="likert"
-							required
+							withAsterisk
 						>
 							<Group mt="xs">
 								<Radio value="0" label="Çok kolay" />
@@ -159,7 +167,7 @@ function Demographics({ participantId }: { participantId: string }) {
 							label="Deneydeki seçimleriniz hakkında ne kadar emindiniz?"
 							{...form.getInputProps("sure")}
 							className="likert"
-							required
+							withAsterisk
 						>
 							<Group mt="xs">
 								<Radio value="0" label="Hiç emin değildim" />
