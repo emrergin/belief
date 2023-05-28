@@ -57,7 +57,10 @@ function Demographics({ participantId }: { participantId: string }) {
 	});
 
 	return (
-		<Box component="form" onSubmit={form.onSubmit((data:any)=>sendData(data))}>
+		<Box
+			component="form"
+			onSubmit={form.onSubmit((data: any) => sendData(data))}
+		>
 			<Grid
 				columns={4}
 				justify="center"
@@ -71,13 +74,13 @@ function Demographics({ participantId }: { participantId: string }) {
 						label="Yaşınız:"
 						max={120}
 						min={0}
-						required 
+						required
 					/>
 					<Divider my="sm" />
 					<Select
 						label="Üniversite genel ortalamanız hangi aralıkta?"
 						placeholder="Seçiniz"
-						required 
+						required
 						{...form.getInputProps("gpa")}
 						data={[
 							{ value: "0.5", label: "0.5-1" },

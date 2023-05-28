@@ -411,7 +411,7 @@ function Intro2({
 				</Button>
 				{showNextPhase && (
 					<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
-					{/* <Button
+						{/* <Button
 						size="lg"
 						onClick={() => phaseFunction(Phase.Demographics)}
 					> */}

@@ -7,8 +7,13 @@ phaseName.set("MAIN", "Giriş");
 phaseName.set("END", "Sonuç");
 phaseName.set("DEMO", "Anket");
 
-function TopBar({ phase }: { phase: string }) {
-	return <div className={customStyles.topbar}>{phaseName.get(phase)}</div>;
+function TopBar({ phase, points }: { phase: string; points: number }) {
+	return (
+		<div className={customStyles.topbar}>
+			<div>{phaseName.get(phase)}</div>
+			<div>Toplam puan: {points}</div>
+		</div>
+	);
 }
 
 export default TopBar;

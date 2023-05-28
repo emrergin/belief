@@ -41,7 +41,7 @@ function Experiment({ data }: { data: SessionType }) {
 	useEffect(() => {
 		console.log(data);
 		shuffle(data.drawn_balls);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const [phase, setPhase] = useState("INTRO");
@@ -51,7 +51,7 @@ function Experiment({ data }: { data: SessionType }) {
 
 	return (
 		<main className={styles.main} style={{ userSelect: "none" }}>
-			<TopBar phase={phase} />
+			<TopBar phase={phase} points={points} />
 			{phase === "INTRO" && (
 				<Intro nameFunction={generateNewParticipant} />
 			)}
