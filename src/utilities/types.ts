@@ -3,6 +3,7 @@ export const enum Phase {
 	Intro2 = "INTRO2",
 	Main = "MAIN",
 	Demographics = "DEMO",
+	Gps = "GPS",
 	End = "END",
 }
 

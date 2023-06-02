@@ -30,8 +30,8 @@ function Intro({
 				<List.Item>
 					Oyunlarda kazancınızı &quot;puan&quot; cinsinden
 					hesaplayacağız. Toplam puanınızın parasal değerini ve ek
-					olarak bir katılım ücretini size deney sonunda nakit olarak
-					ödeyeceğiz.
+					olarak 20 TL katılım ücretini size deney sonunda nakit
+					olarak ödeyeceğiz. 1000 puan = 1 TL olarak hesaplanır.
 				</List.Item>
 				<List.Item>
 					Oyunları tamamladıktan sonra size dair bazı demografik
@@ -40,8 +40,8 @@ function Intro({
 				<List.Item>
 					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı
 					değiştirmeniz ve yenilemeniz gibi durumlarda da deneyden
-					erken ayrılmış sayılacaksınız. Erken ayrılmanız durumunda o
-					zamana kadarki kararlarınız değerlendirilecek.
+					erken ayrılmış sayılacaksınız. Erken ayrılmanız durumunda
+					yalnızca katılım ücreti ödenir.
 				</List.Item>
 			</List>
 			<div className={customStyles.nameEntry}>

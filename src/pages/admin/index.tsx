@@ -5,10 +5,21 @@ import { Session } from "@prisma/client";
 
 import { useState, useEffect, useRef } from "react";
 
-import { Container, Button, Center, Modal, TextInput } from "@mantine/core";
+import {
+	Container,
+	Button,
+	Center,
+	Modal,
+	TextInput,
+	NumberInput,
+	Radio,
+	Group,
+	Box,
+} from "@mantine/core";
+import { useForm, isNotEmpty } from "@mantine/form";
 import { DataTable } from "mantine-datatable";
 import { useRouter } from "next/router";
-import { downloadDataAsCsv } from "@/utilities/functions";
+import { downloadDataAsCsv, getDateText } from "@/utilities/functions";
 
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 
@@ -21,6 +32,8 @@ export default function Home({
 
 	const [pass, setPass] = useLocalStorage({ key: "pass", defaultValue: "" });
 	const [opened, { open, close }] = useDisclosure(false);
+	const [newSession, { open: sessionOpen, close: sessionClose }] =
+		useDisclosure(false);
 
 	async function downloadData(
 		listOfSessions: string[] = selectedSessions.map((a) => a.id)
@@ -104,6 +117,89 @@ export default function Home({
 		}
 	}, [open, close, pass]);
 
+	function isInDesiredForm(str: string) {
+		var n = Math.floor(Number(str));
+		return n !== Infinity && String(n) === str && n >= 0;
+	}
+
+	const form = useForm({
+		initialValues: {
+			name: "",
+			num_of_blue_a: 30,
+			num_of_blue_b: 70,
+			treatment: null,
+			drawn_balls: "",
+			prior: "3,3",
+		},
+		validate: {
+			name: isNotEmpty("Lütfen bir oturum ismi girin."),
+			num_of_blue_a: isNotEmpty("Lütfen mavi bilyelerin sayısını girin."),
+			num_of_blue_b: isNotEmpty("Lütfen mavi bilyelerin sayısını girin."),
+			treatment: isNotEmpty("Lütfen bir deney tipi girin."),
+			drawn_balls: (value) => {
+				let array = value.split(",").map((a) => a.trim());
+				for (let line of array) {
+					if (!isInDesiredForm(line)) {
+						return "Negatif olmayan tam sayılar girmeniz bekleniyor.";
+					}
+				}
+				return null;
+			},
+			prior: (value) => {
+				let array = value.split(",").map((a) => a.trim());
+				if (array.length !== 2) {
+					return "Toplamı altı olan iki pozitif tamsayı girmeniz bekleniyor.";
+				}
+				for (let line of array) {
+					if (
+						!isInDesiredForm(line) ||
+						Number(line) > 5 ||
+						Number(line) < 1
+					) {
+						return "Toplamı altı olan iki pozitif tamsayı girmeniz bekleniyor.";
+					}
+				}
+				if (Number(array[0]) + Number(array[1]) !== 6) {
+					return "Toplamı altı olan iki pozitif tamsayı girmeniz bekleniyor.";
+				}
+				return null;
+			},
+		},
+	});
+
+	useEffect(
+		() => {
+			form.setValues({ name: getDateText() });
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[]
+	);
+
+	async function sendData(data: {
+		name: string;
+		num_of_blue_a: number;
+		num_of_blue_b: number;
+		treatment: null;
+		drawn_balls: string;
+	}) {
+		const parsedData = {
+			...data,
+			drawn_balls: data.drawn_balls.split(",").map(Number),
+			prior: data.drawn_balls.split(",").map(Number),
+		};
+		await fetch(
+			process.env.NODE_ENV === "production"
+				? `./api/admin`
+				: "../api/admin",
+			{
+				method: "POST",
+				body: JSON.stringify(parsedData),
+				headers: { Authorization: pass },
+			}
+		);
+		router.reload();
+	}
+
 	return (
 		<Container size="lg" px="md" style={{ marginTop: "5ch" }}>
 			<Modal opened={opened} onClose={close} title="Admin Pass">
@@ -129,6 +225,74 @@ export default function Home({
 					Save Password
 				</Button>
 			</Modal>
+			<Modal
+				opened={newSession}
+				onClose={sessionClose}
+				title="Yeni Oturum"
+			>
+				<Box
+					component="form"
+					onSubmit={form.onSubmit((data) => sendData(data))}
+				>
+					<TextInput
+						label="Oturum adı"
+						withAsterisk
+						{...form.getInputProps("name")}
+					/>
+					<NumberInput
+						label="Kırmızı torbadaki mavi sayısı"
+						withAsterisk
+						{...form.getInputProps("num_of_blue_a")}
+					/>
+					<NumberInput
+						label="Mavi torbadaki mavi sayısı"
+						withAsterisk
+						{...form.getInputProps("num_of_blue_b")}
+					/>
+					<Radio.Group
+						name="treatment"
+						label="Deney tipini seç."
+						withAsterisk
+						{...form.getInputProps("treatment")}
+					>
+						<Group mt="xs">
+							<Radio value="QSR" label="QSR" />
+							<Radio value="BSR" label="BSR" />
+						</Group>
+					</Radio.Group>
+					<TextInput
+						label="Çekiliş sayıları"
+						withAsterisk
+						placeholder="1,2,3,1,2,3"
+						{...form.getInputProps("drawn_balls")}
+					/>
+					<TextInput
+						label="Öncüller"
+						withAsterisk
+						{...form.getInputProps("prior")}
+					/>
+
+					<Button
+						style={{
+							marginTop: "6ch",
+							marginInline: "auto",
+							display: "block",
+						}}
+						type="submit"
+					>
+						Oluştur
+					</Button>
+				</Box>
+			</Modal>
+			<Center>
+				<Button
+					style={{ marginBottom: "6ch" }}
+					variant="outline"
+					onClick={() => sessionOpen()}
+				>
+					Yeni Oturum Ekle
+				</Button>
+			</Center>
 			<Center>
 				<Button
 					style={{ marginBottom: "6ch" }}
@@ -147,25 +311,7 @@ export default function Home({
 				withColumnBorders
 				highlightOnHover
 				textSelectionDisabled
-				columns={[
-					{ accessor: "name", title: "Oturum adı" },
-					{
-						accessor: "time",
-						title: "Oturum zamanı",
-						render: (session) => {
-							const d = new Date(session.start_time);
-							d.setHours(d.getHours() + 3);
-							return d.toLocaleString("tr-TR", {
-								year: "numeric",
-								month: "long",
-								day: "numeric",
-								weekday: "long",
-								hour: "2-digit",
-								minute: "2-digit",
-							});
-						},
-					},
-				]}
+				columns={[{ accessor: "name", title: "Oturum adı" }]}
 				records={data}
 				selectedRecords={selectedSessions}
 				onSelectedRecordsChange={setSelectedSessions}

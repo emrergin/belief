@@ -127,4 +127,5 @@
 	padding: 1ch 5ch;
 	display: flex;
 	gap: 3ch;
+	z-index: 300;
 }

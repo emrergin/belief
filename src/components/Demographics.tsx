@@ -22,8 +22,15 @@ interface DemographicData {
 	diff: number | null;
 	sure: number | null;
 }
+import { Phase } from "@/utilities/types";
 
-function Demographics({ participantId }: { participantId: string }) {
+function Demographics({
+	participantId,
+	phaseFunction,
+}: {
+	participantId: string;
+	phaseFunction: (p: Phase) => void;
+}) {
 	async function sendData(data: DemographicData) {
 		const castedData = {
 			...data,
@@ -38,6 +45,7 @@ function Demographics({ participantId }: { participantId: string }) {
 			method: "PUT",
 			body: JSON.stringify(castedData),
 		});
+		phaseFunction(Phase.End);
 	}
 
 	const form = useForm({

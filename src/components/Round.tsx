@@ -104,7 +104,7 @@ function Round({
 		setPoint(calculatePointsForRound() + point);
 		pointFunction(calculatePointsForRound() + point);
 
-		if (currentRound < numberOfRounds) {
+		if (currentRound < numberOfRounds - 1) {
 			const newBag =
 				Math.random() < priors[0] / (priors[0] + priors[1])
 					? "blue"
@@ -119,7 +119,7 @@ function Round({
 			setRedRatio(50);
 			time.current = new Date();
 		} else {
-			phaseFunction(Phase.End);
+			phaseFunction(Phase.Demographics);
 			pointFunction(point);
 		}
 	}

@@ -20,12 +20,14 @@ function Intro2({
 	bBlue,
 	priors,
 	treatment,
+	numberOfRounds,
 	phaseFunction,
 }: {
 	aBlue: number;
 	bBlue: number;
 	priors: [number, number];
 	treatment: string;
+	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {
 	const [sliderValue, setSliderValue] = useState(50);
@@ -77,8 +79,8 @@ function Intro2({
 				<Carousel.Slide className={customStyles.embla__slide}>
 					<List className={customStyles.entryText}>
 						<List.Item>
-							<b>Turlar:</b> Deneyimiz otuz &quot;tur&quot;dan
-							oluşuyor.
+							<b>Turlar:</b> Deneyimiz {numberOfRounds}{" "}
+							&quot;tur&quot;dan oluşuyor.
 						</List.Item>
 						<List.Item>
 							<b>Hangi Torbanın Kullanıldığını Tahmin Etme:</b>{" "}

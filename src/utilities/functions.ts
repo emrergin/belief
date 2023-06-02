@@ -48,3 +48,19 @@ export function getDiceText(prior: [number, number]): [String, String] {
 		formatter.format(allDice.slice(prior[1])),
 	];
 }
+
+export function getDateText() {
+	function roundToHour(date: Date) {
+		const p = 60 * 60 * 1000; // milliseconds in an hour
+		return new Date(Math.ceil(date.getTime() / p) * p);
+	}
+
+	return (
+		roundToHour(new Date()).toLocaleString("tr-TR", {
+			month: "long",
+			day: "numeric",
+			hour: "2-digit",
+			timeZone: "Africa/Nairobi",
+		}) + ":00"
+	);
+}

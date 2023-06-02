@@ -35,8 +35,13 @@ const defaultSession: Omit<Session, "id"> = {
 export const getServerSideProps: GetServerSideProps<{
 	data: SessionType;
 }> = async () => {
-	let sessionData = await prisma.session.findFirst();
+	let sessionData = (
+		await prisma.session.findMany({
+			take: -1,
+		})
+	)[0];
 
+	console.log(sessionData);
 	if (sessionData === null) {
 		sessionData = await prisma.session.create({
 			data: { ...defaultSession },

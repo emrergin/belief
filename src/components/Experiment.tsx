@@ -1,5 +1,5 @@
 import styles from "@/styles/Home.module.css";
-import cStyles from "@/styles/Custom.module.css";
+// import cStyles from "@/styles/Custom.module.css";
 
 import Intro from "@/components/Intro";
 import Intro2 from "@/components/Intro2";
@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Round from "@/components/Round";
 import Demographics from "@/components/Demographics";
+import Gps from "@/components/Gps";
 
 import { Phase } from "@/utilities/types";
 
@@ -36,6 +37,7 @@ function Experiment({ data }: { data: SessionType }) {
 		});
 		setParticipant(await respond.json());
 		setPhase(Phase.Intro2);
+		// setPhase(Phase.Gps)
 	}
 
 	useEffect(() => {
@@ -44,7 +46,7 @@ function Experiment({ data }: { data: SessionType }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const [phase, setPhase] = useState("INTRO");
+	const [phase, setPhase] = useState("GPS");
 	// const [phase, setPhase] = useState("MAIN");
 	const randomizedDraws = useRef(data.drawn_balls);
 	const [points, setPoints] = useState(0);
@@ -62,6 +64,7 @@ function Experiment({ data }: { data: SessionType }) {
 					priors={data.prior as [number, number]}
 					treatment={data.treatment}
 					phaseFunction={setPhase}
+					numberOfRounds={data.drawn_balls.length}
 				/>
 			)}
 			{phase === "MAIN" && (
@@ -83,12 +86,20 @@ function Experiment({ data }: { data: SessionType }) {
 					participantId={
 						"id" in participant ? participant.id : "no-id-given"
 					}
+					phaseFunction={setPhase}
 				/>
 			)}
+			{phase === "GPS" && <Gps phaseFunction={setPhase} />}
 			{phase === "END" && (
-				<div>Deney Bitti. Kazandığınız toplam puan: {points}</div>
+				<div>
+					<div>Deney Bitti. Kazandığınız toplam puan: {points} </div>
+					<div>
+						Kazandığınız toplam para:{" "}
+						{20 + Math.round(points / 1000)} TL
+					</div>
+				</div>
 			)}
-			<Footer />
+			{phase !== "MAIN" && <Footer />}
 		</main>
 	);
 }

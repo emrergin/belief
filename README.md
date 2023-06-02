@@ -11,6 +11,7 @@ Joint project with [Mehmet Yiğit Gürdal](https://econ.boun.edu.tr/mehmet-yigit
 - **Prisma** as the ORM for migrations and database access.
 - **PostgreSQL** as the database.
 - **TypeScript** as the programming language.
+- **Mantine** as the UI library.
 
 ## Details
 
@@ -31,3 +32,4 @@ Some introductory readings for the concepts.
 - This is the first time I am using Prisma, and also PostgreSQL.
 - For autoanimate to work as expected, the parent element needs to have a specified width.
 - My first use case of ``Intl.ListFormat``.
+- I learned that `new Date()` is not safe to use with Next.js outside of a useEffect call.

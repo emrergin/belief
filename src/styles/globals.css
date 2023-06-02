@@ -74,7 +74,6 @@ a {
 
 .mantine-RadioGroup-root.likert .mantine-Radio-body {
 	flex-direction: column;
-	/* max-width: 30px; */
 	justify-content: center;
 }
 
@@ -84,17 +83,66 @@ a {
 	width: 35px;
 }
 
-.mantine-Radio-inner {
+.mantine-RadioGroup-root.likert {
+	position: relative;
+}
+
+.mantine-RadioGroup-root.likert .mantine-Radio-inner {
 	margin-inline: auto;
 }
 
-.likert:before {
+.mantine-RadioGroup-root.likert .mantine-Group-root:before {
 	content: "";
-	position: relative;
-	top: 45px;
+	position: absolute;
+	top: 44px;
 	left: 10px;
 	display: block;
 	background-color: #efefef;
 	height: 4px;
-	width: 495px;
+	width: 500px;
+}
+
+/* GPS */
+.likertDiv {
+	display: flex;
+	position: relative;
+	height: 120px;
+}
+
+.likertDiv .mantine-Radio-body {
+	flex-direction: column;
+	justify-content: center;
+	width: 50px;
+	align-items: center;
+}
+
+.likertDiv .mantine-Radio-inner {
+	margin-inline: auto;
+}
+
+.likertDiv .mantine-Radio-labelWrapper {
+	position: relative;
+}
+.likertDiv label {
+	position: absolute;
+	width: 80px;
+	padding-left: 0px;
+	left: -40px;
+	text-align: center;
+}
+
+.likertDiv:after {
+	content: "";
+	position: absolute;
+	top: 6px;
+	left: 20px;
+	display: block;
+	background-color: #efefef;
+	height: 4px;
+	width: 500px;
+	z-index: -1;
+}
+
+.shortLikert {
+	height: 90px;
 }
