@@ -1,24 +1,87 @@
-import { Button, Container, Radio, Group } from "@mantine/core";
+import {
+	Button,
+	Container,
+	Radio,
+	Group,
+	Center,
+	Divider,
+} from "@mantine/core";
+import { useRef, useState } from "react";
+import customStyles from "@/styles/Custom.module.css";
 
 const inflationMultiplier = 10;
 const stair1SureOutcome = 200;
-const currentSure = 5;
 
 function StairRisk({ setSubphase }: { setSubphase: (p: string) => void }) {
+	const radioRefA = useRef<HTMLInputElement>(null);
+	const radioRefB = useRef<HTMLInputElement>(null);
+	const stairStepRef = useRef<HTMLParagraphElement>(null);
+	const stairSelections = useRef<number[]>([]);
+
+	const stairStartingValue = 80;
+	const [buttonDisabled, setButtonDisabled] = useState(false);
+	const [currentSure, setCurrentSure] = useState(stairStartingValue);
+
+	function nextQuestion() {
+		if (radioRefA.current !== null && radioRefB.current !== null) {
+			let nextValue = -23;
+			if (radioRefA.current.checked || radioRefB.current.checked) {
+				if (radioRefA.current.checked) {
+					stairSelections.current.push(
+						Number(radioRefA.current.value)
+					);
+					nextValue =
+						currentSure +
+						(1 / 2 ** stairSelections.current.length) *
+							stairStartingValue;
+				}
+				if (radioRefB.current.checked) {
+					stairSelections.current.push(
+						Number(radioRefB.current.value)
+					);
+					nextValue =
+						currentSure -
+						(1 / 2 ** stairSelections.current.length) *
+							stairStartingValue;
+				}
+				setButtonDisabled(true);
+				if (stairStepRef.current !== null) {
+					stairStepRef.current.style.opacity = "0";
+				}
+				setTimeout(() => {
+					if (stairStepRef.current !== null) {
+						stairStepRef.current.style.opacity = "1";
+					}
+					setCurrentSure(nextValue);
+					setButtonDisabled(false);
+				}, 750);
+			} else {
+				radioRefA.current.reportValidity();
+			}
+		}
+		console.log(stairSelections.current);
+		if (stairSelections.current.length < 5) {
+			return false;
+		}
+		setSubphase("describe");
+	}
 	return (
 		<Container>
 			<div>
-				<p>Lütfen aşağıdaki durumu hayal edin: </p>
+				<Center>Lütfen aşağıdaki durumu hayal edin: </Center>
 				<p>
-					{150 * inflationMultiplier} TL kazanma ve hiçbir şey
-					kazanamama arasında eşit şansa sahip olacağınız bir çekiliş
-					yahut belirli bir miktar kesin ödeme arasında seçim
-					yapabilirsiniz. Size böyle beş farklı durum sunacağız.
+					{stair1SureOutcome * inflationMultiplier} TL kazanma ve
+					hiçbir şey kazanamama arasında eşit şansa sahip olacağınız
+					bir çekiliş yahut belirli bir miktar kesin ödeme arasında
+					seçim yapabilirsiniz. Size böyle beş farklı durum sunacağız.
 				</p>
 			</div>
+			<Divider my="sm" />
 			<div>
-				<p>Hangisini tercih ederdiniz:</p>
-				<p id="stairStep">
+				<Center style={{ marginBottom: "3ch" }}>
+					Hangisini tercih ederdiniz:
+				</Center>
+				<p ref={stairStepRef} className={customStyles.stairStep}>
 					%50 şansla{" "}
 					<strong>
 						{inflationMultiplier * stair1SureOutcome} TL
@@ -28,28 +91,35 @@ function StairRisk({ setSubphase }: { setSubphase: (p: string) => void }) {
 					<strong>{currentSure * inflationMultiplier} TL</strong>’lik
 					kesin bir nakit para ödemesini mi?{" "}
 				</p>
-				{/* <input type="radio" id="stairRiskA" name="stairRisk" v-model="currentStairValue" value="1" required/>
-				<label htmlFor="stairRiskA"> 50/50 çekiliş</label>
-				<input type="radio" id="stairRiskB" name="stairRisk" v-model="currentStairValue" value="0"/>
-				<label htmlFor="stairRiskB"> Kesin ödeme</label> */}
-
-				<Radio.Group
-					name="stairRisk"
-					// label="Cinsiyetiniz:"
-					// {...form.getInputProps("sex")}
-					withAsterisk
-				>
-					<Group mt="xs">
-						<Radio value="1" label="50/50 çekiliş" />
-						<Radio value="0" label=" Kesin ödeme" />
-					</Group>
-				</Radio.Group>
+				<Center>
+					<Radio.Group
+						name="stairRisk"
+						label="Seçiminiz:"
+						// {...form.getInputProps("sex")}
+						withAsterisk
+					>
+						<Group mt="xs">
+							<Radio
+								value="1"
+								label="50/50 çekiliş"
+								ref={radioRefA}
+								required
+							/>
+							<Radio
+								value="0"
+								label="Kesin ödeme"
+								ref={radioRefB}
+							/>
+						</Group>
+					</Radio.Group>
+				</Center>
 			</div>
 			<Button
-				onClick={() => setSubphase("gift")}
+				disabled={buttonDisabled}
+				onClick={() => nextQuestion()}
 				size="md"
 				style={{
-					marginTop: "13ch",
+					marginTop: "9ch",
 					display: "block",
 					margin: "auto",
 				}}
