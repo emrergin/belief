@@ -46,8 +46,8 @@ function Experiment({ data }: { data: SessionType }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const [phase, setPhase] = useState("GPS");
-	// const [phase, setPhase] = useState("MAIN");
+	// const [phase, setPhase] = useState("GPS");
+	const [phase, setPhase] = useState("MAIN");
 	const randomizedDraws = useRef(data.drawn_balls);
 	const [points, setPoints] = useState(0);
 
@@ -89,7 +89,9 @@ function Experiment({ data }: { data: SessionType }) {
 					phaseFunction={setPhase}
 				/>
 			)}
-			{phase === "GPS" && <Gps phaseFunction={setPhase} />}
+			{phase === "GPS" && <Gps participantId={
+						"id" in participant ? participant.id : "no-id-given"
+					}phaseFunction={setPhase} />}
 			{phase === "END" && (
 				<div>
 					<div>Deney Bitti. Kazandığınız toplam puan: {points} </div>

@@ -45,7 +45,7 @@ function Demographics({
 			method: "PUT",
 			body: JSON.stringify(castedData),
 		});
-		phaseFunction(Phase.End);
+		phaseFunction(Phase.Gps);
 	}
 
 	const form = useForm({

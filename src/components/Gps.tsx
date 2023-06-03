@@ -38,7 +38,7 @@ export interface GpsData {
 	gps_stair_patience: number;
 }
 
-function Gps({ phaseFunction }: { phaseFunction: (p: Phase) => void }) {
+function Gps({ participantId, phaseFunction }: {participantId:string, phaseFunction: (p: Phase) => void }) {
 	// const [question, setQuestion] = useState("stairpatience");
 	const [question, setQuestion] = useState("generalrisk");
 	const gpsDataRef = useRef<Partial<GpsData>>({});
@@ -67,8 +67,13 @@ function Gps({ phaseFunction }: { phaseFunction: (p: Phase) => void }) {
 		}
 	}
 
-	function sendData() {
+	async function sendData() {
 		console.log("Final Data: ", gpsDataRef.current);
+		await fetch(`./api/participant/${participantId}`, {
+			method: "PUT",
+			body: JSON.stringify(gpsDataRef.current),
+		});
+		phaseFunction(Phase.End);
 	}
 
 	return (
