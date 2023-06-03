@@ -5,7 +5,8 @@ phaseName.set("INTRO", "Giriş");
 phaseName.set("INTRO2", "Giriş");
 phaseName.set("MAIN", "Giriş");
 phaseName.set("END", "Sonuç");
-phaseName.set("DEMO", "Anket");
+phaseName.set("DEMO", "Anket-1");
+phaseName.set("GPS", "Anket-2");
 
 function TopBar({ phase, points }: { phase: string; points: number }) {
 	return (

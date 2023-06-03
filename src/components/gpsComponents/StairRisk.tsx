@@ -9,11 +9,19 @@ import {
 import { useRef, useState } from "react";
 import customStyles from "@/styles/Custom.module.css";
 import type { GpsData } from "../Gps";
+import { inflationMultiplier } from "@/utilities/constants";
 
-const inflationMultiplier = 10;
 const stair1SureOutcome = 150;
 
-function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean, p: string) => void  }) {
+function StairRisk({
+	setSubphase,
+}: {
+	setSubphase: (
+		subsetOfGps: Partial<GpsData>,
+		lastSubphase: boolean,
+		p: string
+	) => void;
+}) {
 	const radioRefA = useRef<HTMLInputElement>(null);
 	const radioRefB = useRef<HTMLInputElement>(null);
 	const stairStepRef = useRef<HTMLParagraphElement>(null);
@@ -25,7 +33,7 @@ function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData
 
 	function nextQuestion() {
 		if (radioRefA.current !== null && radioRefB.current !== null) {
-			let nextValue = -23;
+			let nextValue: number;
 			if (radioRefA.current.checked || radioRefB.current.checked) {
 				if (radioRefA.current.checked) {
 					stairSelections.current.push(
@@ -60,7 +68,6 @@ function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData
 				radioRefA.current.reportValidity();
 			}
 		}
-		console.log(stairSelections.current);
 		if (stairSelections.current.length < 5) {
 			return false;
 		}
@@ -68,7 +75,7 @@ function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData
 			(prev, curr, index) => prev + curr * (16 / 2 ** index),
 			1
 		);
-		setSubphase({}, false,"gift");
+		setSubphase({ gps_stair_risk: finalResult }, false, "gift");
 	}
 	return (
 		<Container>
@@ -100,7 +107,6 @@ function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData
 					<Radio.Group
 						name="stairRisk"
 						label="Seçiminiz:"
-						// {...form.getInputProps("sex")}
 						withAsterisk
 					>
 						<Group mt="xs">
@@ -119,12 +125,12 @@ function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData
 					</Radio.Group>
 				</Center>
 			</div>
+			<Divider my="sm" />
 			<Button
 				disabled={buttonDisabled}
 				onClick={() => nextQuestion()}
 				size="md"
 				style={{
-					marginTop: "9ch",
 					display: "block",
 					margin: "auto",
 				}}

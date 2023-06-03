@@ -1,9 +1,20 @@
 import { Button, Container, Radio, Divider } from "@mantine/core";
 import type { GpsData } from "../Gps";
+import { useState } from "react";
 
 function WillingnessToAct({
 	setSubphase,
-}: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean, p: string) => void  }) {
+}: {
+	setSubphase: (
+		subsetOfGps: Partial<GpsData>,
+		lastSubphase: boolean,
+		p: string
+	) => void;
+}) {
+	const [value1, setValue1] = useState<string | undefined>(undefined);
+	const [value2, setValue2] = useState<string | undefined>(undefined);
+	const [value3, setValue3] = useState<string | undefined>(undefined);
+	const [value4, setValue4] = useState<string | undefined>(undefined);
 	return (
 		<Container>
 			<p>
@@ -21,14 +32,17 @@ function WillingnessToAct({
 
 			<Divider my="sm" />
 			<Radio.Group
-				name="risk_willingness"
+				name="gps_future_benefit"
 				label="Gelecekte daha fazla faydasını görebilmek adına bugün sizin için faydalı olan bir şeyden vazgeçmeye ne kadar isteklisiniz?"
 				withAsterisk
+				value={value1}
+				onChange={setValue1}
 			>
 				<div className="likertDiv shortLikert">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
+						required
 					/>
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
@@ -44,14 +58,17 @@ function WillingnessToAct({
 			</Radio.Group>
 			<Divider my="sm" />
 			<Radio.Group
-				name="risk_willingness"
+				name="gps_punish_self"
 				label="Size maliyetleri olsa bile, size karşı haksız davranışları cezalandırmaya ne kadar isteklisiniz?"
 				withAsterisk
+				value={value2}
+				onChange={setValue2}
 			>
 				<div className="likertDiv shortLikert">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
+						required
 					/>
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
@@ -67,14 +84,17 @@ function WillingnessToAct({
 			</Radio.Group>
 			<Divider my="sm" />
 			<Radio.Group
-				name="risk_willingness"
+				name="gps_punish_other"
 				label="Size maliyetleri olsa bile, başkalarına haksızlık yapan birini cezalandırmaya ne kadar isteklisiniz?"
 				withAsterisk
+				value={value3}
+				onChange={setValue3}
 			>
 				<div className="likertDiv shortLikert">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
+						required
 					/>
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
@@ -90,14 +110,17 @@ function WillingnessToAct({
 			</Radio.Group>
 			<Divider my="sm" />
 			<Radio.Group
-				name="risk_willingness"
+				name="gps_charity"
 				label="Karşılığında hiçbir geri dönüş beklemeden hayır işlerine bir şeyler vermeye ne kadar isteklisiniz?"
 				withAsterisk
+				value={value4}
+				onChange={setValue4}
 			>
 				<div className="likertDiv shortLikert">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
+						required
 					/>
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
@@ -112,7 +135,18 @@ function WillingnessToAct({
 				</div>
 			</Radio.Group>
 			<Button
-				onClick={() => setSubphase({},false,"describe")}
+				onClick={() =>
+					setSubphase(
+						{
+							gps_future_benefit: Number(value1),
+							gps_punish_self: Number(value2),
+							gps_punish_other: Number(value3),
+							gps_charity: Number(value4),
+						},
+						false,
+						"describe"
+					)
+				}
 				size="md"
 				style={{
 					marginTop: "13ch",
