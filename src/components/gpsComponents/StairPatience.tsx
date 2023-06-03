@@ -1,5 +1,5 @@
-import { Phase } from "@/utilities/types";
 import { Button } from "@mantine/core";
+import type { GpsData } from "../Gps";
 
 const stairPatienceMap = new Map();
 stairPatienceMap.set(62, [50, 74]);
@@ -18,12 +18,12 @@ stairPatienceMap.set(71, [69, 72]);
 stairPatienceMap.set(77, [76, 79]);
 stairPatienceMap.set(84, [82, 86]);
 
-function StairPatience({ setSubphase }: { setSubphase: (p: Phase) => void }) {
+function StairPatience({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean) => void  }) {
 	return (
 		<div>
 			<p>stairpatience</p>
 			<Button
-				onClick={() => setSubphase(Phase.End)}
+				onClick={() => setSubphase({},true)}
 				size="md"
 				style={{
 					marginTop: "13ch",

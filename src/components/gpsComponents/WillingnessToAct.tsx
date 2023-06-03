@@ -1,10 +1,9 @@
 import { Button, Container, Radio, Divider } from "@mantine/core";
+import type { GpsData } from "../Gps";
 
 function WillingnessToAct({
 	setSubphase,
-}: {
-	setSubphase: (p: string) => void;
-}) {
+}: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean, p: string) => void  }) {
 	return (
 		<Container>
 			<p>
@@ -113,7 +112,7 @@ function WillingnessToAct({
 				</div>
 			</Radio.Group>
 			<Button
-				onClick={() => setSubphase("describe")}
+				onClick={() => setSubphase({},false,"describe")}
 				size="md"
 				style={{
 					marginTop: "13ch",

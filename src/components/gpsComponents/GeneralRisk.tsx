@@ -1,6 +1,7 @@
 import { Radio, Button, Divider, Container } from "@mantine/core";
+import type { GpsData } from "../Gps";
 
-function GeneralRisk({ setSubphase }: { setSubphase: (p: string) => void }) {
+function GeneralRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean, p: string) => void }) {
 	return (
 		<Container>
 			<h4>
@@ -32,7 +33,7 @@ function GeneralRisk({ setSubphase }: { setSubphase: (p: string) => void }) {
 				</div>
 			</Radio.Group>
 			<Button
-				onClick={() => setSubphase("willingnesstoact")}
+				onClick={() => setSubphase({},false,"willingnesstoact")}
 				size="md"
 				style={{
 					marginTop: "13ch",

@@ -8,11 +8,12 @@ import {
 } from "@mantine/core";
 import { useRef, useState } from "react";
 import customStyles from "@/styles/Custom.module.css";
+import type { GpsData } from "../Gps";
 
 const inflationMultiplier = 10;
-const stair1SureOutcome = 200;
+const stair1SureOutcome = 150;
 
-function StairRisk({ setSubphase }: { setSubphase: (p: string) => void }) {
+function StairRisk({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean, p: string) => void  }) {
 	const radioRefA = useRef<HTMLInputElement>(null);
 	const radioRefB = useRef<HTMLInputElement>(null);
 	const stairStepRef = useRef<HTMLParagraphElement>(null);
@@ -63,7 +64,11 @@ function StairRisk({ setSubphase }: { setSubphase: (p: string) => void }) {
 		if (stairSelections.current.length < 5) {
 			return false;
 		}
-		setSubphase("describe");
+		const finalResult = stairSelections.current.reduce(
+			(prev, curr, index) => prev + curr * (16 / 2 ** index),
+			1
+		);
+		setSubphase({}, false,"gift");
 	}
 	return (
 		<Container>

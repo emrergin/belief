@@ -1,6 +1,7 @@
 import { Button, Container, Radio, Divider } from "@mantine/core";
+import type { GpsData } from "../Gps";
 
-function Describe({ setSubphase }: { setSubphase: (p: string) => void }) {
+function Describe({ setSubphase }: { setSubphase: (subsetOfGps: Partial<GpsData>, lastSubphase: boolean, p: string) => void  }) {
 	return (
 		<Container>
 			<p>Aşağıdaki ifadelerden her biri sizi ne kadar iyi tanımlar?</p>
@@ -127,7 +128,7 @@ function Describe({ setSubphase }: { setSubphase: (p: string) => void }) {
 				</div>
 			</Radio.Group>
 			<Button
-				onClick={() => setSubphase("stairrisk")}
+				onClick={() => setSubphase({}, false, "stairrisk")}
 				size="md"
 				style={{
 					marginTop: "13ch",

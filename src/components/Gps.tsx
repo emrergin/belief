@@ -1,5 +1,5 @@
 import { Phase } from "@/utilities/types";
-import { useState } from "react";
+import { useState,useRef } from "react";
 
 import GeneralRisk from "@/components/gpsComponents/GeneralRisk";
 import WillingnessToAct from "@/components/gpsComponents/WillingnessToAct";
@@ -9,36 +9,73 @@ import Gift from "@/components/gpsComponents/Gift";
 import HypoDonation from "@/components/gpsComponents/HypoDonation";
 import StairPatience from "@/components/gpsComponents/StairPatience";
 
-const questionList = [
-	`generalrisk`,
-	`willingnesstoact`,
-	`describe`,
-	`stairrisk`,
-	`gift`,
-	`hypodonation`,
-	`stairpatience`,
-];
+// const questionList = [
+// 	`generalrisk`,
+// 	`willingnesstoact`,
+// 	`describe`,
+// 	`stairrisk`,
+// 	`gift`,
+// 	`hypodonation`,
+// 	`stairpatience`,
+// ];
+
+export interface GpsData {
+	gps_risk_willingness: number;
+	gps_future_benefit: number;
+	gps_punish_self:  number;
+	gps_punish_other:  number;
+	gps_charity: number;
+	gps_d1: number;
+	gps_d2: number;
+	gps_d3: number;
+	gps_d4: number;
+	gps_d5: number;
+	diff: number;
+	sure: number
+	gps_stair_risk : number
+	gps_gift : number
+	gps_donation : number
+	gps_stair_patience : number
+}
 
 function Gps({ phaseFunction }: { phaseFunction: (p: Phase) => void }) {
 	const [question, setQuestion] = useState("generalrisk");
+	const gpsDataRef =  useRef<Partial<GpsData>>({});
+
+	function updateGpsData(newData:Partial<GpsData>,lastSubphase:boolean,nextSubphase?:string){
+		gpsDataRef.current = {...gpsDataRef.current, ...newData};
+		console.log(gpsDataRef.current);
+
+		if(lastSubphase){
+			sendData();
+			phaseFunction(Phase.End)
+		}else if(nextSubphase!==undefined){
+			setQuestion(nextSubphase);
+		}
+	}
+
+	function sendData(){
+		console.log("Final Data: ",gpsDataRef.current);
+	}
+
 	return (
 		<div>
 			{question === "generalrisk" && (
-				<GeneralRisk setSubphase={setQuestion} />
+				<GeneralRisk setSubphase={updateGpsData} />
 			)}
 			{question === "willingnesstoact" && (
-				<WillingnessToAct setSubphase={setQuestion} />
+				<WillingnessToAct setSubphase={updateGpsData} />
 			)}
-			{question === "describe" && <Describe setSubphase={setQuestion} />}
+			{question === "describe" && <Describe setSubphase={updateGpsData} />}
 			{question === "stairrisk" && (
-				<StairRisk setSubphase={setQuestion} />
+				<StairRisk setSubphase={updateGpsData} />
 			)}
-			{question === "gift" && <Gift setSubphase={setQuestion} />}
+			{question === "gift" && <Gift setSubphase={updateGpsData} />}
 			{question === "hypodonation" && (
-				<HypoDonation setSubphase={setQuestion} />
+				<HypoDonation setSubphase={updateGpsData} />
 			)}
 			{question === "stairpatience" && (
-				<StairPatience setSubphase={phaseFunction} />
+				<StairPatience setSubphase={updateGpsData} />
 			)}
 		</div>
 	);
