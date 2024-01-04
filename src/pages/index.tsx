@@ -1,17 +1,12 @@
-// import Head from "next/head";
-
-// import { reducer, StateProvider } from "../state";
 import Experiment from "@/components/Experiment";
 
 import { InferGetServerSidePropsType } from "next";
 import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
-
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-	// console.log(data)
 	return <Experiment data={data} />;
 }
 
@@ -20,7 +15,6 @@ export interface SessionType extends Omit<Session, "prior"> {
 }
 
 const defaultSession: Omit<Session, "id"> = {
-	// id: 'placeholderSession',
 	start_time: new Date(),
 	end_time: null,
 	name: "alpha_1",
@@ -35,22 +29,20 @@ const defaultSession: Omit<Session, "id"> = {
 export const getServerSideProps: GetServerSideProps<{
 	data: SessionType;
 }> = async () => {
-	let sessionData = (
-		await prisma.session.findMany({
-			take: -1,
-		})
-	)[0];
+	let sessionData = await prisma.session.findFirst({
+		orderBy: {
+			start_time: "desc",
+		},
+	});
 
-	console.log(sessionData);
 	if (sessionData === null) {
 		sessionData = await prisma.session.create({
 			data: { ...defaultSession },
 		});
 	}
-	sessionData.start_time = JSON.parse(
-		JSON.stringify(sessionData?.start_time)
-	);
+	sessionData.start_time = JSON.parse(JSON.stringify(sessionData?.start_time));
 	sessionData.end_time = JSON.parse(JSON.stringify(sessionData?.end_time));
+	sessionData.drawn_balls = shuffle(sessionData.drawn_balls);
 
 	return {
 		props: {
@@ -58,3 +50,12 @@ export const getServerSideProps: GetServerSideProps<{
 		},
 	};
 };
+
+function shuffle(array: number[]) {
+	let resArray = array;
+	for (let i = resArray.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1));
+		[resArray[i], resArray[j]] = [resArray[j], resArray[i]];
+	}
+	return resArray;
+}

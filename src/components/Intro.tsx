@@ -3,13 +3,7 @@ import { SetStateAction, useState } from "react";
 
 import { Button, TextInput, List } from "@mantine/core";
 
-function Intro({
-	// phaseFunction,
-	nameFunction,
-}: {
-	// phaseFunction: (a: Phase) => void;
-	nameFunction: (a: string) => void;
-}) {
+function Intro({ nameFunction }: { nameFunction: (a: string) => void }) {
 	const [name, setName] = useState("");
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) => {
@@ -18,30 +12,33 @@ function Intro({
 
 	async function assignName() {
 		nameFunction(name);
+		let elem = document.querySelector("html");
+
+		if (elem) {
+			elem.requestFullscreen();
+		}
 	}
 
 	return (
 		<div className={customStyles.mainWrapper}>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					Hoş geldiniz. Bu deneyde sizden bazı olasılıkları
-					değerlendirmenizi isteyeceğiz.
+					Hoş geldiniz. Bu deneyde sizden bazı olasılıkları değerlendirmenizi
+					isteyeceğiz.
 				</List.Item>
 				<List.Item>
-					Oyunlarda kazancınızı &quot;puan&quot; cinsinden
-					hesaplayacağız. Toplam puanınızın parasal değerini ve ek
-					olarak 20 TL katılım ücretini size deney sonunda nakit
-					olarak ödeyeceğiz. 1000 puan = 1 TL olarak hesaplanır.
+					Kazancınız &quot;puan&quot; cinsinden hesaplanacak ve deney sonunda
+					nakit olarak ödenecek. Her 1000 puan, 1 TL’ye eşittir. Bu ödemenin
+					yanında ayrıca 30 TL’lik bir katılım ücretini size ödeyeceğiz.
 				</List.Item>
 				<List.Item>
-					Oyunları tamamladıktan sonra size dair bazı demografik
-					bilgileri sorduğumuz bir anket olacak.
+					Oyunları tamamladıktan sonra size dair bazı demografik bilgileri
+					sorduğumuz bir anket olacak.
 				</List.Item>
 				<List.Item>
-					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı
-					değiştirmeniz ve yenilemeniz gibi durumlarda da deneyden
-					erken ayrılmış sayılacaksınız. Erken ayrılmanız durumunda
-					yalnızca katılım ücreti ödenir.
+					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı değiştirmeniz ve
+					yenilemeniz gibi durumlarda da deneyden erken ayrılmış sayılacaksınız.
+					Erken ayrılmanız durumunda yalnızca katılım ücreti ödenir.
 				</List.Item>
 			</List>
 			<div className={customStyles.nameEntry}>

@@ -47,17 +47,13 @@ function StairPatience({
 			let nextValue: number;
 			if (radioRefA.current.checked || radioRefB.current.checked) {
 				if (radioRefA.current.checked) {
-					stairSelections.current.push(
-						Number(radioRefA.current.value)
-					);
+					stairSelections.current.push(Number(radioRefA.current.value));
 					if (stairPatienceMap.get(valueNow)) {
 						nextValue = stairPatienceMap.get(valueNow)[1];
 					}
 				}
 				if (radioRefB.current.checked) {
-					stairSelections.current.push(
-						Number(radioRefB.current.value)
-					);
+					stairSelections.current.push(Number(radioRefB.current.value));
 					if (stairPatienceMap.get(valueNow)) {
 						nextValue = stairPatienceMap.get(valueNow)[0];
 					}
@@ -84,24 +80,25 @@ function StairPatience({
 			33 -
 			stairSelections.current.reduce(
 				(prev, curr, index) => prev + curr * (16 / 2 ** index),
-				1
+				1,
 			);
 		setSubphase({ gps_stair_patience: finalResult }, true);
 	}
 	return (
-		<Container>
+		<Container style={{ marginTop: "3rem" }}>
 			<div>
 				<p>
-					Size bugün bir ödeme alma veya 12 ay sonra bir ödeme alma
-					arasında seçim hakkı verildiğini varsayın. Şimdi size beş
-					durum sunacağız. Bugünkü ödeme miktarı, bu beş durumun her
-					birinde aynıdır. 12 ay sonra ödenecek miktar ise her durumda
-					farklıdır.
+					Size bugün bir ödeme alma veya 12 ay sonra bir ödeme alma arasında
+					seçim hakkı verildiğini varsayın. Şimdi size beş durum sunacağız.
+					Bugünkü ödeme miktarı, bu beş durumun her birinde aynıdır. 12 ay sonra
+					ödenecek miktar ise her durumda farklıdır.
 				</p>
 				<p>
-					Bu durumların her biri için hangisini seçeceğinizi bilmek
-					istiyoruz. Enflasyon olmadığını varsayın, yani gelecekteki
-					fiyatlar bugünkü fiyatlar ile aynıdır.
+					Bu durumların her biri için hangisini seçeceğinizi bilmek istiyoruz.{" "}
+					<b>
+						Enflasyon olmadığını varsayın, yani gelecekteki fiyatlar bugünkü
+						fiyatlar ile aynıdır.
+					</b>
 				</p>
 			</div>
 			<Divider my="sm" />
@@ -110,29 +107,20 @@ function StairPatience({
 					Lütfen aşağıdaki durumu değerlendirin:
 				</Center>
 				<p ref={stairStepRef} className={customStyles.stairStep}>
-					Bugün <strong>{40 * inflationMultiplier} TL</strong> almayı
-					mı yoksa 12 ay sonra{" "}
-					<strong>{valueNow * inflationMultiplier} TL</strong> almayı
-					mı tercih edersiniz?
+					Bugün <strong>{40 * inflationMultiplier} TL</strong> almayı mı yoksa
+					12 ay sonra <strong>{valueNow * inflationMultiplier} TL</strong>{" "}
+					almayı mı tercih edersiniz?
 				</p>
 				<Center>
 					<Radio.Group
 						name="stairPatience"
 						label="Seçiminiz:"
 						withAsterisk
+						key={stairSelections.current.length}
 					>
 						<Group mt="xs">
-							<Radio
-								value="1"
-								label="Bugün"
-								ref={radioRefA}
-								required
-							/>
-							<Radio
-								value="0"
-								label="12 ay sonra"
-								ref={radioRefB}
-							/>
+							<Radio value="1" label="Bugün" ref={radioRefA} required />
+							<Radio value="0" label="12 ay sonra" ref={radioRefB} />
 						</Group>
 					</Radio.Group>
 				</Center>

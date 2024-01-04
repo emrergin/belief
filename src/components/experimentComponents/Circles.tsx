@@ -1,130 +1,95 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, Dispatch, SetStateAction } from "react";
 import styles from "@/styles/Circles.module.css";
 import autoAnimate from "@formkit/auto-animate";
+import Circle from "./Circle";
+
+function radiusOfWhiteCircle(type: "red" | "blue", value: number) {
+	if (type === "red") {
+		return (300 - Number(value) * 3) / 2;
+	} else {
+		return (300 - Number(100 - value) * 3) / 2;
+	}
+}
 
 function Circles({
 	value,
 	bsr,
 	showResult,
 	chooseCircle,
+	setCurrentPoints = false,
 	style,
 }: {
 	value: number;
 	bsr: boolean;
 	showResult: boolean;
 	chooseCircle: "blue" | "red";
+	setCurrentPoints?: Dispatch<SetStateAction<number>> | false;
 	style?: React.CSSProperties;
 }) {
 	const parent = useRef(null);
+	const [crossCoordinates, setCrossCoordinates] = useState<{
+		x: number;
+		y: number;
+	} | null>(null);
+
 	const [showBlue, showRed] = [
 		!showResult || chooseCircle === "blue",
 		!showResult || chooseCircle === "red",
 	];
-	// const [show,setShow] = useState([true,true]);
 
 	useEffect(() => {
 		parent.current && autoAnimate(parent.current);
 	}, [parent]);
 
-	function addInvis(target: number) {
-		//this ensures that no clipping remains in the full probabilities.
-		if (value === target) {
-			return ` ${styles.invis}`;
-		} else {
-			return "";
-		}
-	}
+	useEffect(() => {
+		const calculatePointsForRound = (value: number) => {
+			if (bsr) {
+				const distance = chooseARandomPoint();
+				let point =
+					radiusOfWhiteCircle(chooseCircle, value) > distance ? 0 : 10000;
 
-	function addCorrectMark(
-		colorOfThis: "blue" | "red",
-		thresholdForSmallCircle?: number
-	) {
-		if (
-			showResult &&
-			((chooseCircle === colorOfThis &&
-				thresholdForSmallCircle === undefined) ||
-				(chooseCircle === colorOfThis &&
-					value !== thresholdForSmallCircle))
-		) {
-			// if (
-			// 	(chooseCircle === colorOfThis && thresholdForSmallCircle === undefined) ||
-			// 	(chooseCircle === colorOfThis && value !== thresholdForSmallCircle)
-			// ) {
-			// return ` ${styles.correctAnswer}`;
-			return "";
-			// }
-			// else {
-			// 	return ` ${styles.invis}`;
-			// }
-		} else {
-			return "";
+				setCurrentPoints && setCurrentPoints(point);
+			} else {
+				if (chooseCircle === "blue") {
+					setCurrentPoints && setCurrentPoints(10000 - value ** 2);
+				} else {
+					setCurrentPoints && setCurrentPoints(10000 - (100 - value) ** 2);
+				}
+			}
+		};
+		if (showResult) {
+			calculatePointsForRound(value);
 		}
+	}, [bsr, chooseCircle, setCurrentPoints, showResult, value]);
+
+	function chooseARandomPoint() {
+		const angle = Math.random() * Math.PI * 2;
+		const dist = Math.sqrt(Math.random()) * 150;
+		const x = Math.cos(angle) * dist + 150;
+		const y = Math.sin(angle) * dist + 150;
+		setCrossCoordinates({ x, y });
+		return dist;
 	}
 
 	return (
 		<div className={styles.circleHolder} ref={parent} style={style}>
 			{showRed && (
-				<div
-					className={
-						styles.bigCircle +
-						" " +
-						styles.red +
-						" " +
-						styles.circle +
-						" " +
-						addInvis(0)
-						// +
-						// addCorrectMark("red")
-					}
-				>
-					<div
-						className={
-							styles.circle +
-							" " +
-							styles.white +
-							" " +
-							styles.smallCircle
-							// +
-							// addCorrectMark("red", 100)
-						}
-						style={{
-							width: `${300 - Number(value) * 3}px`,
-							height: `${300 - Number(value) * 3}px`,
-						}}
-					></div>
-					<p className={styles.valueBox}>{value ** 2}</p>
-				</div>
+				<Circle
+					value={value}
+					color={"red"}
+					bsr={bsr}
+					crossCoordinates={crossCoordinates}
+					showResult={showResult}
+				/>
 			)}
 			{showBlue && (
-				<div
-					className={
-						styles.bigCircle +
-						" " +
-						styles.blue +
-						" " +
-						styles.circle +
-						addInvis(100)
-						//  +
-						// addCorrectMark("blue")
-					}
-				>
-					<div
-						className={
-							styles.circle +
-							" " +
-							styles.white +
-							" " +
-							styles.smallCircle
-							// +
-							// addCorrectMark("blue", 0)
-						}
-						style={{
-							width: `${value * 3}px`,
-							height: `${value * 3}px`,
-						}}
-					></div>
-					<p className={styles.valueBox}>{(100 - value) ** 2}</p>
-				</div>
+				<Circle
+					value={100 - value}
+					color={"blue"}
+					bsr={bsr}
+					crossCoordinates={crossCoordinates}
+					showResult={showResult}
+				/>
 			)}
 		</div>
 	);

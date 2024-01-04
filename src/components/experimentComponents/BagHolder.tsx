@@ -17,9 +17,8 @@ function BagHolder({
 		<div className={customStyles.bagHolder}>
 			<div>
 				<Text fz="xl">
-					<b className={circleStyles.redText}>Kırmızı Torba:</b>{" "}
-					<b>{aBlue}</b> adet{" "}
-					<b className={circleStyles.blueText}> mavi</b> bilye,{" "}
+					<b className={circleStyles.redText}>Kırmızı Torba:</b> <b>{aBlue}</b>{" "}
+					adet <b className={circleStyles.blueText}> mavi</b> bilye,{" "}
 					<b>{100 - aBlue}</b> adet{" "}
 					<b className={circleStyles.redText}>kırmızı</b> bilye
 				</Text>
@@ -39,9 +38,8 @@ function BagHolder({
 			</div>
 			<div>
 				<Text fz="xl">
-					<b className={circleStyles.blueText}>Mavi Torba:</b>{" "}
-					<b>{bBlue}</b> adet{" "}
-					<b className={circleStyles.blueText}> mavi</b> bilye,{" "}
+					<b className={circleStyles.blueText}>Mavi Torba:</b> <b>{bBlue}</b>{" "}
+					adet <b className={circleStyles.blueText}> mavi</b> bilye,{" "}
 					<b>{100 - bBlue}</b> adet{" "}
 					<b className={circleStyles.redText}>kırmızı</b> bilye
 				</Text>

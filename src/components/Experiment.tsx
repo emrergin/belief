@@ -1,31 +1,19 @@
 import styles from "@/styles/Home.module.css";
-// import cStyles from "@/styles/Custom.module.css";
 
 import Intro from "@/components/Intro";
 import Intro2 from "@/components/Intro2";
 import TopBar from "@/components/TopBar";
 
-import Footer from "./Footer";
-
 import { Participant } from "@prisma/client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import Round from "@/components/Round";
 import Demographics from "@/components/Demographics";
 import Gps from "@/components/Gps";
 
-import { Phase } from "@/utilities/types";
+import { Phase, GpsQuestion } from "@/utilities/types";
 
 import { SessionType } from "@/pages";
-
-function shuffle(array: number[]) {
-	let resArray = array;
-	for (let i = resArray.length - 1; i > 0; i--) {
-		let j = Math.floor(Math.random() * (i + 1));
-		[resArray[i], resArray[j]] = [resArray[j], resArray[i]];
-	}
-	return resArray;
-}
 
 function Experiment({ data }: { data: SessionType }) {
 	const [participant, setParticipant] = useState<Participant | {}>({});
@@ -37,27 +25,25 @@ function Experiment({ data }: { data: SessionType }) {
 		});
 		setParticipant(await respond.json());
 		setPhase(Phase.Intro2);
-		// setPhase(Phase.Gps)
 	}
 
-	useEffect(() => {
-		console.log(data);
-		shuffle(data.drawn_balls);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	// const [phase, setPhase] = useState("GPS");
-	const [phase, setPhase] = useState("MAIN");
+	const [phase, setPhase] = useState<Phase>(Phase.Intro);
 	const randomizedDraws = useRef(data.drawn_balls);
 	const [points, setPoints] = useState(0);
+	const [currentRound, setCurrentRound] = useState(0);
+	const [gpsQuestion, setGpsQuestion] = useState<GpsQuestion>("generalrisk");
 
 	return (
 		<main className={styles.main} style={{ userSelect: "none" }}>
-			<TopBar phase={phase} points={points} />
-			{phase === "INTRO" && (
-				<Intro nameFunction={generateNewParticipant} />
-			)}
-			{phase === "INTRO2" && (
+			<TopBar
+				phase={phase}
+				points={points}
+				currentRound={currentRound}
+				lastRound={data.drawn_balls.length}
+				currentQuestion={gpsQuestion}
+			/>
+			{phase === Phase.Intro && <Intro nameFunction={generateNewParticipant} />}
+			{phase === Phase.Intro2 && (
 				<Intro2
 					aBlue={data.num_of_blue_a}
 					bBlue={data.num_of_blue_b}
@@ -67,7 +53,7 @@ function Experiment({ data }: { data: SessionType }) {
 					numberOfRounds={data.drawn_balls.length}
 				/>
 			)}
-			{phase === "MAIN" && (
+			{phase === Phase.Main && (
 				<Round
 					bsr={data.treatment === "BSR"}
 					arrayOfDraws={randomizedDraws.current}
@@ -76,32 +62,25 @@ function Experiment({ data }: { data: SessionType }) {
 					bBlue={data.num_of_blue_b}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
-					participantId={
-						"id" in participant ? participant.id : "no-id-given"
-					}
+					participantId={"id" in participant ? participant.id : "no-id-given"}
+					currentRound={currentRound}
+					roundFunction={setCurrentRound}
 				/>
 			)}
-			{phase === "DEMO" && (
+			{phase === Phase.Demographics && (
 				<Demographics
-					participantId={
-						"id" in participant ? participant.id : "no-id-given"
-					}
+					participantId={"id" in participant ? participant.id : "no-id-given"}
 					phaseFunction={setPhase}
 				/>
 			)}
-			{phase === "GPS" && <Gps participantId={
-						"id" in participant ? participant.id : "no-id-given"
-					}phaseFunction={setPhase} />}
-			{phase === "END" && (
-				<div>
-					<div>Deney Bitti. Kazandığınız toplam puan: {points} </div>
-					<div>
-						Kazandığınız toplam para:{" "}
-						{20 + Math.round(points / 1000)} TL
-					</div>
-				</div>
+			{phase === Phase.Gps && (
+				<Gps
+					participantId={"id" in participant ? participant.id : "no-id-given"}
+					phaseFunction={setPhase}
+					question={gpsQuestion}
+					setQuestion={setGpsQuestion}
+				/>
 			)}
-			{phase !== "MAIN" && <Footer />}
 		</main>
 	);
 }

@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Session | null>
+	res: NextApiResponse<Session | null>,
 ) {
 	if (req.method === "POST") {
 		if (req.headers?.authorization !== process.env.ADMIN_PASS) {

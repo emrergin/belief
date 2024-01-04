@@ -11,9 +11,7 @@ export default function Home({
 	const rows = data.map((participant) => (
 		<tr key={participant.id}>
 			<td>{participant.name_surname}</td>
-			<td>
-				{participant.Round.reduce((acc, curr) => acc + curr.reward, 0)}
-			</td>
+			<td>{participant.Round.reduce((acc, curr) => acc + curr.reward, 0)}</td>
 		</tr>
 	));
 	return (

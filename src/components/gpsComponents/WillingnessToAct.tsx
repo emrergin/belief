@@ -1,6 +1,7 @@
 import { Button, Container, Radio, Divider } from "@mantine/core";
 import type { GpsData } from "../Gps";
 import { useState } from "react";
+import type { GpsQuestion } from "@/utilities/types";
 
 function WillingnessToAct({
 	setSubphase,
@@ -8,7 +9,7 @@ function WillingnessToAct({
 	setSubphase: (
 		subsetOfGps: Partial<GpsData>,
 		lastSubphase: boolean,
-		p: string
+		p: GpsQuestion,
 	) => void;
 }) {
 	const [value1, setValue1] = useState<string | undefined>(undefined);
@@ -19,15 +20,14 @@ function WillingnessToAct({
 		<Container>
 			<p>
 				{" "}
-				Şimdi size belirli bir şekilde hareket etmeye istekli olup
-				olmadığınızı soruyoruz.
+				Şimdi size belirli bir şekilde hareket etmeye istekli olup olmadığınızı
+				soruyoruz.
 			</p>
 			<p>
 				Lütfen cevabınızı 0&apos;dan 10&apos;a kadar bir ölçekte tekrar
-				belirtin. 0, “hiçbir şekilde yapmak istemiyor” ve 10, “yapmaya
-				çok istekli” anlamına gelir. Ölçekte nereye düştüğünüzü
-				belirtmek için 0 ile 10 arasında herhangi bir sayı
-				kullanabilirsiniz.
+				belirtin. 0, “hiçbir şekilde yapmak istemiyor” ve 10, “yapmaya çok
+				istekli” anlamına gelir. Ölçekte nereye düştüğünüzü belirtmek için 0 ile
+				10 arasında herhangi bir sayı kullanabilirsiniz.
 			</p>
 
 			<Divider my="sm" />
@@ -38,7 +38,7 @@ function WillingnessToAct({
 				value={value1}
 				onChange={setValue1}
 			>
-				<div className="likertDiv shortLikert">
+				<div className="likertDiv ">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
@@ -64,7 +64,7 @@ function WillingnessToAct({
 				value={value2}
 				onChange={setValue2}
 			>
-				<div className="likertDiv shortLikert">
+				<div className="likertDiv ">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
@@ -90,7 +90,7 @@ function WillingnessToAct({
 				value={value3}
 				onChange={setValue3}
 			>
-				<div className="likertDiv shortLikert">
+				<div className="likertDiv ">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
@@ -116,7 +116,7 @@ function WillingnessToAct({
 				value={value4}
 				onChange={setValue4}
 			>
-				<div className="likertDiv shortLikert">
+				<div className="likertDiv ">
 					<Radio
 						value="0"
 						label="0 - Hiçbir şekilde yapmak istemiyor"
@@ -144,7 +144,7 @@ function WillingnessToAct({
 							gps_charity: Number(value4),
 						},
 						false,
-						"describe"
+						"describe",
 					)
 				}
 				size="md"

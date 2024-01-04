@@ -7,8 +7,8 @@ export interface RoundToDownload extends Round, Session, Participant {}
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<
-		Round | Omit<RoundToDownload, "Participant" | "Session">[]
-	>
+		null | Round | Omit<RoundToDownload, "Participant" | "Session">[]
+	>,
 ) {
 	if (req.method === "POST") {
 		const { body } = req;
@@ -73,7 +73,7 @@ function flattenRound(
 		Participant: Participant & {
 			Session: Session;
 		};
-	}
+	},
 ) {
 	const { Participant, Session, ...rest } = {
 		...round.Participant,

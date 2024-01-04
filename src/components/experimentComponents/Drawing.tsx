@@ -40,36 +40,24 @@ function Drawing({
 
 	const draws = useRef(
 		Array.from({ length: numberOfDraws }, () =>
-			Math.floor(Math.random() * 100)
-		).map((num) => (num < numberofBlues ? "blue" : "red"))
+			Math.floor(Math.random() * 100),
+		).map((num) => (num < numberofBlues ? "blue" : "red")),
 	);
 
 	function nextSubPhase() {
 		nextFunction({
 			first_draw_blue:
-				draws.current[0] === undefined
-					? null
-					: draws.current[0] === "blue",
+				draws.current[0] === undefined ? null : draws.current[0] === "blue",
 			second_draw_blue:
-				draws.current[1] === undefined
-					? null
-					: draws.current[1] === "blue",
+				draws.current[1] === undefined ? null : draws.current[1] === "blue",
 			third_draw_blue:
-				draws.current[2] === undefined
-					? null
-					: draws.current[2] === "blue",
+				draws.current[2] === undefined ? null : draws.current[2] === "blue",
 			fourth_draw_blue:
-				draws.current[3] === undefined
-					? null
-					: draws.current[3] === "blue",
+				draws.current[3] === undefined ? null : draws.current[3] === "blue",
 			fifth_draw_blue:
-				draws.current[4] === undefined
-					? null
-					: draws.current[4] === "blue",
+				draws.current[4] === undefined ? null : draws.current[4] === "blue",
 			sixth_draw_blue:
-				draws.current[5] === undefined
-					? null
-					: draws.current[5] === "blue",
+				draws.current[5] === undefined ? null : draws.current[5] === "blue",
 		});
 	}
 
@@ -77,11 +65,11 @@ function Drawing({
 		<>
 			{fullView && (
 				<>
-					<h2 style={{ textAlign: "center" }}>Çekilen toplar:</h2>
+					<h2 style={{ textAlign: "center" }}>Çekilen bilyeler:</h2>
 					<p style={{ textAlign: "center" }}>
 						{numberOfDraws > 0
-							? `Bu turda ${numberOfDraws} top çekilecek.`
-							: `Bu turda hiç top çekilmeyecek.`}
+							? `Bu turda ${numberOfDraws} bilye çekilecek.`
+							: `Bu turda hiç bilye çekilmeyecek.`}
 					</p>
 				</>
 			)}

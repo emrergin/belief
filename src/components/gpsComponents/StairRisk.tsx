@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import customStyles from "@/styles/Custom.module.css";
 import type { GpsData } from "../Gps";
 import { inflationMultiplier } from "@/utilities/constants";
+import type { GpsQuestion } from "@/utilities/types";
 
 const stair1SureOutcome = 150;
 
@@ -19,7 +20,7 @@ function StairRisk({
 	setSubphase: (
 		subsetOfGps: Partial<GpsData>,
 		lastSubphase: boolean,
-		p: string
+		p: GpsQuestion,
 	) => void;
 }) {
 	const radioRefA = useRef<HTMLInputElement>(null);
@@ -36,22 +37,16 @@ function StairRisk({
 			let nextValue: number;
 			if (radioRefA.current.checked || radioRefB.current.checked) {
 				if (radioRefA.current.checked) {
-					stairSelections.current.push(
-						Number(radioRefA.current.value)
-					);
+					stairSelections.current.push(Number(radioRefA.current.value));
 					nextValue =
 						currentSure +
-						(1 / 2 ** stairSelections.current.length) *
-							stairStartingValue;
+						(1 / 2 ** stairSelections.current.length) * stairStartingValue;
 				}
 				if (radioRefB.current.checked) {
-					stairSelections.current.push(
-						Number(radioRefB.current.value)
-					);
+					stairSelections.current.push(Number(radioRefB.current.value));
 					nextValue =
 						currentSure -
-						(1 / 2 ** stairSelections.current.length) *
-							stairStartingValue;
+						(1 / 2 ** stairSelections.current.length) * stairStartingValue;
 				}
 				setButtonDisabled(true);
 				if (stairStepRef.current !== null) {
@@ -61,6 +56,7 @@ function StairRisk({
 					if (stairStepRef.current !== null) {
 						stairStepRef.current.style.opacity = "1";
 					}
+
 					setCurrentSure(nextValue);
 					setButtonDisabled(false);
 				}, 750);
@@ -73,19 +69,19 @@ function StairRisk({
 		}
 		const finalResult = stairSelections.current.reduce(
 			(prev, curr, index) => prev + curr * (16 / 2 ** index),
-			1
+			1,
 		);
 		setSubphase({ gps_stair_risk: finalResult }, false, "gift");
 	}
 	return (
-		<Container>
+		<Container style={{ marginTop: "3rem" }}>
 			<div>
 				<Center>Lütfen aşağıdaki durumu hayal edin: </Center>
 				<p>
-					{stair1SureOutcome * inflationMultiplier} TL kazanma ve
-					hiçbir şey kazanamama arasında eşit şansa sahip olacağınız
-					bir çekiliş yahut belirli bir miktar kesin ödeme arasında
-					seçim yapabilirsiniz. Size böyle beş farklı durum sunacağız.
+					{stair1SureOutcome * inflationMultiplier} TL kazanma ve hiçbir şey
+					kazanamama arasında eşit şansa sahip olacağınız bir çekiliş yahut
+					belirli bir miktar kesin ödeme arasında seçim yapabilirsiniz. Size
+					böyle beş farklı durum sunacağız.
 				</p>
 			</div>
 			<Divider my="sm" />
@@ -95,12 +91,9 @@ function StairRisk({
 				</Center>
 				<p ref={stairStepRef} className={customStyles.stairStep}>
 					%50 şansla{" "}
-					<strong>
-						{inflationMultiplier * stair1SureOutcome} TL
-					</strong>{" "}
-					para kazandıran ve %50 şansla hiçbir şey kazandırmayan bir
-					çekilişi mi yahut{" "}
-					<strong>{currentSure * inflationMultiplier} TL</strong>’lik
+					<strong>{inflationMultiplier * stair1SureOutcome} TL</strong> para
+					kazandıran ve %50 şansla hiçbir şey kazandırmayan bir çekilişi mi
+					yahut <strong>{currentSure * inflationMultiplier} TL</strong>’lik
 					kesin bir nakit para ödemesini mi?{" "}
 				</p>
 				<Center>
@@ -108,19 +101,11 @@ function StairRisk({
 						name="stairRisk"
 						label="Seçiminiz:"
 						withAsterisk
+						key={stairSelections.current.length}
 					>
 						<Group mt="xs">
-							<Radio
-								value="1"
-								label="50/50 çekiliş"
-								ref={radioRefA}
-								required
-							/>
-							<Radio
-								value="0"
-								label="Kesin ödeme"
-								ref={radioRefB}
-							/>
+							<Radio value="1" label="50/50 çekiliş" ref={radioRefA} required />
+							<Radio value="0" label="Kesin ödeme" ref={radioRefB} />
 						</Group>
 					</Radio.Group>
 				</Center>

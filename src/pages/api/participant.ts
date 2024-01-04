@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Participant>
+	res: NextApiResponse<Participant>,
 ) {
 	if (req.method === "POST") {
 		const { body } = req;

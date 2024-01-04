@@ -1,6 +1,7 @@
 import { Button, Container, Radio, Divider } from "@mantine/core";
 import type { GpsData } from "../Gps";
 import { useState } from "react";
+import type { GpsQuestion } from "@/utilities/types";
 
 function Describe({
 	setSubphase,
@@ -8,7 +9,7 @@ function Describe({
 	setSubphase: (
 		subsetOfGps: Partial<GpsData>,
 		lastSubphase: boolean,
-		p: string
+		p: GpsQuestion,
 	) => void;
 }) {
 	const [value1, setValue1] = useState<string | undefined>(undefined);
@@ -20,10 +21,10 @@ function Describe({
 		<Container>
 			<p>Aşağıdaki ifadelerden her biri sizi ne kadar iyi tanımlar?</p>
 			<p>
-				Lütfen cevabınızı 0&#39;dan 10&#39;a kadar bir ölçekte belirtin.
-				0 “beni hiç ifade etmiyor” ve 10 “beni mükemmel şekilde ifade
-				ediyor” anlamına gelir. Ölçekte nereye düştüğünüzü belirtmek
-				için 0 ile 10 arasında herhangi bir sayı kullanabilirsiniz.
+				Lütfen cevabınızı 0&#39;dan 10&#39;a kadar bir ölçekte belirtin. 0 “beni
+				hiç ifade etmiyor” ve 10 “beni mükemmel şekilde ifade ediyor” anlamına
+				gelir. Ölçekte nereye düştüğünüzü belirtmek için 0 ile 10 arasında
+				herhangi bir sayı kullanabilirsiniz.
 			</p>
 
 			<Divider my="sm" />
@@ -34,12 +35,8 @@ function Describe({
 				value={value1}
 				onChange={setValue1}
 			>
-				<div className="likertDiv shortLikert">
-					<Radio
-						value="0"
-						label="0 - Beni hiç ifade etmiyor"
-						required
-					/>
+				<div className="likertDiv extraMargin">
+					<Radio value="0" label="0 - Beni hiç ifade etmiyor" required />
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
 					<Radio value="3" label="3" />
@@ -49,10 +46,7 @@ function Describe({
 					<Radio value="7" label="7" />
 					<Radio value="8" label="8" />
 					<Radio value="9" label="9" />
-					<Radio
-						value="10"
-						label="10 - Beni mükemmel şekilde ifade ediyor"
-					/>
+					<Radio value="10" label="10 - Beni mükemmel şekilde ifade ediyor" />
 				</div>
 			</Radio.Group>
 			<Divider my="sm" />
@@ -63,12 +57,8 @@ function Describe({
 				value={value2}
 				onChange={setValue2}
 			>
-				<div className="likertDiv shortLikert">
-					<Radio
-						value="0"
-						label="0 - Beni hiç ifade etmiyor"
-						required
-					/>
+				<div className="likertDiv extraMargin">
+					<Radio value="0" label="0 - Beni hiç ifade etmiyor" required />
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
 					<Radio value="3" label="3" />
@@ -78,10 +68,7 @@ function Describe({
 					<Radio value="7" label="7" />
 					<Radio value="8" label="8" />
 					<Radio value="9" label="9" />
-					<Radio
-						value="10"
-						label="10 - Beni mükemmel şekilde ifade ediyor"
-					/>
+					<Radio value="10" label="10 - Beni mükemmel şekilde ifade ediyor" />
 				</div>
 			</Radio.Group>
 			<Divider my="sm" />
@@ -92,12 +79,8 @@ function Describe({
 				value={value3}
 				onChange={setValue3}
 			>
-				<div className="likertDiv shortLikert">
-					<Radio
-						value="0"
-						label="0 - Beni hiç ifade etmiyor"
-						required
-					/>
+				<div className="likertDiv extraMargin">
+					<Radio value="0" label="0 - Beni hiç ifade etmiyor" required />
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
 					<Radio value="3" label="3" />
@@ -107,10 +90,7 @@ function Describe({
 					<Radio value="7" label="7" />
 					<Radio value="8" label="8" />
 					<Radio value="9" label="9" />
-					<Radio
-						value="10"
-						label="10 - Beni mükemmel şekilde ifade ediyor"
-					/>
+					<Radio value="10" label="10 - Beni mükemmel şekilde ifade ediyor" />
 				</div>
 			</Radio.Group>
 			<Divider my="sm" />
@@ -121,12 +101,8 @@ function Describe({
 				value={value4}
 				onChange={setValue4}
 			>
-				<div className="likertDiv shortLikert">
-					<Radio
-						value="0"
-						label="0 - Beni hiç ifade etmiyor"
-						required
-					/>
+				<div className="likertDiv extraMargin">
+					<Radio value="0" label="0 - Beni hiç ifade etmiyor" required />
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
 					<Radio value="3" label="3" />
@@ -136,10 +112,7 @@ function Describe({
 					<Radio value="7" label="7" />
 					<Radio value="8" label="8" />
 					<Radio value="9" label="9" />
-					<Radio
-						value="10"
-						label="10 - Beni mükemmel şekilde ifade ediyor"
-					/>
+					<Radio value="10" label="10 - Beni mükemmel şekilde ifade ediyor" />
 				</div>
 			</Radio.Group>
 			<Divider my="sm" />
@@ -150,12 +123,8 @@ function Describe({
 				value={value5}
 				onChange={setValue5}
 			>
-				<div className="likertDiv shortLikert">
-					<Radio
-						value="0"
-						label="0 - Beni hiç ifade etmiyor"
-						required
-					/>
+				<div className="likertDiv extraMargin">
+					<Radio value="0" label="0 - Beni hiç ifade etmiyor" required />
 					<Radio value="1" label="1" />
 					<Radio value="2" label="2" />
 					<Radio value="3" label="3" />
@@ -165,10 +134,7 @@ function Describe({
 					<Radio value="7" label="7" />
 					<Radio value="8" label="8" />
 					<Radio value="9" label="9" />
-					<Radio
-						value="10"
-						label="10 - Beni mükemmel şekilde ifade ediyor"
-					/>
+					<Radio value="10" label="10 - Beni mükemmel şekilde ifade ediyor" />
 				</div>
 			</Radio.Group>
 			<Button
@@ -182,7 +148,7 @@ function Describe({
 							gps_d5: Number(value5),
 						},
 						false,
-						"stairrisk"
+						"stairrisk",
 					)
 				}
 				size="md"

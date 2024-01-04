@@ -1,18 +1,14 @@
 .entryText {
 	text-align: left;
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	max-width: 75ch;
 	padding-inline: 2ch;
-	margin: 5.5rem auto 1rem auto;
+	margin: 3.5rem auto 1rem auto;
 }
 
 .entryText > li + li {
 	margin-top: 0.75em;
 }
-
-/* .mantine-List-item{
-	list-style-position: inside !important; 
-} */
 
 .mainWrapper {
 	max-width: 1200px;
@@ -33,11 +29,6 @@
 	padding: 0.6rem 1.1rem;
 }
 
-/* .debug {
-	position: absolute;
-	left: 5px;
-} */
-
 .ballText {
 	text-align: center;
 	font-size: 1.5rem;
@@ -52,8 +43,6 @@
 .bagHolder {
 	display: flex;
 	gap: 10%;
-	/* margin: 5% 10%; */
-	/* margin-bottom: 10ch; */
 	margin-inline: auto;
 	width: 1000px;
 	justify-content: center;
@@ -61,14 +50,11 @@
 
 .bagHolder > * {
 	padding: 2ch;
-	/* margin-inline:auto; */
-	/* text-align: center; */
-	/* width: 26ch; */
 }
-/* div.__className_4b5723:nth-child(1) > div */
+
 .bagHolder > :nth-child(1) > :not(:last-child),
 .bagHolder > :nth-child(2) > :not(:last-child) {
-	margin-bottom: 2ch;
+	margin-bottom: 1.5ch;
 }
 
 .bagHolder > :nth-child(2) {
@@ -93,41 +79,27 @@
 	margin: 3ch;
 	text-align: center;
 	margin-top: 5ch;
+	-webkit-animation: fadeIn 3s;
+	animation: fadeIn 3s;
 }
 
-.footer {
-	position: fixed;
-	width: 100%;
-	bottom: 0px;
-	/* top: calc(100% - 56px); */
-	height: 55px;
-	left: 0px;
-	text-align: right;
-	font-weight: 800;
-	padding: 20px;
-	padding-bottom: 20px;
-	padding-right: calc(50vw - 600px);
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-	background-color: rgb(226, 241, 247);
-	margin-top: auto;
-}
-
-.footer > a {
-	color: rgb(47, 47, 203);
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .topbar {
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	background-color: rgb(226, 241, 247);
-	box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+	width: 100vw;
 	margin-top: 0px;
 	padding: 1ch 5ch;
 	display: flex;
 	gap: 3ch;
 	z-index: 300;
+	box-shadow: 0 4px 2px -2px rgb(203, 203, 203);
 }
 
 .stairStep {

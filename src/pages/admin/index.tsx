@@ -36,25 +36,22 @@ export default function Home({
 		useDisclosure(false);
 
 	async function downloadData(
-		listOfSessions: string[] = selectedSessions.map((a) => a.id)
+		listOfSessions: string[] = selectedSessions.map((a) => a.id),
 	) {
 		let res = "";
 		if (data.length > selectedSessions.length) {
 			res =
 				"?" +
-				Object.entries(listOfSessions)
-					.map(([k, v]) => `sessionId=${v}`)
-					.join("&");
+				listOfSessions.map((sessionId) => `sessionId=${sessionId}`).join("&");
 		}
-		console.log(pass);
 		const respond = await fetch(
 			process.env.NODE_ENV === "production"
-				? `./api/round`
+				? `./api/round` + res
 				: "../api/round" + res,
 			{
 				method: "GET",
 				headers: { Authorization: pass },
-			}
+			},
 		);
 
 		const columnNames = [
@@ -127,7 +124,7 @@ export default function Home({
 			name: "",
 			num_of_blue_a: 30,
 			num_of_blue_b: 70,
-			treatment: null,
+			treatment: "",
 			drawn_balls: "",
 			prior: "3,3",
 		},
@@ -151,11 +148,7 @@ export default function Home({
 					return "Toplamı altı olan iki pozitif tamsayı girmeniz bekleniyor.";
 				}
 				for (let line of array) {
-					if (
-						!isInDesiredForm(line) ||
-						Number(line) > 5 ||
-						Number(line) < 1
-					) {
+					if (!isInDesiredForm(line) || Number(line) > 5 || Number(line) < 1) {
 						return "Toplamı altı olan iki pozitif tamsayı girmeniz bekleniyor.";
 					}
 				}
@@ -172,30 +165,29 @@ export default function Home({
 			form.setValues({ name: getDateText() });
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[]
+		[],
 	);
 
 	async function sendData(data: {
 		name: string;
 		num_of_blue_a: number;
 		num_of_blue_b: number;
-		treatment: null;
+		treatment: string;
 		drawn_balls: string;
+		prior: string;
 	}) {
 		const parsedData = {
 			...data,
 			drawn_balls: data.drawn_balls.split(",").map(Number),
-			prior: data.drawn_balls.split(",").map(Number),
+			prior: data.prior.split(",").map(Number),
 		};
 		await fetch(
-			process.env.NODE_ENV === "production"
-				? `./api/admin`
-				: "../api/admin",
+			process.env.NODE_ENV === "production" ? `./api/admin` : "../api/admin",
 			{
 				method: "POST",
 				body: JSON.stringify(parsedData),
 				headers: { Authorization: pass },
-			}
+			},
 		);
 		router.reload();
 	}
@@ -225,11 +217,7 @@ export default function Home({
 					Save Password
 				</Button>
 			</Modal>
-			<Modal
-				opened={newSession}
-				onClose={sessionClose}
-				title="Yeni Oturum"
-			>
+			<Modal opened={newSession} onClose={sessionClose} title="Yeni Oturum">
 				<Box
 					component="form"
 					onSubmit={form.onSubmit((data) => sendData(data))}
@@ -299,8 +287,7 @@ export default function Home({
 					disabled={!selectedSessions.length}
 					onClick={() => downloadData()}
 				>
-					{!selectedSessions.length &&
-						`Verisi indirilecek oturumları seçin.`}
+					{!selectedSessions.length && `Verisi indirilecek oturumları seçin.`}
 					{selectedSessions.length > 0 &&
 						`Seçili oturumların verisini indirin.`}
 				</Button>
@@ -319,7 +306,7 @@ export default function Home({
 					router.push(
 						process.env.NODE_ENV === "production"
 							? `./belief/admin/${session.id}`
-							: `./admin/${session.id}`
+							: `./admin/${session.id}`,
 					);
 				}}
 			/>
@@ -331,12 +318,13 @@ export const getServerSideProps: GetServerSideProps<{
 	data: Session[];
 }> = async () => {
 	let allSessions = (await prisma.session.findMany()) as Session[];
-	allSessions = allSessions.map((a) => ({
-		...a,
-		start_time: JSON.parse(JSON.stringify(a?.start_time)),
-		end_time: JSON.parse(JSON.stringify(a?.end_time)),
-	}));
-
+	allSessions = allSessions
+		.sort((a, b) => b.start_time.getTime() - a.start_time.getTime())
+		.map((a) => ({
+			...a,
+			start_time: JSON.parse(JSON.stringify(a?.start_time)),
+			end_time: JSON.parse(JSON.stringify(a?.end_time)),
+		}));
 	return {
 		props: {
 			data: allSessions as Session[],

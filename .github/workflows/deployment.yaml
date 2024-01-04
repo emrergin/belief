@@ -1,0 +1,67 @@
+name: CI and Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Dependencies
+        run: npm install
+      - name: Generate date and write to file
+        run: echo "const buildDate = '`date +%Y%m%d%H%M`'; export default buildDate;" > buildDate.ts
+      - name: Build
+        run: npm run buildfordeploy
+      - name: Prepare files
+        run: |
+          cp -r public .next/standalone
+          cp -r ./.next/static .next/standalone/.next
+      - name: Archive files
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: .next/standalone
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download files
+        uses: actions/download-artifact@v2
+        with:
+          name: app
+          path: temporaryfolder
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: temporaryfolder/*
+          target: /home/${{ secrets.USERNAME }}/servers/belief/standalone
+          strip_components: 1
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v1.0.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cp /home/${{ secrets.USERNAME }}/servers/.env /home/${{ secrets.USERNAME }}/servers/belief/standalone/.env
+            sed -i 's/3000/3002/g' /home/${{ secrets.USERNAME }}/servers/belief/standalone/server.js
+            pm2 restart /home/${{ secrets.USERNAME }}/servers/belief/standalone/server.js --name belief
+            pm2 save

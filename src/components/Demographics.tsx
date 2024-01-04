@@ -13,14 +13,14 @@ import {
 import { useForm, isNotEmpty } from "@mantine/form";
 
 interface DemographicData {
-	age: number | null;
-	gpa: number | null;
-	pre_exp: number | null;
-	sex: number | null;
+	age: number | "";
+	gpa: number | "";
+	pre_exp: number | "";
+	sex: number | "";
 	dep: string;
-	num_of_econ: number | null;
-	diff: number | null;
-	sure: number | null;
+	num_of_econ: number | "";
+	diff: number | "";
+	sure: number | "";
 }
 import { Phase } from "@/utilities/types";
 
@@ -50,14 +50,14 @@ function Demographics({
 
 	const form = useForm({
 		initialValues: {
-			age: null,
-			gpa: null,
-			pre_exp: null,
-			sex: null,
+			age: "" as number | "",
+			gpa: "" as number | "",
+			pre_exp: "" as number | "",
+			sex: "" as number | "",
 			dep: "",
-			num_of_econ: null,
-			diff: null,
-			sure: null,
+			num_of_econ: "" as number | "",
+			diff: "" as number | "",
+			sure: "" as number | "",
 		},
 
 		validate: {
@@ -73,10 +73,7 @@ function Demographics({
 	});
 
 	return (
-		<Box
-			component="form"
-			onSubmit={form.onSubmit((data) => sendData(data))}
-		>
+		<Box component="form" onSubmit={form.onSubmit((data) => sendData(data))}>
 			<Grid
 				columns={4}
 				justify="center"
@@ -196,8 +193,6 @@ function Demographics({
 							name="benzerDeney"
 							label="Daha önce benzer bir deneye katıldınız mı?"
 							style={{ maxWidth: "400px" }}
-							// description="This is anonymous"
-							// withAsterisk
 							{...form.getInputProps("pre_exp")}
 						>
 							<Group mt="xs">
@@ -209,10 +204,9 @@ function Demographics({
 				</Grid.Col>
 				<Button
 					size="lg"
-					// onClick={nextSubPhase}
 					type="submit"
 					style={{
-						marginTop: "13ch",
+						marginTop: "3rem",
 						display: "block",
 						margin: "auto",
 					}}

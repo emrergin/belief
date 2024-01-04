@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, Dispatch, SetStateAction } from "react";
 import Slider from "./experimentComponents/Slider";
 import Circles from "./experimentComponents/Circles";
 import Drawing from "./experimentComponents/Drawing";
@@ -25,6 +25,8 @@ function Round({
 	phaseFunction,
 	pointFunction,
 	participantId,
+	currentRound,
+	roundFunction,
 }: {
 	bsr: boolean;
 	arrayOfDraws: number[];
@@ -32,22 +34,23 @@ function Round({
 	aBlue: number;
 	bBlue: number;
 	phaseFunction: (p: Phase) => void;
-	pointFunction: (p: number) => void;
+	pointFunction: Dispatch<SetStateAction<number>>;
 	participantId: string;
+	currentRound: number;
+	roundFunction: (r: number) => void;
 }) {
 	const [redRatio, setRedRatio] = useState(50);
-	const [currentRound, setCurrentRound] = useState(0);
 	const [selectedBag, setSelectedBag] = useState<"blue" | "red">(
-		Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red"
+		Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red",
 	);
 	const roundData = useRef<Partial<Round>>({
 		is_blue: selectedBag === "blue",
 	});
 	const [subPhase, setSubPhase] = useState<"drawing" | "input" | "result">(
-		"drawing"
+		"drawing",
 	);
-	const [point, setPoint] = useState(0);
 	const time = useRef(new Date());
+	const [pointsForCurrentRound, setPointsForCurrentRound] = useState(0);
 
 	const numberOfRounds = arrayOfDraws.length;
 	const diceText = getDiceText(priors);
@@ -76,16 +79,8 @@ function Round({
 		setSubPhase("input");
 	}
 
-	function calculatePointsForRound() {
-		if (selectedBag === "blue") {
-			return (100 - redRatio) ** 2;
-		} else {
-			return redRatio ** 2;
-		}
-	}
-
 	async function generateNewRound(lastRound: Omit<Round, "id">) {
-		const respond = await fetch("./api/round", {
+		await fetch("./api/round", {
 			method: "POST",
 			body: JSON.stringify(lastRound),
 		});
@@ -94,33 +89,29 @@ function Round({
 	function nextRound() {
 		const lastRound: Omit<Round, "id"> = {
 			...(roundData.current as SubTypeRound),
-			participantId: participantId,
+			participantId,
 			chosen_probability: 100 - redRatio,
-			reward: calculatePointsForRound(),
+			reward: pointsForCurrentRound,
 			round: currentRound + 1,
 		};
 		console.log(lastRound);
 		generateNewRound(lastRound);
-		setPoint(calculatePointsForRound() + point);
-		pointFunction(calculatePointsForRound() + point);
+		pointFunction((p: number) => p + pointsForCurrentRound);
 
 		if (currentRound < numberOfRounds - 1) {
 			const newBag =
-				Math.random() < priors[0] / (priors[0] + priors[1])
-					? "blue"
-					: "red";
+				Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red";
 			setSelectedBag(newBag);
 			setSubPhase("drawing");
 			roundData.current = {
 				...roundData.current,
 				is_blue: newBag === "blue" ? true : false,
 			};
-			setCurrentRound(currentRound + 1);
+			roundFunction(currentRound + 1);
 			setRedRatio(50);
 			time.current = new Date();
 		} else {
 			phaseFunction(Phase.Demographics);
-			pointFunction(point);
 		}
 	}
 
@@ -153,6 +144,7 @@ function Round({
 						value={redRatio}
 						showResult={subPhase === "result"}
 						chooseCircle={selectedBag}
+						setCurrentPoints={setPointsForCurrentRound}
 						style={{
 							gap: "10ch",
 							justifyContent: "center",
@@ -162,7 +154,7 @@ function Round({
 
 				{subPhase === "result" && (
 					<div className={customStyles.reward}>
-						{`${calculatePointsForRound()} kazandınız.`}
+						{`${pointsForCurrentRound} kazandınız.`}
 					</div>
 				)}
 				{(subPhase === "input" || subPhase === "result") && (

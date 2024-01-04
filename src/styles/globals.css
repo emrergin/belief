@@ -1,7 +1,7 @@
 :root {
 	--max-width: 1100px;
 	--border-radius: 12px;
-	font-size: 14px;
+	font-size: 18px;
 	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
 		"Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
 		"Fira Mono", "Droid Sans Mono", "Courier New", monospace;
@@ -72,19 +72,31 @@ a {
 	text-decoration: none;
 }
 
+.mantine-RadioGroup-root.likert > .mantine-Group-root {
+	column-gap: 0;
+}
+
+.mantine-RadioGroup-root.likert {
+	text-align: center;
+}
 .mantine-RadioGroup-root.likert .mantine-Radio-body {
 	flex-direction: column;
 	justify-content: center;
+	align-content: center;
 }
 
 .mantine-RadioGroup-root.likert .mantine-Radio-root {
 	margin-top: 5px;
 	align-self: flex-start;
-	width: 35px;
+	width: 9%;
 }
 
 .mantine-RadioGroup-root.likert {
 	position: relative;
+}
+
+.mantine-RadioGroup-root.likert label.mantine-Radio-label {
+	padding-left: 0;
 }
 
 .mantine-RadioGroup-root.likert .mantine-Radio-inner {
@@ -94,55 +106,59 @@ a {
 .mantine-RadioGroup-root.likert .mantine-Group-root:before {
 	content: "";
 	position: absolute;
-	top: 44px;
-	left: 10px;
+	top: 3rem;
+	margin-inline: auto;
 	display: block;
 	background-color: #efefef;
 	height: 4px;
-	width: 500px;
+	width: 90%;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 /* GPS */
 .likertDiv {
 	display: flex;
 	position: relative;
-	height: 120px;
+	margin-top: 40px;
+	width: min(60rem, 80vw);
+	justify-content: center;
 }
 
 .likertDiv .mantine-Radio-body {
 	flex-direction: column;
 	justify-content: center;
-	width: 50px;
 	align-items: center;
 }
 
-.likertDiv .mantine-Radio-inner {
-	margin-inline: auto;
+.likertDiv .mantine-Radio-root {
+	width: 8%;
 }
 
-.likertDiv .mantine-Radio-labelWrapper {
-	position: relative;
+.likertDiv .mantine-Radio-inner {
+	align-self: center;
 }
+
 .likertDiv label {
-	position: absolute;
-	width: 80px;
 	padding-left: 0px;
-	left: -40px;
 	text-align: center;
+	margin-inline: -20px;
+}
+
+.likertDiv.extraMargin label {
+	margin-inline: -25px;
 }
 
 .likertDiv:after {
 	content: "";
 	position: absolute;
-	top: 6px;
-	left: 20px;
+	top: 9px;
+	padding-inline: auto;
 	display: block;
 	background-color: #efefef;
 	height: 4px;
-	width: 500px;
 	z-index: -1;
-}
-
-.shortLikert {
-	height: 90px;
+	width: 80%;
+	left: 50%;
+	transform: translateX(-50%);
 }

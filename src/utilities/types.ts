@@ -1,6 +1,7 @@
-export const enum Phase {
+export enum Phase {
 	Intro = "INTRO",
 	Intro2 = "INTRO2",
+	// Trial = "TRIAL",
 	Main = "MAIN",
 	Demographics = "DEMO",
 	Gps = "GPS",
@@ -15,3 +16,12 @@ export interface DrawingT {
 	fifth_draw_blue: boolean | null;
 	sixth_draw_blue: boolean | null;
 }
+
+export type GpsQuestion =
+	| `generalrisk`
+	| `willingnesstoact`
+	| `describe`
+	| `stairrisk`
+	| `gift`
+	| `hypodonation`
+	| `stairpatience`;

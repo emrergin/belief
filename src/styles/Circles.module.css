@@ -4,10 +4,6 @@
 	padding: 2rem;
 }
 
-/* .circleHolder>*{
-    outline: green 2px solid;
-} */
-
 .padding-left {
 	padding-left: 2vw;
 }
@@ -84,17 +80,18 @@
 .smallestCircle {
 	position: absolute;
 	z-index: 4;
-	width: 0px;
-	height: 0px;
+	width: 18px;
+	height: 18px;
+	animation: fadein 2s ease-in;
 }
 
-.smallestCircle:after {
-	content: "\00d7";
-	font-size: 1.9rem;
-	top: 50%;
-	left: 10%;
-	display: inline-block;
-	transform: translate(-50%, -50%);
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .circleHolder,
@@ -161,21 +158,13 @@ button.exp {
 .invis.red,
 .invis.white {
 	background-color: rgba(0, 0, 0, 0);
-	/* display: none; */
-}
-
-/* .correctAnswer {
-	outline: 5px gold solid;
-} */
-
-.inCorrectAnswer {
-	display: none;
 }
 
 .valueBox {
 	position: absolute;
-	bottom: -40px;
+	top: 150px;
+	z-index: 3;
 	left: 150px;
-	transform: translateX(-50%);
+	transform: translate(-50%, -50%);
 	font-size: 20px;
 }

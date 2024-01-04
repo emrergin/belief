@@ -9,7 +9,7 @@ function arrayToCsv(data: RoundToDownload[], columnNames: string[]): string {
 					.map(String) // convert every value to String
 					.map((v) => v.replaceAll('"', '""')) // escape double colons
 					.map((v) => `"${v}"`) // quote it
-					.join(",") // comma-separated
+					.join(","), // comma-separated
 		)
 		.join("\r\n"); // rows starting on new lines
 }
@@ -28,16 +28,16 @@ function downloadBlob(content: string, filename: string, contentType: string) {
 
 export function downloadDataAsCsv(
 	data: RoundToDownload[],
-	columnNames: string[]
+	columnNames: string[],
 ) {
 	downloadBlob(
 		arrayToCsv(data, columnNames),
 		`${new Date()}.csv`,
-		"text/csv;charset=utf-8;"
+		"text/csv;charset=utf-8;",
 	);
 }
 
-export function getDiceText(prior: [number, number]): [String, String] {
+export function getDiceText(prior: [number, number]): [string, string] {
 	const formatter = new Intl.ListFormat("tr", {
 		style: "long",
 		type: "disjunction",

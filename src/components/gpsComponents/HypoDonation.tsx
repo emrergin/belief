@@ -2,6 +2,7 @@ import { Button, Container, Center, Divider } from "@mantine/core";
 import type { GpsData } from "../Gps";
 import { useState } from "react";
 import { inflationMultiplier } from "@/utilities/constants";
+import type { GpsQuestion } from "@/utilities/types";
 
 function HypoDonation({
 	setSubphase,
@@ -9,7 +10,7 @@ function HypoDonation({
 	setSubphase: (
 		subsetOfGps: Partial<GpsData>,
 		lastSubphase: boolean,
-		p: string
+		p: GpsQuestion,
 	) => void;
 }) {
 	const [value, setValue] = useState<string>("");
@@ -18,10 +19,10 @@ function HypoDonation({
 			<div>
 				<Center>Lütfen aşağıdaki durumu hayal edin: </Center>
 				<p>
-					Bugün beklenmedik bir şekilde {400 * inflationMultiplier} TL
-					aldınız. İyi bir amaç için bu miktarın ne kadarını
-					bağışlarsınız? (0 ile {400 * inflationMultiplier} arasındaki
-					herhangi bir değeri seçebilirsiniz)
+					Bugün beklenmedik bir şekilde {400 * inflationMultiplier} TL aldınız.
+					İyi bir amaç için bu miktarın ne kadarını bağışlarsınız? (0 ile{" "}
+					{400 * inflationMultiplier} arasındaki herhangi bir değeri
+					seçebilirsiniz)
 				</p>
 			</div>
 
@@ -34,16 +35,13 @@ function HypoDonation({
 					onChange={(e) => setValue(e.target.value)}
 					value={value}
 					required
+					style={{ width: "165px", padding: "5px" }}
 				/>
 			</Center>
 			<Divider my="sm" />
 			<Button
 				onClick={() =>
-					setSubphase(
-						{ gps_donation: Number(value) },
-						false,
-						"stairpatience"
-					)
+					setSubphase({ gps_donation: Number(value) }, false, "stairpatience")
 				}
 				size="md"
 				style={{
