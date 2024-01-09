@@ -1,0 +1,25 @@
+.epsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.forecastsContainer {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	grid-row-end: 3;
+}
+.guessInput {
+	display: block;
+}
+
+.epsButtons {
+	margin-top: 1.5rem;
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	width: 300px;
+}
+
+.epsButton {
+	padding: 1rem 2rem;
+}
