@@ -10,8 +10,9 @@ export default function Home({
 	return <Experiment data={data} />;
 }
 
-export interface SessionType extends Omit<Session, "prior"> {
+export interface SessionType extends Omit<Session, "prior" | "treatment"> {
 	prior: [number, number];
+	treatment: "QSR" | "BSR";
 }
 
 const defaultSession: Omit<Session, "id"> = {

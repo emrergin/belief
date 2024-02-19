@@ -11,9 +11,9 @@ import Slide1 from "./intro2Components/Slide1";
 import Slide2 from "./intro2Components/Slide2";
 import Slide3 from "./intro2Components/Slide3";
 import Slide4 from "./intro2Components/Slide4";
-import Slide5 from "./intro2Components/Slide5";
 import Slide6QSR from "./intro2Components/Slide6QSR";
 import Slide6BSR from "./intro2Components/Slide6BSR";
+import Slide5 from "./intro2Components/Slide5";
 
 function Intro2({
 	aBlue,
@@ -26,7 +26,7 @@ function Intro2({
 	aBlue: number;
 	bBlue: number;
 	priors: [number, number];
-	treatment: string;
+	treatment: "QSR" | "BSR";
 	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {
@@ -65,18 +65,13 @@ function Intro2({
 					marginBottom: "2rem",
 				}}
 			>
-				<Slide1
-					numberOfRounds={numberOfRounds}
-					diceText={diceText}
-					equal={priors[0] === 3}
-				/>
+				<Slide1 numberOfRounds={numberOfRounds} aBlue={aBlue} bBlue={bBlue} />
 				<Slide2 aBlue={aBlue} bBlue={bBlue} diceText={diceText} />
-				<Slide3 />
+				<Slide3 diceText={diceText} equal={priors[0] === 0} />
 				<Slide4 />
-				<Slide5 />
+				<Slide5 treatment={treatment} />
 				{treatment === "QSR" ? <Slide6QSR /> : <Slide6BSR />}
 			</Carousel>
-
 			<Button.Group>
 				<Button
 					variant="light"

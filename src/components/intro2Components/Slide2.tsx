@@ -14,10 +14,6 @@ const Slide2 = ({
 	return (
 		<Carousel.Slide>
 			<BagHolder aBlue={aBlue} bBlue={bBlue} diceText={diceText} />
-			<div className={customStyles.entryText}>
-				<b>Renkli Bilyeler: </b> Her iki torbanın içindeki bilyeleri yukarıda
-				görebilirsiniz.
-			</div>
 		</Carousel.Slide>
 	);
 };

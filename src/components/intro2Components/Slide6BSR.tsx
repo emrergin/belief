@@ -16,22 +16,23 @@ const Slide6BSR = () => {
 			<List
 				className={customStyles.entryText}
 				style={{ marginTop: "0px", scale: "0.9" }}
+				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
 			>
 				<List.Item>
-					Karar ekranında, bahsettiğimiz kaydırıcının tam altında kırmızı ve
-					mavi birer simit olacak. Kaydırıcıyı sağa ya da sola sürükledikçe
-					kırmızı simidin ve mavi simidin büyüklüklerinin değiştiğini
-					görebilirsiniz.
-				</List.Item>
+					{" "}
+					Kararınızı belirttikten sonra, eğer bilgisayar kırmızı torbayı seçmiş
+					ise kırmızı simit, mavi torbayı seçmiş ise mavi simit ekranda kalacak,
+					diğer simit kaybolacak. ·{" "}
+				</List.Item>{" "}
 				<List.Item>
-					Karar verdikten sonra, çekiliş için gerçekte hangi torba kullanıldıya
-					yalnızca o renkteki simit kalacak, diğer simit kaybolacak. Ardından,
-					bu simit ve içindeki alanın teşkil ettiği daireden rastgele bir nokta
-					seçilecek.
-				</List.Item>
+					{" "}
+					Kazancınızı belirlemek için, bilgisayar ekranda kalan simit üzerinde
+					rastgele bir nokta seçecek. ·{" "}
+				</List.Item>{" "}
 				<List.Item>
-					Eğer bu nokta ilgili simite, yani tam dairenin renkli kısmına denk
-					düşerse, kazancınız 10000 puan, aksi takdirde 0 puan olacak.
+					{" "}
+					Eğer bu nokta, simitin renkli kısmına düşerse 10000 puan, aksi
+					takdirde 0 puan kazanacaksınız.
 				</List.Item>
 			</List>
 			<div

@@ -10,21 +10,34 @@ const Slide6QSR = () => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>
-			<List className={customStyles.entryText} style={{ marginTop: "0px" }}>
-				<List.Item>
-					Karar ekranında, bahsettiğimiz kaydırıcının tam altında kırmızı ve
-					mavi birer simit olacak. Kaydırıcıyı sağa yahut sola sürükledikçe
-					kırmızı simidin ve mavi simidin büyüklüklerinin değiştiğini
-					görebilirsiniz. Daha büyük bir simit daha çok puana karşılık gelir. Bu
-					puan simidin ortasında yazar.
+			<List
+				className={customStyles.entryText}
+				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
+				style={{ scale: "0.9" }}
+			>
+				{/* <List.Item>
+					Çubuk üzerinde bilyenin kırmızı olma olasılığını seçtikten sonra,
+					deneyden elde edeceğiniz kazancı belirlemek için{" "}
+					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
+					<b className={circleStyles.blueText}>mavi</b> renkte iki simit
+					kullanacağız.
 				</List.Item>
 				<List.Item>
-					Karar verdikten sonra, gerçekte hangi torbanın kullanıldığı size
-					bildirilecektir. Şayet o turda{" "}
-					<b className={circleStyles.redText}>Kırmızı torba</b> kullanılmış ise,
-					kazancınız kırmızı simidin karşılık geldiği miktar olacak. Şayet o
-					turda <b className={circleStyles.blueText}>Mavi torba</b> kullanılmış
-					ise, kazancınız mavi simidin karşılık geldiği miktar olacak.
+					Daha büyük bir simit daha yüksek bir puana denk gelmektedir. Çubuğun
+					üzerindeki gri yuvarlağı sağa veya sola sürüklediğinizde simitlerin
+					boyutlarının değiştiğini göreceksiniz.
+				</List.Item>
+				<List.Item>Puanlar simidin ortasında belirtilmiştir.</List.Item> */}
+				<List.Item>
+					Eğer bilgisayar <b className={circleStyles.redText}>kırmızı</b>{" "}
+					torbayı seçmiş ise, kazancınız{" "}
+					<b className={circleStyles.redText}>kırmızı simidin</b> karşılık
+					geldiği miktar olacak.
+				</List.Item>
+				<List.Item>
+					Eğer <b className={circleStyles.blueText}>mavi</b> torba seçilmişse,
+					kazancınız <b className={circleStyles.blueText}>mavi simidin</b>{" "}
+					karşılık geldiği miktar olacak.
 				</List.Item>
 			</List>
 			<div

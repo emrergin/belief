@@ -2,35 +2,45 @@ import { List } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
 import customStyles from "@/styles/Custom.module.css";
+import circleStyles from "@/styles/Circles.module.css";
 
-const Slide3 = () => {
+const Slide3 = ({
+	diceText,
+	equal,
+}: {
+	diceText: [string, string];
+	equal: boolean;
+}) => {
 	return (
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					<b>Kullanılan Torba:</b> Zar atışının sonucu size önceden
-					söylenmeyecek, bu nedenle çekiliş için hangi torbanın kullanıldığını
-					bilemezsiniz. Her turda, her katılımcı için ayrı bir zar atılır.
+					Her turun başında, bilgisayar rastgele bir torba seçecek
+					{equal && (
+						<span>
+							{" "}
+							ve bilgisayarın kırmızı veya mavi torbayı seçme olasılığı eşit
+							olacak
+						</span>
+					)}
+					.
 				</List.Item>
 				<List.Item>
-					<b>Çekilişler kişiye özeldir:</b> Bilgisayar zar atışı sonrası
-					kullanılacak torbayı belirler. Sonra o torbadan bir veya daha fazla
-					bilye çekilir. Bu çekilişler, hangi torbanın kullanıldığını tahmin
-					etmek için size ipucu sağlayabilir.
+					Bilgisayarın bir zar atışı yaptığını ve {diceText[0]} gelirse mavi,{" "}
+					{diceText[1]} gelirse kırmızı torbayı seçtiğini düşünebilirsiniz.
 				</List.Item>
 				<List.Item>
-					<b>Çekilişler birbirinden bağımsızdır:</b> Bazı turlarda aynı torbadan
-					birden fazla çekiliş görebilirsiniz. Bunların sonucunu çekiliş
-					sırasıyla göreceksiniz. Çekilişler bağımsız olarak yapılacak, yani
-					sanki torbayı sallayacak, içinden rastgele bir bilye seçecek, bilyeyi
-					size gösterecek, torbaya geri koyacak ve rastgele başka bir bilye
-					çekmeden önce torbayı tekrar karıştıracakmışız gibi düşünebilirsiniz.
-					Yani bir torbanın içindeki bilyelerin sayıları ve renkleri bütün
-					çekilişlerden önce her zaman aynı olacak.
+					Bilgisayarın hangi torbayı seçtiğini bilmeyeceksiniz.
 				</List.Item>
 				<List.Item>
-					<b>Her çekiliş sonrası bilye torbaya geri konur:</b> Çekilen bilye,
-					her çekilişten sonra torbaya geri konmuş gibi olur.
+					Bilgisayar torbayı belirledikten sonra, seçtiği torbanın içinden
+					rastgele bir veya birden fazla bilye çekecek. Her bilye çekildikten
+					sonra torbaya geri konulacak.
+				</List.Item>
+				<List.Item>
+					Çekiliş sonuçlarını gördükten sonra sizden bilgisayarın seçtiği
+					torbanın <b className={circleStyles.redText}>kırmızı</b> olma
+					ihtimalini <b>yüzde</b> olarak belirlemenizi isteyeceğiz.
 				</List.Item>
 			</List>
 		</Carousel.Slide>

@@ -1,40 +1,48 @@
-import { List } from "@mantine/core";
-
-import { Carousel } from "@mantine/carousel";
+import Circles from "../experimentComponents/Circles";
+import Slider from "../experimentComponents/Slider";
 import customStyles from "@/styles/Custom.module.css";
 import circleStyles from "@/styles/Circles.module.css";
-import Slider from "../experimentComponents/Slider";
+import { List } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
 import { useState } from "react";
 
-const Slide5 = () => {
+const Slide5 = ({ treatment }: { treatment: "QSR" | "BSR" }) => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>
-			<List className={customStyles.entryText}>
+			<List
+				className={customStyles.entryText}
+				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
+				style={{ marginTop: "0px", scale: "0.9" }}
+			>
 				<List.Item>
-					Kullanılan torbanın <b className={circleStyles.redText}>kırmızı</b>{" "}
-					veya <b className={circleStyles.blueText}>mavi</b> olma ihtimalinin{" "}
-					<b>
-						<i>100&apos;de kaç olduğunu</i>
-					</b>{" "}
-					ekrandaki bir kaydırıcıyı sağa ya da sola sürükleyerek
-					bildireceksiniz. Aşağıda bu kaydırıcıyı görebilirsiniz.
+					Çubuk üzerinde bilyenin kırmızı olma olasılığını seçtikten sonra,
+					deneyden elde edeceğiniz kazancı belirlemek için{" "}
+					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
+					<b className={circleStyles.blueText}>mavi</b> renkte iki simit
+					kullanacağız.
 				</List.Item>
 				<List.Item>
-					Şimdi dilerseniz bunu sağa ya da sola sürüklemeyi deneyin. Soldaki ve
-					sağdaki rakamların değiştiğini göreceksiniz. Solda kırmızı renkle
-					yazılan rakam, sizce kullanılan torbanın{" "}
-					<b className={circleStyles.redText}>Kırmızı torba</b> olma ihtimalinin
-					100’de kaç olduğunu gösterir. Sağda mavi renkle yazılan rakam sizce
-					kullanılan torbanın <b className={circleStyles.blueText}>Mavi</b> olma
-					ihtimalinin 100&apos;de kaç olduğunu gösterir.
+					{treatment === "QSR" && (
+						<span>
+							Daha büyük bir simit daha yüksek bir puana denk gelmektedir.{" "}
+						</span>
+					)}
+					Çubuğun üzerindeki gri yuvarlağı sağa veya sola sürüklediğinizde
+					simitlerin boyutlarının değiştiğini göreceksiniz.
 				</List.Item>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-					}}
-				>
+				{treatment === "QSR" && (
+					<List.Item>Puanlar simidin ortasında belirtilmiştir.</List.Item>
+				)}
+			</List>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					alignContent: "center",
+				}}
+			>
+				<div>
 					<Slider
 						value={sliderValue}
 						updatingFunction={(event) => {
@@ -42,7 +50,13 @@ const Slide5 = () => {
 						}}
 					/>
 				</div>
-			</List>
+				<Circles
+					value={sliderValue}
+					bsr={treatment === "BSR"}
+					showResult={false}
+					chooseCircle={"blue"}
+				/>
+			</div>
 		</Carousel.Slide>
 	);
 };

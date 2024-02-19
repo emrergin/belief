@@ -6,45 +6,38 @@ import circleStyles from "@/styles/Circles.module.css";
 
 const Slide1 = ({
 	numberOfRounds,
-	diceText,
-	equal,
+	aBlue,
+	bBlue,
 }: {
 	numberOfRounds: number;
-	diceText: [string, string];
-	equal: boolean;
+	aBlue: number;
+	bBlue: number;
 }) => {
 	return (
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					<b>Turlar:</b> Deneyimiz {numberOfRounds} &quot;tur&quot;dan oluşuyor.
+					Bu deney {numberOfRounds} &quot;tur&quot;dan oluşmaktadır.
 				</List.Item>
 				<List.Item>
-					<b>Hangi Torbanın Kullanıldığını Tahmin Etme:</b> Her turda,
-					bilgisayar bir &quot;torba&quot; seçecek ve içindeki renkli bilyelerin
-					çekilişini simüle edecektir. İki farklı torba var, her biri farklı
-					sayıda renkli bilye içeriyor. Bilgisayarın hangi torbayı seçtiğini
-					tahmin etmeniz gerekecek.
+					{" "}
+					Her turda, bilgisayar size içinde 100 tane bilye bulunan iki torba
+					sunacak. Torbadaki bilyeler{" "}
+					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
+					<b className={circleStyles.blueText}>mavi</b> renkte olacak. Bu
+					torbaları <b className={circleStyles.redText}>kırmızı torba</b> ve{" "}
+					<b className={circleStyles.blueText}>mavi torba</b> olarak
+					adlandıracağız.
 				</List.Item>
 				<List.Item>
-					<b>Bilgisayar Kullanacağı Torbayı Nasıl Seçiyor:</b>
-					Her turda, bilgisayar 1 ila 6 arasındaki bir sayıyı rastgele seçer.
-					Bu, bir zar atışını simgeler.
-					<List style={{ margin: "15px" }} size="xl">
-						<List.Item>
-							Zar sonucu {diceText[0]} gelirse, çekiliş{" "}
-							<b className={circleStyles.blueText}>Mavi torba</b>
-							dan yapılır. (Bu torba daha fazla mavi bilye içerir.)
-						</List.Item>
-						<List.Item>
-							Zar sonucu {diceText[1]} gelirse, çekiliş{" "}
-							<b className={circleStyles.redText}>Kırmızı torba</b>
-							dan yapılır. (Bu torba daha fazla kırmızı bilye içerir.)
-						</List.Item>
-					</List>
-					{equal && (
-						<span>Bu nedenle, iki torbanın da seçilme şansı aynıdır.</span>
-					)}
+					<b className={circleStyles.redText}>Kırmızı torba</b> içinde{" "}
+					<b>{100 - aBlue}</b> tane kırmızı ve <b>{aBlue}</b> tane mavi bilye
+					olacak. <b className={circleStyles.blueText}>Mavi torba</b> içinde ise{" "}
+					<b>{bBlue}</b> tane mavi ve <b>{100 - bBlue}</b> tane kırmızı bilye
+					olacak.
+				</List.Item>
+				<List.Item>
+					Bir sonraki sayfada bu torbaların resimlerini görebilirsiniz.
 				</List.Item>
 			</List>
 		</Carousel.Slide>
