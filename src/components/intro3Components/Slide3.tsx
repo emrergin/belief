@@ -23,17 +23,9 @@ const Slide5 = ({ treatment }: { treatment: "QSR2" | "BSR2" }) => {
 					kullanacağız.
 				</List.Item>
 				<List.Item>
-					{treatment === "QSR2" && (
-						<span>
-							Daha büyük bir simit daha yüksek bir puana denk gelmektedir.{" "}
-						</span>
-					)}
 					Çubuğun üzerindeki gri yuvarlağı sağa veya sola sürüklediğinizde
 					simitlerin boyutlarının değiştiğini göreceksiniz.
 				</List.Item>
-				{treatment === "QSR2" && (
-					<List.Item>Puanlar simidin ortasında belirtilmiştir.</List.Item>
-				)}
 			</List>
 			<div
 				style={{
