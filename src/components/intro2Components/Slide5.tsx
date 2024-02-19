@@ -12,7 +12,6 @@ const Slide5 = ({ treatment }: { treatment: "QSR" | "BSR" }) => {
 		<Carousel.Slide>
 			<List
 				className={customStyles.entryText}
-				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
 				style={{ marginTop: "0px", scale: "0.9" }}
 			>
 				<List.Item>
@@ -23,17 +22,9 @@ const Slide5 = ({ treatment }: { treatment: "QSR" | "BSR" }) => {
 					kullanacağız.
 				</List.Item>
 				<List.Item>
-					{treatment === "QSR" && (
-						<span>
-							Daha büyük bir simit daha yüksek bir puana denk gelmektedir.{" "}
-						</span>
-					)}
 					Çubuğun üzerindeki gri yuvarlağı sağa veya sola sürüklediğinizde
 					simitlerin boyutlarının değiştiğini göreceksiniz.
 				</List.Item>
-				{treatment === "QSR" && (
-					<List.Item>Puanlar simidin ortasında belirtilmiştir.</List.Item>
-				)}
 			</List>
 			<div
 				style={{
