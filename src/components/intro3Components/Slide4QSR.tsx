@@ -6,19 +6,19 @@ import { List } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { useState } from "react";
 
-const Slide6QSR = () => {
+const Slide4QSR = () => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>
 			<List className={customStyles.entryText} style={{ scale: "0.9" }}>
 				<List.Item>
-					Eğer bilgisayar <b className={circleStyles.redText}>kırmızı</b>{" "}
-					torbayı seçmiş ise, kazancınız kırmızı simidin karşılık geldiği miktar
+					Eğer bir <b className={circleStyles.redText}>kırmızı</b> bilye
+					çekilmiş ise, kazancınız kırmızı simidin karşılık geldiği miktar
 					olacak.
 				</List.Item>
 				<List.Item>
-					Eğer <b className={circleStyles.blueText}>mavi</b> torba seçilmişse,
-					kazancınız mavi simidin karşılık geldiği miktar olacak.
+					Eğer bir <b className={circleStyles.blueText}>mavi</b> bilye
+					çekilmişse, kazancınız mavi simidin karşılık geldiği miktar olacak.
 				</List.Item>
 			</List>
 			<div
@@ -47,4 +47,4 @@ const Slide6QSR = () => {
 	);
 };
 
-export default Slide6QSR;
+export default Slide4QSR;

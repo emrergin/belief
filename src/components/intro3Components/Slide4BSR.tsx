@@ -4,11 +4,11 @@ import { Button } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 
 import customStyles from "@/styles/Custom.module.css";
+import circleStyles from "@/styles/Circles.module.css";
 import { useState } from "react";
 import Circles from "../experimentComponents/Circles";
-import circleStyles from "@/styles/Circles.module.css";
 
-const Slide6BSR = () => {
+const Slide4BSR = () => {
 	const [showResult, setShowResult] = useState(false);
 	const [sliderValue, setSliderValue] = useState(50);
 
@@ -17,14 +17,13 @@ const Slide6BSR = () => {
 			<List
 				className={customStyles.entryText}
 				style={{ marginTop: "0px", scale: "0.9" }}
-				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
 			>
 				<List.Item>
 					{" "}
-					Kararınızı belirttikten sonra, eğer bilgisayar{" "}
-					<b className={circleStyles.redText}>kırmızı</b> torbayı seçmiş ise
-					kırmızı simit, <b className={circleStyles.blueText}>mavi</b> torbayı
-					seçmiş ise mavi simit ekranda kalacak, diğer simit kaybolacak.{" "}
+					Kararınızı belirttikten sonra, eğer bir{" "}
+					<b className={circleStyles.redText}>kırmızı</b> bilye çekilmiş ise
+					kırmızı simit, bir <b className={circleStyles.blueText}>mavi</b> bilye
+					çekilmiş ise mavi simit ekranda kalacak, diğer simit kaybolacak.{" "}
 				</List.Item>{" "}
 				<List.Item>
 					{" "}
@@ -80,4 +79,4 @@ const Slide6BSR = () => {
 	);
 };
 
-export default Slide6BSR;
+export default Slide4BSR;
