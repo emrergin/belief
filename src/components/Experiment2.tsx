@@ -5,16 +5,13 @@ import Intro3 from "./Intro3";
 import TopBar from "@/components/TopBar";
 
 import { Participant } from "@prisma/client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-import Round from "@/components/Round";
 import Demographics from "@/components/Demographics";
 import Gps from "@/components/Gps";
 
 import { Phase, GpsQuestion } from "@/utilities/types";
 import Round2 from "./Round2";
-
-// import { SessionType } from "@/pages";
 
 function Experiment2() {
 	const [participant, setParticipant] = useState<Participant | {}>({});
@@ -28,9 +25,8 @@ function Experiment2() {
 		setPhase(Phase.Intro2);
 	}
 
-	// const [phase, setPhase] = useState<Phase>(Phase.Intro);
-	const [phase, setPhase] = useState<Phase>(Phase.Main);
-	// const randomizedDraws = useRef(data.drawn_balls);
+	const [phase, setPhase] = useState<Phase>(Phase.Intro);
+	// const [phase, setPhase] = useState<Phase>(Phase.Main);
 	const [points, setPoints] = useState(0);
 	const [currentRound, setCurrentRound] = useState(0);
 	const [gpsQuestion, setGpsQuestion] = useState<GpsQuestion>("generalrisk");

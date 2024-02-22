@@ -11,9 +11,7 @@ import Round from "@/components/Round";
 import Demographics from "@/components/Demographics";
 import Gps from "@/components/Gps";
 
-import { Phase, GpsQuestion } from "@/utilities/types";
-
-import { SessionType } from "@/pages";
+import { Phase, GpsQuestion, SessionType } from "@/utilities/types";
 
 function Experiment({ data }: { data: SessionType }) {
 	const [participant, setParticipant] = useState<Participant | {}>({});

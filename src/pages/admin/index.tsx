@@ -246,8 +246,8 @@ export default function Home({
 						<Group mt="xs">
 							<Radio value="QSR" label="QSR" />
 							<Radio value="BSR" label="BSR" />
-							{/* <Radio value="QSRN" label="QSRN" /> */}
-							{/* <Radio value="BSRN" label="BSRN" /> */}
+							<Radio value="QSRN" label="QSR2" />
+							<Radio value="BSRN" label="BSR2" />
 						</Group>
 					</Radio.Group>
 					<TextInput
