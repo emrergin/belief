@@ -89,6 +89,10 @@ function Round2({
 		pointFunction((p: number) => p + pointsForCurrentRound);
 
 		if (currentRound < numberOfRounds - 1) {
+			const newBall =
+				Math.random() < arrayOfBags[currentRound] / 100 ? "blue" : "red";
+			setCurrentColor(newBall);
+
 			setSubPhase("drawing");
 			roundData.current = {
 				...roundData.current,
@@ -104,13 +108,16 @@ function Round2({
 	return (
 		<div>
 			<>
-				<BagHolder2 aBlue={10} showBalls={subPhase === "drawing"} />
+				<BagHolder2
+					aBlue={arrayOfBags[currentRound]}
+					showBalls={subPhase === "drawing"}
+				/>
 				<Drawing2
-					numberofBlues={10}
 					nextFunction={(d) => endDrawing(d)}
 					fullView={subPhase === "drawing"}
 					key={currentRound}
 					result={subPhase === "result"}
+					isBlue={currentColor === "blue"}
 				/>
 				{subPhase === "input" && (
 					<Slider

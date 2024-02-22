@@ -7,15 +7,15 @@ import autoAnimate from "@formkit/auto-animate";
 import { QuestionMarkCircled } from "./QuestionBall";
 
 interface drawingProps {
-	numberofBlues: number;
 	nextFunction: (d: Drawing2T) => void;
 	fullView?: boolean;
 	result?: boolean;
+	isBlue: boolean;
 }
 
 function Drawing2({
-	numberofBlues,
 	nextFunction,
+	isBlue,
 	fullView = true,
 	result = false,
 }: drawingProps) {
@@ -39,15 +39,9 @@ function Drawing2({
 		parent.current && autoAnimate(parent.current);
 	}, [parent]);
 
-	const draws = useRef(
-		Array.from({ length: 1 }, () => Math.floor(Math.random() * 100)).map(
-			(num) => (num < numberofBlues ? "blue" : "red"),
-		),
-	);
-
 	function nextSubPhase() {
 		nextFunction({
-			is_blue: draws.current[0] === "blue",
+			is_blue: isBlue,
 		});
 	}
 
@@ -68,16 +62,10 @@ function Drawing2({
 				}}
 				ref={parent}
 			>
-				{draws.current
+				{[""]
 					.slice(0, numberOfShownBalls + 1)
 					.map((a, i) =>
-						!result ? (
-							<QuestionMarkCircled key={i} />
-						) : a === "blue" ? (
-							"🔵"
-						) : (
-							"🔴"
-						),
+						!result ? <QuestionMarkCircled key={i} /> : isBlue ? "🔵" : "🔴",
 					)
 					.map((e, i) => (
 						<span key={i} style={{ fontSize: "4rem" }}>
