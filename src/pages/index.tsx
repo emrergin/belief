@@ -4,15 +4,11 @@ import { InferGetServerSidePropsType } from "next";
 import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
+import { SessionType } from "@/utilities/types";
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	return <Experiment data={data} />;
-}
-
-export interface SessionType extends Omit<Session, "prior" | "treatment"> {
-	prior: [number, number];
-	treatment: "QSR" | "BSR";
 }
 
 const defaultSession: Omit<Session, "id"> = {

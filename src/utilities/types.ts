@@ -1,3 +1,28 @@
+import { Round, Session } from "@prisma/client";
+
+export interface SessionType extends Omit<Session, "prior" | "treatment"> {
+	prior: [number, number];
+	treatment: "QSR" | "BSR";
+}
+
+export interface SessionType2
+	extends Omit<
+		Session,
+		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
+	> {
+	treatment: "QSR2" | "BSR2";
+}
+
+export type Round2 = Omit<
+	Round,
+	| "first_draw_blue"
+	| "second_draw_blue"
+	| "third_draw_blue"
+	| "fourth_draw_blue"
+	| "fifth_draw_blue"
+	| "sixth_draw_blue"
+>;
+
 export enum Phase {
 	Intro = "INTRO",
 	Intro2 = "INTRO2",
@@ -17,6 +42,10 @@ export interface DrawingT {
 	sixth_draw_blue: boolean | null;
 }
 
+export interface Drawing2T {
+	is_blue: boolean;
+}
+
 export type GpsQuestion =
 	| `generalrisk`
 	| `willingnesstoact`
@@ -25,3 +54,22 @@ export type GpsQuestion =
 	| `gift`
 	| `hypodonation`
 	| `stairpatience`;
+
+export interface GpsData {
+	gps_risk_willingness: number;
+	gps_future_benefit: number;
+	gps_punish_self: number;
+	gps_punish_other: number;
+	gps_charity: number;
+	gps_d1: number;
+	gps_d2: number;
+	gps_d3: number;
+	gps_d4: number;
+	gps_d5: number;
+	diff: number;
+	sure: number;
+	gps_stair_risk: number;
+	gps_gift: number;
+	gps_donation: number;
+	gps_stair_patience: number;
+}

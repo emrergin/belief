@@ -9,26 +9,7 @@ import Gift from "@/components/gpsComponents/Gift";
 import HypoDonation from "@/components/gpsComponents/HypoDonation";
 import StairPatience from "@/components/gpsComponents/StairPatience";
 
-import type { GpsQuestion } from "@/utilities/types";
-
-export interface GpsData {
-	gps_risk_willingness: number;
-	gps_future_benefit: number;
-	gps_punish_self: number;
-	gps_punish_other: number;
-	gps_charity: number;
-	gps_d1: number;
-	gps_d2: number;
-	gps_d3: number;
-	gps_d4: number;
-	gps_d5: number;
-	diff: number;
-	sure: number;
-	gps_stair_risk: number;
-	gps_gift: number;
-	gps_donation: number;
-	gps_stair_patience: number;
-}
+import type { GpsData, GpsQuestion } from "@/utilities/types";
 
 function Gps({
 	participantId,

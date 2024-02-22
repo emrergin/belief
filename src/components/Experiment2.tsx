@@ -28,7 +28,8 @@ function Experiment2() {
 		setPhase(Phase.Intro2);
 	}
 
-	const [phase, setPhase] = useState<Phase>(Phase.Intro);
+	// const [phase, setPhase] = useState<Phase>(Phase.Intro);
+	const [phase, setPhase] = useState<Phase>(Phase.Main);
 	// const randomizedDraws = useRef(data.drawn_balls);
 	const [points, setPoints] = useState(0);
 	const [currentRound, setCurrentRound] = useState(0);
@@ -57,7 +58,7 @@ function Experiment2() {
 			{phase === Phase.Main && (
 				<Round2
 					bsr={true}
-					aBlue={25}
+					arrayOfBags={[12, 34, 22]}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
 					participantId={"id" in participant ? participant.id : "no-id-given"}
