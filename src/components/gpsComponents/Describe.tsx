@@ -1,7 +1,7 @@
 import { Button, Container, Radio, Divider } from "@mantine/core";
-import type { GpsData } from "../Gps";
+
 import { useState } from "react";
-import type { GpsQuestion } from "@/utilities/types";
+import type { GpsData, GpsQuestion } from "@/utilities/types";
 
 function Describe({
 	setSubphase,

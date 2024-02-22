@@ -10,6 +10,7 @@ export interface SessionType2
 		Session,
 		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
 	> {
+	prior: [];
 	treatment: "QSR2" | "BSR2";
 }
 

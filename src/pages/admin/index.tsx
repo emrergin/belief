@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
 
 import {
 	Container,
@@ -119,21 +119,38 @@ export default function Home({
 		return n !== Infinity && String(n) === str && n >= 0;
 	}
 
-	const form = useForm({
+	const form = useForm<{
+		name: string;
+		num_of_blue_a: "" | number;
+		num_of_blue_b: "" | number;
+		treatment: string;
+		round_parameters: string;
+		prior: string;
+	}>({
 		initialValues: {
 			name: "",
-			num_of_blue_a: 30,
-			num_of_blue_b: 70,
+			num_of_blue_a: "",
+			num_of_blue_b: "",
 			treatment: "",
-			drawn_balls: "",
-			prior: "3,3",
+			round_parameters: "",
+			prior: "",
 		},
 		validate: {
 			name: isNotEmpty("Lütfen bir oturum ismi girin."),
-			num_of_blue_a: isNotEmpty("Lütfen mavi bilyelerin sayısını girin."),
-			num_of_blue_b: isNotEmpty("Lütfen mavi bilyelerin sayısını girin."),
+			num_of_blue_a: (value: number | string, values) =>
+				values.treatment === "QSR" || values.treatment === "BSR"
+					? value === ""
+						? "Lütfen kırmızı bilyelerin sayısını girin."
+						: null
+					: undefined,
+			num_of_blue_b: (value: number | string, values) =>
+				values.treatment === "QSR" || values.treatment === "BSR"
+					? value === ""
+						? "Lütfen mavi bilyelerin sayısını girin."
+						: null
+					: undefined,
 			treatment: isNotEmpty("Lütfen bir deney tipi girin."),
-			drawn_balls: (value) => {
+			round_parameters: (value) => {
 				let array = value.split(",").map((a) => a.trim());
 				for (let line of array) {
 					if (!isInDesiredForm(line)) {
@@ -142,7 +159,10 @@ export default function Home({
 				}
 				return null;
 			},
-			prior: (value) => {
+			prior: (value, values) => {
+				if (values.treatment === "QSR2" || values.treatment === "BSR2") {
+					return null;
+				}
 				let array = value.split(",").map((a) => a.trim());
 				if (array.length !== 2) {
 					return "Toplamı altı olan iki pozitif tamsayı girmeniz bekleniyor.";
@@ -170,16 +190,18 @@ export default function Home({
 
 	async function sendData(data: {
 		name: string;
-		num_of_blue_a: number;
-		num_of_blue_b: number;
+		num_of_blue_a: number | "";
+		num_of_blue_b: number | "";
 		treatment: string;
-		drawn_balls: string;
+		round_parameters: string;
 		prior: string;
 	}) {
 		const parsedData = {
 			...data,
-			drawn_balls: data.drawn_balls.split(",").map(Number),
-			prior: data.prior.split(",").map(Number),
+			round_parameters: data.round_parameters.split(",").map(Number),
+			prior: "prior" in data ? data.prior.split(",").map(Number) : [],
+			num_of_blue_a: data.num_of_blue_a === "" ? undefined : data.num_of_blue_a,
+			num_of_blue_b: data.num_of_blue_b === "" ? undefined : data.num_of_blue_b,
 		};
 		await fetch(
 			process.env.NODE_ENV === "production" ? `./api/admin` : "../api/admin",
@@ -192,8 +214,13 @@ export default function Home({
 		router.reload();
 	}
 
+	const isBayesian =
+		form.getInputProps("treatment").value === "QSR" ||
+		form.getInputProps("treatment").value === "BSR";
+
 	return (
 		<Container size="lg" px="md" style={{ marginTop: "5ch" }}>
+			<p>{isBayesian}</p>
 			<Modal opened={opened} onClose={close} title="Admin Pass">
 				<TextInput
 					placeholder="Admin password"
@@ -227,16 +254,7 @@ export default function Home({
 						withAsterisk
 						{...form.getInputProps("name")}
 					/>
-					<NumberInput
-						label="Kırmızı torbadaki mavi sayısı"
-						withAsterisk
-						{...form.getInputProps("num_of_blue_a")}
-					/>
-					<NumberInput
-						label="Mavi torbadaki mavi sayısı"
-						withAsterisk
-						{...form.getInputProps("num_of_blue_b")}
-					/>
+
 					<Radio.Group
 						name="treatment"
 						label="Deney tipini seç."
@@ -246,21 +264,40 @@ export default function Home({
 						<Group mt="xs">
 							<Radio value="QSR" label="QSR" />
 							<Radio value="BSR" label="BSR" />
-							<Radio value="QSRN" label="QSR2" />
-							<Radio value="BSRN" label="BSR2" />
+							<Radio value="QSR2" label="G_QSR" />
+							<Radio value="BSR2" label="G_BSR" />
 						</Group>
 					</Radio.Group>
+					{isBayesian && (
+						<>
+							<NumberInput
+								label="Kırmızı torbadaki mavi sayısı"
+								withAsterisk
+								{...form.getInputProps("num_of_blue_a")}
+							/>
+							<NumberInput
+								label="Mavi torbadaki mavi sayısı"
+								withAsterisk
+								{...form.getInputProps("num_of_blue_b")}
+							/>
+						</>
+					)}
+
 					<TextInput
-						label="Çekiliş sayıları"
+						label={
+							isBayesian ? "Çekiliş sayıları" : "Torbalardaki mavi sayıları"
+						}
 						withAsterisk
-						placeholder="1,2,3,1,2,3"
-						{...form.getInputProps("drawn_balls")}
+						placeholder={isBayesian ? "1,2,3,1,2,3" : "10,25,50,75,90"}
+						{...form.getInputProps("round_parameters")}
 					/>
-					<TextInput
-						label="Öncüller"
-						withAsterisk
-						{...form.getInputProps("prior")}
-					/>
+					{isBayesian && (
+						<TextInput
+							label="Öncüller"
+							withAsterisk
+							{...form.getInputProps("prior")}
+						/>
+					)}
 
 					<Button
 						style={{

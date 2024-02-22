@@ -61,10 +61,10 @@ model Session {
   end_time    DateTime?
   name        String
   location    String?
-  num_of_blue_a     Int
-  num_of_blue_b      Int
+  num_of_blue_a     Int?
+  num_of_blue_b      Int?
   treatment          String
   Participant Participant[]
-  drawn_balls Int[]
-  prior Int[] @default([3,3])
+  round_parameters Int[]
+  prior Int[]
 }

@@ -1,5 +1,5 @@
 import { Button, Container, Center, Divider } from "@mantine/core";
-import type { GpsData } from "../Gps";
+import type { GpsData } from "@/utilities/types";
 import { useState } from "react";
 import { inflationMultiplier } from "@/utilities/constants";
 import type { GpsQuestion } from "@/utilities/types";

@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { useRef, useState } from "react";
 import customStyles from "@/styles/Custom.module.css";
-import type { GpsData } from "../Gps";
+import type { GpsData } from "@/utilities/types";
 import { inflationMultiplier } from "@/utilities/constants";
 import type { GpsQuestion } from "@/utilities/types";
 
