@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 
 import Intro from "@/components/Intro";
-import Intro3 from "./Intro3";
+import Intro3 from "./IntroGuess";
 import TopBar from "@/components/TopBar";
 
 import { Participant } from "@prisma/client";
@@ -10,23 +10,22 @@ import { useState } from "react";
 import Demographics from "@/components/Demographics";
 import Gps from "@/components/Gps";
 
-import { Phase, GpsQuestion } from "@/utilities/types";
+import { Phase, GpsQuestion, SessionType2 } from "@/utilities/types";
 import Round2 from "./Round2";
 
-function Experiment2() {
+function Experiment2({ data }: { data: SessionType2 }) {
 	const [participant, setParticipant] = useState<Participant | {}>({});
 
 	async function generateNewParticipant(name: string) {
-		// const respond = await fetch("./api/participant", {
-		// 	method: "POST",
-		// 	body: JSON.stringify({ name_surname: name, sessionId: data.id }),
-		// });
-		// setParticipant(await respond.json());
+		const respond = await fetch("./api/participant", {
+			method: "POST",
+			body: JSON.stringify({ name_surname: name, sessionId: data.id }),
+		});
+		setParticipant(await respond.json());
 		setPhase(Phase.Intro2);
 	}
 
 	const [phase, setPhase] = useState<Phase>(Phase.Intro);
-	// const [phase, setPhase] = useState<Phase>(Phase.Main);
 	const [points, setPoints] = useState(0);
 	const [currentRound, setCurrentRound] = useState(0);
 	const [gpsQuestion, setGpsQuestion] = useState<GpsQuestion>("generalrisk");
@@ -37,24 +36,23 @@ function Experiment2() {
 				phase={phase}
 				points={points}
 				currentRound={currentRound}
-				lastRound={20}
-				// lastRound={data.drawn_balls.length}
+				lastRound={data.round_parameters.length}
 				currentQuestion={gpsQuestion}
 			/>
 			{phase === Phase.Intro && <Intro nameFunction={generateNewParticipant} />}
 
 			{phase === Phase.Intro2 && (
 				<Intro3
-					treatment={"BSR2"}
+					treatment={data.treatment}
 					phaseFunction={setPhase}
-					numberOfRounds={10}
+					numberOfRounds={data.round_parameters.length}
 				/>
 			)}
 
 			{phase === Phase.Main && (
 				<Round2
-					bsr={true}
-					arrayOfBags={[12, 34, 22]}
+					bsr={data.treatment === "BSR2"}
+					arrayOfBags={data.round_parameters}
 					phaseFunction={setPhase}
 					pointFunction={setPoints}
 					participantId={"id" in participant ? participant.id : "no-id-given"}

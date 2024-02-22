@@ -10,7 +10,7 @@ const defaultSession: Omit<
 	name: "alpha_1",
 	location: null,
 	treatment: "QSR2",
-	drawn_balls: [10, 25, 50, 75, 90, 10],
+	round_parameters: [10, 25, 50, 75, 90, 10],
 };
 
 export default function Home() {

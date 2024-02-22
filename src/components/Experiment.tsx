@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 
 import Intro from "@/components/Intro";
-import Intro2 from "@/components/Intro2";
+import Intro2 from "@/components/IntroBayesian";
 import TopBar from "@/components/TopBar";
 
 import { Participant } from "@prisma/client";
@@ -26,7 +26,6 @@ function Experiment({ data }: { data: SessionType }) {
 	}
 
 	const [phase, setPhase] = useState<Phase>(Phase.Intro);
-	const randomizedDraws = useRef(data.drawn_balls);
 	const [points, setPoints] = useState(0);
 	const [currentRound, setCurrentRound] = useState(0);
 	const [gpsQuestion, setGpsQuestion] = useState<GpsQuestion>("generalrisk");
@@ -37,7 +36,7 @@ function Experiment({ data }: { data: SessionType }) {
 				phase={phase}
 				points={points}
 				currentRound={currentRound}
-				lastRound={data.drawn_balls.length}
+				lastRound={data.round_parameters.length}
 				currentQuestion={gpsQuestion}
 			/>
 			{phase === Phase.Intro && <Intro nameFunction={generateNewParticipant} />}
@@ -48,13 +47,13 @@ function Experiment({ data }: { data: SessionType }) {
 					priors={data.prior as [number, number]}
 					treatment={data.treatment}
 					phaseFunction={setPhase}
-					numberOfRounds={data.drawn_balls.length}
+					numberOfRounds={data.round_parameters.length}
 				/>
 			)}
 			{phase === Phase.Main && (
 				<Round
 					bsr={data.treatment === "BSR"}
-					arrayOfDraws={randomizedDraws.current}
+					arrayOfDraws={data.round_parameters}
 					priors={data.prior}
 					aBlue={data.num_of_blue_a}
 					bBlue={data.num_of_blue_b}

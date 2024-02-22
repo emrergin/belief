@@ -4,11 +4,16 @@ import { InferGetServerSidePropsType } from "next";
 import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
-import { SessionType } from "@/utilities/types";
+import { SessionType, SessionType2 } from "@/utilities/types";
+import Experiment2 from "@/components/Experiment2";
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-	return <Experiment data={data} />;
+	if (data.treatment === "QSR" || data.treatment === "BSR") {
+		return <Experiment data={data} />;
+	} else {
+		return <Experiment2 data={data as SessionType2} />;
+	}
 }
 
 const defaultSession: Omit<Session, "id"> = {
@@ -19,33 +24,41 @@ const defaultSession: Omit<Session, "id"> = {
 	num_of_blue_a: 30,
 	num_of_blue_b: 70,
 	treatment: "QSR",
-	drawn_balls: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+	round_parameters: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
 	prior: [3, 3],
 };
 
 export const getServerSideProps: GetServerSideProps<{
-	data: SessionType;
+	data: SessionType | SessionType2;
 }> = async () => {
-	let sessionData = await prisma.session.findFirst({
+	let sessionData = (await prisma.session.findFirst({
 		orderBy: {
 			start_time: "desc",
 		},
-	});
+	})) as SessionType | SessionType2 | null;
 
 	if (sessionData === null) {
-		sessionData = await prisma.session.create({
+		sessionData = (await prisma.session.create({
 			data: { ...defaultSession },
-		});
+		})) as SessionType;
 	}
 	sessionData.start_time = JSON.parse(JSON.stringify(sessionData?.start_time));
 	sessionData.end_time = JSON.parse(JSON.stringify(sessionData?.end_time));
-	sessionData.drawn_balls = shuffle(sessionData.drawn_balls);
+	sessionData.round_parameters = shuffle(sessionData.round_parameters);
 
-	return {
-		props: {
-			data: sessionData as SessionType,
-		},
-	};
+	if (sessionData.treatment === "QSR" || sessionData.treatment === "BSR") {
+		return {
+			props: {
+				data: sessionData as SessionType,
+			},
+		};
+	} else {
+		return {
+			props: {
+				data: sessionData as SessionType2,
+			},
+		};
+	}
 };
 
 function shuffle(array: number[]) {

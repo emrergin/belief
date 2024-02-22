@@ -1,8 +1,14 @@
 import { Round, Session } from "@prisma/client";
 
-export interface SessionType extends Omit<Session, "prior" | "treatment"> {
+export interface SessionType
+	extends Omit<
+		Session,
+		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
+	> {
 	prior: [number, number];
 	treatment: "QSR" | "BSR";
+	num_of_blue_a: number;
+	num_of_blue_b: number;
 }
 
 export interface SessionType2

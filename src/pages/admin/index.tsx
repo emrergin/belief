@@ -87,7 +87,7 @@ export default function Home({
 			"num_of_blue_a",
 			"num_of_blue_b",
 			"treatment",
-			"drawn_balls",
+			"round_parameters",
 			"prior",
 			"decision_time",
 			"chosen_probability",
