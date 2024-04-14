@@ -42,6 +42,7 @@ model Round {
   id                 String      @id @unique @default(uuid())
   decision_time      Int?
   chosen_probability Float?
+  round_parameter Int @default(0)
   is_blue Boolean
   first_draw_blue Boolean?
   second_draw_blue Boolean?

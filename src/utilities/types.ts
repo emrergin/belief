@@ -80,3 +80,8 @@ export interface GpsData {
 	gps_donation: number;
 	gps_stair_patience: number;
 }
+
+export interface SubTypeRound extends DrawingT {
+	is_blue: boolean;
+	decision_time: number;
+}

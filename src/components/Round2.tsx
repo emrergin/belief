@@ -1,19 +1,10 @@
 import { useState, useRef, Dispatch, SetStateAction } from "react";
-import Slider from "./experimentComponents/Slider";
-import Circles from "./experimentComponents/Circles";
-import customStyles from "@/styles/Custom.module.css";
-
-import { Button } from "@mantine/core";
 
 import { Round } from "@prisma/client";
-import { Drawing2T, DrawingT, Phase } from "@/utilities/types";
+import { Drawing2T, Phase, SubTypeRound } from "@/utilities/types";
 import BagHolder2 from "./experimentComponents/BagHolder2";
 import Drawing2 from "./experimentComponents/Drawing2";
-
-interface SubTypeRound extends DrawingT {
-	is_blue: boolean;
-	decision_time: number;
-}
+import RoundBottom from "./experimentComponents/RoundBottom";
 
 function Round2({
 	bsr,
@@ -44,10 +35,6 @@ function Round2({
 	);
 	const time = useRef(new Date());
 	const [pointsForCurrentRound, setPointsForCurrentRound] = useState(0);
-
-	function updateSlider(e: React.ChangeEvent<HTMLInputElement>) {
-		setRedRatio(Number(e.target.value));
-	}
 
 	function nextSubPhase() {
 		if (subPhase === "input") {
@@ -83,6 +70,7 @@ function Round2({
 			chosen_probability: 100 - redRatio,
 			reward: pointsForCurrentRound,
 			round: currentRound + 1,
+			round_parameter: arrayOfBags[currentRound],
 		};
 		console.log(lastRound);
 		generateNewRound(lastRound);
@@ -119,45 +107,16 @@ function Round2({
 					result={subPhase === "result"}
 					isBlue={currentColor === "blue"}
 				/>
-				{subPhase === "input" && (
-					<Slider
-						updatingFunction={updateSlider}
-						value={redRatio}
-						disabled={subPhase !== "input"}
-					/>
-				)}
-				{(subPhase === "input" || subPhase === "result") && (
-					<Circles
-						bsr={bsr}
-						value={redRatio}
-						showResult={subPhase === "result"}
-						chooseCircle={currentColor}
-						setCurrentPoints={setPointsForCurrentRound}
-						style={{
-							gap: "10ch",
-							justifyContent: "center",
-						}}
-					/>
-				)}
-
-				{subPhase === "result" && (
-					<div className={customStyles.reward}>
-						{`${pointsForCurrentRound} kazandınız.`}
-					</div>
-				)}
-				{(subPhase === "input" || subPhase === "result") && (
-					<Button
-						size="lg"
-						onClick={nextSubPhase}
-						style={{
-							marginTop: "13ch",
-							display: "block",
-							margin: "auto",
-						}}
-					>
-						{subPhase === "input" ? "Karar Verdim" : "Sonraki Tur"}
-					</Button>
-				)}
+				<RoundBottom
+					subPhase={subPhase}
+					redRatio={redRatio}
+					setRedRatio={setRedRatio}
+					bsr={bsr}
+					chosenCircle={currentColor}
+					pointsForCurrentRound={pointsForCurrentRound}
+					setCurrentPoints={setPointsForCurrentRound}
+					nextSubPhase={nextSubPhase}
+				/>
 			</>
 		</div>
 	);
