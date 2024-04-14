@@ -91,6 +91,7 @@ export default function Home({
 			"prior",
 			"decision_time",
 			"chosen_probability",
+			"round_parameter",
 			"is_blue",
 			"first_draw_blue",
 			"second_draw_blue",
