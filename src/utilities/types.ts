@@ -16,19 +16,18 @@ export interface SessionType2
 		Session,
 		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
 	> {
-	prior: [];
 	treatment: "QSR2" | "BSR2";
 }
 
-export type Round2 = Omit<
-	Round,
-	| "first_draw_blue"
-	| "second_draw_blue"
-	| "third_draw_blue"
-	| "fourth_draw_blue"
-	| "fifth_draw_blue"
-	| "sixth_draw_blue"
->;
+// export type Round2 = Omit<
+// 	Round,
+// 	| "first_draw_blue"
+// 	| "second_draw_blue"
+// 	| "third_draw_blue"
+// 	| "fourth_draw_blue"
+// 	| "fifth_draw_blue"
+// 	| "sixth_draw_blue"
+// >;
 
 export enum Phase {
 	Intro = "INTRO",

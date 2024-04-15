@@ -5,15 +5,21 @@ import Intro2 from "@/components/IntroBayesian";
 import TopBar from "@/components/TopBar";
 
 import { Participant } from "@prisma/client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-import Round from "@/components/Round";
 import Demographics from "@/components/Demographics";
 import Gps from "@/components/Gps";
 
-import { Phase, GpsQuestion, SessionType } from "@/utilities/types";
+import {
+	Phase,
+	GpsQuestion,
+	SessionType,
+	SessionType2,
+} from "@/utilities/types";
+import Round3 from "./Round";
+import Intro3 from "./IntroGuess";
 
-function Experiment({ data }: { data: SessionType }) {
+function Experiment({ data }: { data: SessionType | SessionType2 }) {
 	const [participant, setParticipant] = useState<Participant | {}>({});
 
 	async function generateNewParticipant(name: string) {
@@ -40,30 +46,55 @@ function Experiment({ data }: { data: SessionType }) {
 				currentQuestion={gpsQuestion}
 			/>
 			{phase === Phase.Intro && <Intro nameFunction={generateNewParticipant} />}
-			{phase === Phase.Intro2 && (
-				<Intro2
-					aBlue={data.num_of_blue_a}
-					bBlue={data.num_of_blue_b}
-					priors={data.prior as [number, number]}
-					treatment={data.treatment}
-					phaseFunction={setPhase}
-					numberOfRounds={data.round_parameters.length}
-				/>
-			)}
-			{phase === Phase.Main && (
-				<Round
-					bsr={data.treatment === "BSR"}
-					arrayOfDraws={data.round_parameters}
-					priors={data.prior}
-					aBlue={data.num_of_blue_a}
-					bBlue={data.num_of_blue_b}
-					phaseFunction={setPhase}
-					pointFunction={setPoints}
-					participantId={"id" in participant ? participant.id : "no-id-given"}
-					currentRound={currentRound}
-					roundFunction={setCurrentRound}
-				/>
-			)}
+			{phase === Phase.Intro2 &&
+				(data.treatment === "QSR" || data.treatment === "BSR") && (
+					<Intro2
+						aBlue={data.num_of_blue_a}
+						bBlue={data.num_of_blue_b}
+						priors={data.prior as [number, number]}
+						treatment={data.treatment}
+						phaseFunction={setPhase}
+						numberOfRounds={data.round_parameters.length}
+					/>
+				)}
+			{phase === Phase.Intro2 &&
+				(data.treatment === "QSR2" || data.treatment === "BSR2") && (
+					<Intro3
+						treatment={data.treatment}
+						phaseFunction={setPhase}
+						numberOfRounds={data.round_parameters.length}
+					/>
+				)}
+
+			{(data.treatment === "QSR" || data.treatment === "BSR") &&
+				phase === Phase.Main && (
+					<Round3
+						bsr={data.treatment === "BSR"}
+						roundParameters={data.round_parameters}
+						priors={data.prior}
+						aBlue={data.num_of_blue_a}
+						bBlue={data.num_of_blue_b}
+						phaseFunction={setPhase}
+						pointFunction={setPoints}
+						participantId={"id" in participant ? participant.id : "no-id-given"}
+						currentRound={currentRound}
+						roundFunction={setCurrentRound}
+						type="bayesian"
+					/>
+				)}
+			{(data.treatment === "QSR2" || data.treatment === "BSR2") &&
+				phase === Phase.Main && (
+					<Round3
+						bsr={data.treatment === "BSR2"}
+						roundParameters={data.round_parameters}
+						phaseFunction={setPhase}
+						pointFunction={setPoints}
+						participantId={"id" in participant ? participant.id : "no-id-given"}
+						currentRound={currentRound}
+						roundFunction={setCurrentRound}
+						type="guess"
+					/>
+				)}
 			{phase === Phase.Demographics && (
 				<Demographics
 					participantId={"id" in participant ? participant.id : "no-id-given"}
