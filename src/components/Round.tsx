@@ -3,7 +3,7 @@ import { useState, useRef, Dispatch, SetStateAction } from "react";
 import Drawing from "./experimentComponents/Drawing";
 import BagHolder from "./experimentComponents/BagHolder";
 
-import { Round } from "@prisma/client";
+import { Round as RoundT } from "@prisma/client";
 import { DrawingT, Phase, SubTypeRound } from "@/utilities/types";
 import { getDiceText } from "@/utilities/functions";
 import RoundBottom from "./experimentComponents/RoundBottom";
@@ -35,7 +35,7 @@ function Round({
 	const [selectedBag, setSelectedBag] = useState<"blue" | "red">(
 		Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red",
 	);
-	const roundData = useRef<Partial<Round>>({
+	const roundData = useRef<Partial<RoundT>>({
 		is_blue: selectedBag === "blue",
 	});
 	const [subPhase, setSubPhase] = useState<"drawing" | "input" | "result">(
@@ -67,7 +67,7 @@ function Round({
 		setSubPhase("input");
 	}
 
-	async function generateNewRound(lastRound: Omit<Round, "id">) {
+	async function generateNewRound(lastRound: Omit<RoundT, "id">) {
 		await fetch("./api/round", {
 			method: "POST",
 			body: JSON.stringify(lastRound),
@@ -75,7 +75,7 @@ function Round({
 	}
 
 	function nextRound() {
-		const lastRound: Omit<Round, "id"> = {
+		const lastRound: Omit<RoundT, "id"> = {
 			...(roundData.current as SubTypeRound),
 			participantId,
 			chosen_probability: 100 - redRatio,
@@ -106,31 +106,29 @@ function Round({
 
 	return (
 		<div>
-			<>
-				<BagHolder
-					aBlue={aBlue}
-					bBlue={bBlue}
-					diceText={diceText}
-					showBalls={subPhase === "drawing"}
-				/>
-				<Drawing
-					numberOfDraws={arrayOfDraws[currentRound]}
-					numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
-					nextFunction={(d) => endDrawing(d)}
-					fullView={subPhase === "drawing"}
-					key={currentRound}
-				/>
-				<RoundBottom
-					subPhase={subPhase}
-					redRatio={redRatio}
-					setRedRatio={setRedRatio}
-					bsr={bsr}
-					chosenCircle={selectedBag}
-					pointsForCurrentRound={pointsForCurrentRound}
-					setCurrentPoints={setPointsForCurrentRound}
-					nextSubPhase={nextSubPhase}
-				/>
-			</>
+			<BagHolder
+				aBlue={aBlue}
+				bBlue={bBlue}
+				diceText={diceText}
+				showBalls={subPhase === "drawing"}
+			/>
+			<Drawing
+				numberOfDraws={arrayOfDraws[currentRound]}
+				numberofBlues={selectedBag === "blue" ? bBlue : aBlue}
+				nextFunction={(d) => endDrawing(d)}
+				fullView={subPhase === "drawing"}
+				key={currentRound}
+			/>
+			<RoundBottom
+				subPhase={subPhase}
+				redRatio={redRatio}
+				setRedRatio={setRedRatio}
+				bsr={bsr}
+				chosenCircle={selectedBag}
+				pointsForCurrentRound={pointsForCurrentRound}
+				setCurrentPoints={setPointsForCurrentRound}
+				nextSubPhase={nextSubPhase}
+			/>
 		</div>
 	);
 }

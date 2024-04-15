@@ -95,29 +95,27 @@ function Round2({
 
 	return (
 		<div>
-			<>
-				<BagHolder2
-					aBlue={arrayOfBags[currentRound]}
-					showBalls={subPhase === "drawing"}
-				/>
-				<Drawing2
-					nextFunction={(d) => endDrawing(d)}
-					fullView={subPhase === "drawing"}
-					key={currentRound}
-					result={subPhase === "result"}
-					isBlue={currentColor === "blue"}
-				/>
-				<RoundBottom
-					subPhase={subPhase}
-					redRatio={redRatio}
-					setRedRatio={setRedRatio}
-					bsr={bsr}
-					chosenCircle={currentColor}
-					pointsForCurrentRound={pointsForCurrentRound}
-					setCurrentPoints={setPointsForCurrentRound}
-					nextSubPhase={nextSubPhase}
-				/>
-			</>
+			<BagHolder2
+				aBlue={arrayOfBags[currentRound]}
+				showBalls={subPhase === "drawing"}
+			/>
+			<Drawing2
+				nextFunction={(d) => endDrawing(d)}
+				fullView={subPhase === "drawing"}
+				key={currentRound}
+				result={subPhase === "result"}
+				isBlue={currentColor === "blue"}
+			/>
+			<RoundBottom
+				subPhase={subPhase}
+				redRatio={redRatio}
+				setRedRatio={setRedRatio}
+				bsr={bsr}
+				chosenCircle={currentColor}
+				pointsForCurrentRound={pointsForCurrentRound}
+				setCurrentPoints={setPointsForCurrentRound}
+				nextSubPhase={nextSubPhase}
+			/>
 		</div>
 	);
 }

@@ -1,4 +1,7 @@
 import { RoundToDownload } from "@/pages/api/round";
+import { Round } from "@prisma/client";
+import { Phase, SubTypeRound } from "./types";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 function arrayToCsv(data: RoundToDownload[], columnNames: string[]): string {
 	let data2: (string[] | RoundToDownload)[] = [columnNames, ...data];
@@ -65,10 +68,66 @@ export function getDateText() {
 	);
 }
 
-export function gaussianRandom(mean = 0, stdev = 1) {
-	const u = 1 - Math.random(); // Converting [0,1) to (0,1]
-	const v = Math.random();
-	const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-	// Transform to the desired mean and standard deviation:
-	return z * stdev + mean;
+async function generateNewRound(lastRound: Omit<Round, "id">) {
+	await fetch("./api/round", {
+		method: "POST",
+		body: JSON.stringify(lastRound),
+	});
+}
+
+export function nextRound(
+	roundData: MutableRefObject<Partial<Round>>,
+	participantId: string,
+	redRatio: number,
+	pointsForCurrentRound: number,
+	currentRound: number,
+	pointFunction: Dispatch<SetStateAction<number>>,
+	numberOfRounds: number,
+	priors: number[],
+	type: "bayesian" | "guess",
+	time: MutableRefObject<Date>,
+	setCurrentColor: Dispatch<SetStateAction<"blue" | "red">>,
+	setSubPhase: Dispatch<SetStateAction<"input" | "result" | "drawing">>,
+	arrayOfNumbers: number[],
+	roundFunction: (r: number) => void,
+	setRedRatio: Dispatch<SetStateAction<number>>,
+	phaseFunction: (p: Phase) => void,
+) {
+	const lastRound: Omit<Round, "id"> = {
+		...(roundData.current as SubTypeRound),
+		participantId,
+		chosen_probability: 100 - redRatio,
+		reward: pointsForCurrentRound,
+		round: currentRound + 1,
+		round_parameter: arrayOfNumbers[currentRound],
+	};
+	console.log(lastRound);
+	generateNewRound(lastRound);
+	pointFunction((p: number) => p + pointsForCurrentRound);
+
+	if (currentRound < numberOfRounds - 1) {
+		if (type === "bayesian") {
+			const newBag =
+				Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red";
+			setCurrentColor(newBag);
+			setSubPhase("drawing");
+			roundData.current = {
+				...roundData.current,
+				is_blue: newBag === "blue" ? true : false,
+			};
+		} else {
+			const newBall =
+				Math.random() < arrayOfNumbers[currentRound] / 100 ? "blue" : "red";
+			setCurrentColor(newBall);
+			setSubPhase("drawing");
+			roundData.current = {
+				...roundData.current,
+			};
+		}
+		roundFunction(currentRound + 1);
+		setRedRatio(50);
+		time.current = new Date();
+	} else {
+		phaseFunction(Phase.Demographics);
+	}
 }
