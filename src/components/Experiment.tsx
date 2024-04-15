@@ -16,7 +16,7 @@ import {
 	SessionType,
 	SessionType2,
 } from "@/utilities/types";
-import Round3 from "./Round";
+import Round from "./Round";
 import Intro3 from "./IntroGuess";
 
 function Experiment({ data }: { data: SessionType | SessionType2 }) {
@@ -68,7 +68,7 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 
 			{(data.treatment === "QSR" || data.treatment === "BSR") &&
 				phase === Phase.Main && (
-					<Round3
+					<Round
 						bsr={data.treatment === "BSR"}
 						roundParameters={data.round_parameters}
 						priors={data.prior}
@@ -84,7 +84,7 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 				)}
 			{(data.treatment === "QSR2" || data.treatment === "BSR2") &&
 				phase === Phase.Main && (
-					<Round3
+					<Round
 						bsr={data.treatment === "BSR2"}
 						roundParameters={data.round_parameters}
 						phaseFunction={setPhase}

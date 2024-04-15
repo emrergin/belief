@@ -5,12 +5,11 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 import { SessionType, SessionType2 } from "@/utilities/types";
-// import Experiment2 from "@/components/Experiment2";
+
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	return <Experiment data={data} />;
-	// }
 }
 
 const defaultSession: Omit<Session, "id"> = {
@@ -43,19 +42,11 @@ export const getServerSideProps: GetServerSideProps<{
 	sessionData.end_time = JSON.parse(JSON.stringify(sessionData?.end_time));
 	sessionData.round_parameters = shuffle(sessionData.round_parameters);
 
-	// if (sessionData.treatment === "QSR" || sessionData.treatment === "BSR") {
-	// 	return {
-	// 		props: {
-	// 			data: sessionData as SessionType,
-	// 		},
-	// 	};
-	// } else {
 	return {
 		props: {
 			data: sessionData,
 		},
 	};
-	// }
 };
 
 function shuffle(array: number[]) {
