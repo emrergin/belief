@@ -21,11 +21,11 @@ const Slide1 = ({ numberOfRounds }: { numberOfRounds: number }) => {
 					farklı olacak.
 				</List.Item>
 				<List.Item>
-					Her turun başında bilgisayar size bilyenin tam bileşimini gösterecek.
-					Yani torbada kaç tane <b className={circleStyles.redText}>kırmızı</b>{" "}
-					bilye ve kaç tane <b className={circleStyles.blueText}>mavi</b> bilye
-					olduğunu göreceksiniz. Bilgisayar daha sonra torbadan rastgele bir
-					bilye çekecek.
+					Her turun torbada kaç tane{" "}
+					<b className={circleStyles.redText}>kırmızı</b> bilye ve kaç tane{" "}
+					<b className={circleStyles.blueText}>mavi</b> bilye olduğunu
+					göreceksiniz. Bilgisayar daha sonra torbadan rastgele bir bilye
+					çekecek.
 				</List.Item>
 				<List.Item>
 					Göreviniz bilgisayar tarafından rastgele çekilen bilyenin{" "}

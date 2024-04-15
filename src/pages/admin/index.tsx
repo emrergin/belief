@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
 	Container,
