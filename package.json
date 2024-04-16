@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "buildfordeploy":"prisma generate && next build",
+    "buildfordeploy": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier ./src -w"
@@ -36,6 +36,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.43.1",
     "prettier": "3.0.3",
     "prisma": "^4.11.0"
   }

@@ -12,7 +12,7 @@ import Slide3 from "./intro3Components/Slide3";
 import Slide4QSR from "./intro3Components/Slide4QSR";
 import Slide4BSR from "./intro3Components/Slide4BSR";
 
-function Intro3({
+function IntroGuess({
 	treatment,
 	numberOfRounds,
 	phaseFunction,
@@ -87,4 +87,4 @@ function Intro3({
 	);
 }
 
-export default Intro3;
+export default IntroGuess;

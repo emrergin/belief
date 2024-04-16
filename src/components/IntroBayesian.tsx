@@ -15,7 +15,7 @@ import Slide6QSR from "./intro2Components/Slide6QSR";
 import Slide6BSR from "./intro2Components/Slide6BSR";
 import Slide5 from "./intro2Components/Slide5";
 
-function Intro2({
+function IntroBayesian({
 	aBlue,
 	bBlue,
 	priors,
@@ -99,4 +99,4 @@ function Intro2({
 	);
 }
 
-export default Intro2;
+export default IntroBayesian;

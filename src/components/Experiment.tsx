@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 
 import Intro from "@/components/Intro";
-import Intro2 from "@/components/IntroBayesian";
+import IntroBayesian from "@/components/IntroBayesian";
 import TopBar from "@/components/TopBar";
 
 import { Participant } from "@prisma/client";
@@ -17,7 +17,7 @@ import {
 	SessionType2,
 } from "@/utilities/types";
 import Round from "./Round";
-import Intro3 from "./IntroGuess";
+import IntroGuess from "./IntroGuess";
 
 function Experiment({ data }: { data: SessionType | SessionType2 }) {
 	const [participant, setParticipant] = useState<Participant | {}>({});
@@ -48,7 +48,7 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 			{phase === Phase.Intro && <Intro nameFunction={generateNewParticipant} />}
 			{phase === Phase.Intro2 &&
 				(data.treatment === "QSR" || data.treatment === "BSR") && (
-					<Intro2
+					<IntroBayesian
 						aBlue={data.num_of_blue_a}
 						bBlue={data.num_of_blue_b}
 						priors={data.prior as [number, number]}
@@ -59,7 +59,7 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 				)}
 			{phase === Phase.Intro2 &&
 				(data.treatment === "QSR2" || data.treatment === "BSR2") && (
-					<Intro3
+					<IntroGuess
 						treatment={data.treatment}
 						phaseFunction={setPhase}
 						numberOfRounds={data.round_parameters.length}
