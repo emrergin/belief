@@ -37,10 +37,6 @@ export interface DrawingT {
 	sixth_draw_blue: boolean | null;
 }
 
-export interface Drawing2T {
-	is_blue: boolean;
-}
-
 export type GpsQuestion =
 	| `generalrisk`
 	| `willingnesstoact`

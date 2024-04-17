@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import Circles from "./Circles";
 import Slider from "./Slider";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import customStyles from "@/styles/Custom.module.css";
 
 function RoundBottom({

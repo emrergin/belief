@@ -1,5 +1,3 @@
-import { Drawing2T } from "@/utilities/types";
-
 import { Button } from "@mantine/core";
 import { useEffect, useState, useRef } from "react";
 import { useInterval } from "@mantine/hooks";
@@ -7,7 +5,7 @@ import autoAnimate from "@formkit/auto-animate";
 import { QuestionMarkCircled } from "./QuestionBall";
 
 interface drawingProps {
-	nextFunction: (d: Drawing2T) => void;
+	nextFunction: () => void;
 	fullView?: boolean;
 	result?: boolean;
 	isBlue: boolean;
@@ -38,12 +36,6 @@ function Drawing2({
 	useEffect(() => {
 		parent.current && autoAnimate(parent.current);
 	}, [parent]);
-
-	function nextSubPhase() {
-		nextFunction({
-			is_blue: isBlue,
-		});
-	}
 
 	return (
 		<>
@@ -76,7 +68,7 @@ function Drawing2({
 			{fullView && (
 				<Button
 					size="lg"
-					onClick={nextSubPhase}
+					onClick={nextFunction}
 					style={{ display: "block", margin: "auto" }}
 					disabled={1 > numberOfShownBalls}
 				>

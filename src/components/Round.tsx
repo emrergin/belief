@@ -4,7 +4,7 @@ import Drawing from "./experimentComponents/Drawing";
 import BagHolder from "./experimentComponents/BagHolder";
 
 import { Round as RoundT } from "@prisma/client";
-import { Drawing2T, DrawingT, Phase, SubTypeRound } from "@/utilities/types";
+import { DrawingT, Phase, SubTypeRound } from "@/utilities/types";
 import { getDiceText } from "@/utilities/functions";
 import RoundBottom from "./experimentComponents/RoundBottom";
 import BagHolder2 from "./experimentComponents/BagHolder2";
@@ -66,7 +66,7 @@ function Round({
 	);
 
 	const roundData = useRef<Partial<RoundT>>({
-		is_blue: type === "bayesian" ? startingColor === "blue" : undefined,
+		is_blue: startingColor === "blue",
 	});
 	const [subPhase, setSubPhase] = useState<"drawing" | "input" | "result">(
 		"drawing",
@@ -89,11 +89,14 @@ function Round({
 		}
 	}
 
-	function endDrawing(drawing: DrawingT | Drawing2T) {
-		roundData.current = {
-			...roundData.current,
-			...drawing,
-		};
+	function endDrawing(drawing?: DrawingT) {
+		if (drawing && "first_draw_blue" in drawing) {
+			roundData.current = {
+				...roundData.current,
+				...drawing,
+			};
+		}
+
 		setSubPhase("input");
 	}
 
@@ -114,28 +117,30 @@ function Round({
 			round_parameter: roundParameters[currentRound],
 		};
 		console.log(lastRound);
+		console.log(roundParameters[currentRound]);
 		generateNewRound(lastRound);
 		pointFunction((p: number) => p + pointsForCurrentRound);
 
 		if (currentRound < numberOfRounds - 1) {
+			let newColor: "blue" | "red";
+
 			if (type === "bayesian") {
 				const newBag =
 					Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red";
-				setCurrentColor(newBag);
-				setSubPhase("drawing");
-				roundData.current = {
-					...roundData.current,
-					is_blue: newBag === "blue" ? true : false,
-				};
+				newColor = newBag;
 			} else {
 				const newBall =
-					Math.random() < roundParameters[currentRound] / 100 ? "blue" : "red";
-				setCurrentColor(newBall);
-				setSubPhase("drawing");
-				roundData.current = {
-					...roundData.current,
-				};
+					Math.random() < roundParameters[currentRound + 1] / 100
+						? "blue"
+						: "red";
+				newColor = newBall;
 			}
+			setCurrentColor(newColor);
+			setSubPhase("drawing");
+			roundData.current = {
+				...roundData.current,
+				is_blue: newColor === "blue" ? true : false,
+			};
 			roundFunction(currentRound + 1);
 			setRedRatio(50);
 			time.current = new Date();
@@ -169,7 +174,7 @@ function Round({
 						showBalls={subPhase === "drawing"}
 					/>
 					<Drawing2
-						nextFunction={(d) => endDrawing(d)}
+						nextFunction={endDrawing}
 						fullView={subPhase === "drawing"}
 						key={currentRound}
 						result={subPhase === "result"}
