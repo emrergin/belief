@@ -3,8 +3,8 @@ import { randomUUID } from "crypto";
 
 test("the user can enter the website and solve rounds", async ({ page }) => {
 	test.slow();
-	await page.goto("http://localhost:3000");
-	// await page.goto("https://ekonomideneyleri.com.tr/belief/");
+	// await page.goto("http://localhost:3000");
+	await page.goto("https://ekonomideneyleri.com.tr/belief/");
 	await page.getByPlaceholder("Ad Soyad").fill("test" + randomUUID());
 	await page.getByText("Deneye başla!").click();
 
