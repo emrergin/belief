@@ -27,7 +27,7 @@ jobs:
           cp -r public .next/standalone
           cp -r ./.next/static .next/standalone/.next
       - name: Archive files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: app
           path: .next/standalone
