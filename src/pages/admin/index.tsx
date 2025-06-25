@@ -357,14 +357,29 @@ export default function Home({
 export const getServerSideProps: GetServerSideProps<{
 	data: Session[];
 }> = async () => {
-	let allSessions = (await prisma.session.findMany()) as Session[];
+	let allSessions = await prisma.session.findMany({
+		include: {
+			_count: {
+				select: {
+					Participant: true,
+				},
+			},
+		},
+	});
 	allSessions = allSessions
 		.sort((a, b) => b.start_time.getTime() - a.start_time.getTime())
-		.map((a) => ({
-			...a,
-			start_time: JSON.parse(JSON.stringify(a?.start_time)),
-			end_time: JSON.parse(JSON.stringify(a?.end_time)),
+		.filter((session, index) => {
+			if (index === 0) return true;
+			if (session.name.includes("TEST")) return false;
+			if (session._count?.Participant === 0) return false;
+			return true;
+		})
+		.map(({ start_time, end_time, ...rest }) => ({
+			...rest,
+			start_time: (start_time?.toISOString() ?? null) as any,
+			end_time: (end_time?.toISOString() ?? null) as any,
 		}));
+
 	return {
 		props: {
 			data: allSessions as Session[],

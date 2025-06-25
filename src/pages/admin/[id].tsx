@@ -45,7 +45,6 @@ export const getServerSideProps: GetServerSideProps<{
 		},
 	})) as ParticipantWithRounds[];
 
-	console.log(relatedParticipants);
 	return {
 		props: {
 			data: relatedParticipants as ParticipantWithRounds[],
