@@ -43,6 +43,17 @@ export default async function handler(
 		})[];
 		if (relatedSessions.length === 0) {
 			allRounds = await prisma.round.findMany({
+				where: {
+					Participant: {
+						Session: {
+							name: {
+								not: {
+									startsWith: "TEST",
+								},
+							},
+						},
+					},
+				},
 				include: {
 					Participant: {
 						include: {

@@ -379,6 +379,7 @@ export const getServerSideProps: GetServerSideProps<{
 			start_time: (start_time?.toISOString() ?? null) as any,
 			end_time: (end_time?.toISOString() ?? null) as any,
 		}));
+	console.log(allSessions.map((a) => a._count.Participant));
 
 	return {
 		props: {
