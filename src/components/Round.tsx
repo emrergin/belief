@@ -11,7 +11,7 @@ import BagHolder2 from "./experimentComponents/BagHolder2";
 import Drawing2 from "./experimentComponents/Drawing2";
 
 function Round({
-	bsr,
+	treatment,
 	roundParameters,
 	priors,
 	aBlue,
@@ -24,7 +24,7 @@ function Round({
 	type,
 }:
 	| {
-			bsr: boolean;
+			treatment: "QSR" | "BSR" | "PSR";
 			roundParameters: number[];
 			priors: [number, number];
 			aBlue: number;
@@ -37,7 +37,7 @@ function Round({
 			type: "bayesian";
 	  }
 	| {
-			bsr: boolean;
+			treatment: "QSR2" | "BSR2" | "PSR2";
 			roundParameters: number[];
 			priors?: undefined;
 			aBlue?: undefined;
@@ -182,16 +182,18 @@ function Round({
 					/>
 				</>
 			)}
-			<RoundBottom
-				subPhase={subPhase}
-				redRatio={redRatio}
-				setRedRatio={setRedRatio}
-				bsr={bsr}
-				chosenCircle={currentColor}
-				pointsForCurrentRound={pointsForCurrentRound}
-				setCurrentPoints={setPointsForCurrentRound}
-				nextSubPhase={nextSubPhase}
-			/>
+			{treatment !== "PSR" && treatment !== "PSR2" && (
+				<RoundBottom
+					subPhase={subPhase}
+					redRatio={redRatio}
+					setRedRatio={setRedRatio}
+					bsr={treatment === "BSR" || treatment === "BSR2"}
+					chosenCircle={currentColor}
+					pointsForCurrentRound={pointsForCurrentRound}
+					setCurrentPoints={setPointsForCurrentRound}
+					nextSubPhase={nextSubPhase}
+				/>
+			)}
 		</div>
 	);
 }

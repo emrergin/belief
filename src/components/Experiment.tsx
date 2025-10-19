@@ -66,10 +66,12 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 					/>
 				)}
 
-			{(data.treatment === "QSR" || data.treatment === "BSR") &&
+			{(data.treatment === "QSR" ||
+				data.treatment === "BSR" ||
+				data.treatment === "PSR") &&
 				phase === Phase.Main && (
 					<Round
-						bsr={data.treatment === "BSR"}
+						treatment={data.treatment}
 						roundParameters={data.round_parameters}
 						priors={data.prior}
 						aBlue={data.num_of_blue_a}
@@ -82,10 +84,12 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 						type="bayesian"
 					/>
 				)}
-			{(data.treatment === "QSR2" || data.treatment === "BSR2") &&
+			{(data.treatment === "QSR2" ||
+				data.treatment === "BSR2" ||
+				data.treatment === "PSR2") &&
 				phase === Phase.Main && (
 					<Round
-						bsr={data.treatment === "BSR2"}
+						treatment={data.treatment}
 						roundParameters={data.round_parameters}
 						phaseFunction={setPhase}
 						pointFunction={setPoints}

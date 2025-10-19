@@ -28,16 +28,15 @@ function Intro({ nameFunction }: { nameFunction: (a: string) => void }) {
 				</List.Item>
 				<List.Item>
 					Kazancınız &quot;puan&quot; cinsinden hesaplanacak ve deney sonunda
-					nakit olarak ödenecek. Her 1000 puan, 1 TL’ye eşittir. Bu ödemenin
-					yanında ayrıca 30 TL’lik bir katılım ücretini size ödeyeceğiz.
+					nakit olarak ödenecek. Her 1000 puan = 1 TL’dir. Ayrıca 30 TL katılım
+					ücreti alacaksınız.
 				</List.Item>
 				<List.Item>
-					Oyunları tamamladıktan sonra size dair bazı demografik bilgileri
-					sorduğumuz bir anket olacak.
+					Deney sonunda size kısa bir demografik anket sunulacak.
 				</List.Item>
 				<List.Item>
 					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı değiştirmeniz ve
-					yenilemeniz gibi durumlarda da deneyden erken ayrılmış sayılacaksınız.
+					yenilemeniz gibi durumlarda da deneyden erken ayrılmış sayılırsınız.
 					Erken ayrılmanız durumunda yalnızca katılım ücreti ödenir.
 				</List.Item>
 			</List>

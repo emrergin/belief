@@ -12,8 +12,8 @@ const Slide4 = () => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					Çekilen bilyenin <b className={circleStyles.redText}>kırmızı</b> olma
-					ihtimalini{" "}
+					Çekilen bilyenin <b className={circleStyles.redText}>kırmızı</b> yahut{" "}
+					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini{" "}
 					<b>
 						<i>(yüzde olarak)</i>
 					</b>{" "}

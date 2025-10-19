@@ -6,7 +6,7 @@ import { List } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { useState } from "react";
 
-const Slide5 = ({ treatment }: { treatment: "QSR" | "BSR" }) => {
+const Slide5 = ({ treatment }: { treatment: "QSR" | "BSR" | "PSR" }) => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>

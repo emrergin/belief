@@ -17,7 +17,7 @@ function IntroGuess({
 	numberOfRounds,
 	phaseFunction,
 }: {
-	treatment: "QSR2" | "BSR2";
+	treatment: "QSR2" | "BSR2" | "PSR2";
 	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {
@@ -58,7 +58,9 @@ function IntroGuess({
 				<Slide1 numberOfRounds={numberOfRounds} />
 				<Slide2 />
 				<Slide3 treatment={treatment} />
-				{treatment === "QSR2" ? <Slide4QSR /> : <Slide4BSR />}
+				{treatment === "QSR2" && <Slide4QSR />}
+				{treatment === "BSR2" && <Slide4BSR />}
+				{treatment === "PSR2" && <p>PLACEHOLDER</p>}
 			</Carousel>
 			<Button.Group>
 				<Button

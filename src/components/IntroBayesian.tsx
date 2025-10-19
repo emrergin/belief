@@ -26,7 +26,7 @@ function IntroBayesian({
 	aBlue: number;
 	bBlue: number;
 	priors: [number, number];
-	treatment: "QSR" | "BSR";
+	treatment: "QSR" | "BSR" | "PSR";
 	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {
@@ -70,7 +70,9 @@ function IntroBayesian({
 				<Slide3 diceText={diceText} equal={priors[0] === 0} />
 				<Slide4 />
 				<Slide5 treatment={treatment} />
-				{treatment === "QSR" ? <Slide6QSR /> : <Slide6BSR />}
+				{treatment === "QSR" && <Slide6QSR />}
+				{treatment === "BSR" && <Slide6BSR />}
+				{treatment === "PSR" && <p>PLACEHOLDER</p>}
 			</Carousel>
 			<Button.Group>
 				<Button

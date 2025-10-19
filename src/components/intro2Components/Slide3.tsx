@@ -33,9 +33,9 @@ const Slide3 = ({
 					Bilgisayarın hangi torbayı seçtiğini bilmeyeceksiniz.
 				</List.Item>
 				<List.Item>
-					Bilgisayar torbayı belirledikten sonra, seçtiği torbanın içinden
-					rastgele bir veya birden fazla bilye çekecek. Her bilye çekildikten
-					sonra torbaya geri konulacak.
+					Bilgisayar torbayıtorbayı seçtikten sonra, bu torbadan rastgele bir
+					veya birden fazla bilye çekecek. Her bilye çekildikten sonra torbaya
+					geri konulacak.
 				</List.Item>
 				<List.Item>
 					Çekiliş sonuçlarını gördükten sonra sizden bilgisayarın seçtiği

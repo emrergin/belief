@@ -217,7 +217,8 @@ export default function Home({
 
 	const isBayesian =
 		form.getInputProps("treatment").value === "QSR" ||
-		form.getInputProps("treatment").value === "BSR";
+		form.getInputProps("treatment").value === "BSR" ||
+		form.getInputProps("treatment").value === "PSR";
 
 	return (
 		<Container size="lg" px="md" style={{ marginTop: "5ch" }}>
@@ -265,8 +266,10 @@ export default function Home({
 						<Group mt="xs">
 							<Radio value="QSR" label="QSR" />
 							<Radio value="BSR" label="BSR" />
+							<Radio value="PSR" label="PSR" />
 							<Radio value="QSR2" label="G_QSR" />
 							<Radio value="BSR2" label="G_BSR" />
+							<Radio value="PSR2" label="G_PSR" />
 						</Group>
 					</Radio.Group>
 					{isBayesian && (
