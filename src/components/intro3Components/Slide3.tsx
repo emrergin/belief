@@ -6,7 +6,7 @@ import { List } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { useState } from "react";
 
-const Slide5 = ({ treatment }: { treatment: "QSR2" | "BSR2" | "PSR2" }) => {
+const Slide3 = ({ treatment }: { treatment: "QSR2" | "BSR2" | "PSR2" }) => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>
@@ -16,8 +16,10 @@ const Slide5 = ({ treatment }: { treatment: "QSR2" | "BSR2" | "PSR2" }) => {
 				style={{ marginTop: "0px", scale: "0.9" }}
 			>
 				<List.Item>
-					Çubuk üzerinde bilyenin kırmızı olma olasılığını seçtikten sonra,
-					deneyden elde edeceğiniz kazancı belirlemek için{" "}
+					Çubuk üzerinde bilyenin{" "}
+					<b className={circleStyles.redText}>kırmızı</b> yahut{" "}
+					<b className={circleStyles.blueText}>mavi</b> olma olasılığını
+					seçtikten sonra, deneyden elde edeceğiniz kazancı belirlemek için{" "}
 					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
 					<b className={circleStyles.blueText}>mavi</b> renkte iki simit
 					kullanacağız.
@@ -53,4 +55,4 @@ const Slide5 = ({ treatment }: { treatment: "QSR2" | "BSR2" | "PSR2" }) => {
 	);
 };
 
-export default Slide5;
+export default Slide3;

@@ -187,8 +187,8 @@ function Round({
 					subPhase={subPhase}
 					redRatio={redRatio}
 					setRedRatio={setRedRatio}
-					bsr={treatment === "BSR" || treatment === "BSR2"}
-					chosenCircle={currentColor}
+					treatment={treatment}
+					chosenColor={currentColor}
 					pointsForCurrentRound={pointsForCurrentRound}
 					setCurrentPoints={setPointsForCurrentRound}
 					nextSubPhase={nextSubPhase}

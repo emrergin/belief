@@ -14,6 +14,8 @@ import Slide4 from "./intro2Components/Slide4";
 import Slide6QSR from "./intro2Components/Slide6QSR";
 import Slide6BSR from "./intro2Components/Slide6BSR";
 import Slide5 from "./intro2Components/Slide5";
+import Slide5PSR from "./intro2Components/Slide5PSR";
+import Slide6PSR from "./intro2Components/Slide6PSR";
 
 function IntroBayesian({
 	aBlue,
@@ -69,10 +71,11 @@ function IntroBayesian({
 				<Slide2 aBlue={aBlue} bBlue={bBlue} diceText={diceText} />
 				<Slide3 diceText={diceText} equal={priors[0] === 0} />
 				<Slide4 />
-				<Slide5 treatment={treatment} />
+				{treatment !== "PSR" && <Slide5 treatment={treatment} />}
+				{treatment === "PSR" && <Slide5PSR />}
 				{treatment === "QSR" && <Slide6QSR />}
 				{treatment === "BSR" && <Slide6BSR />}
-				{treatment === "PSR" && <p>PLACEHOLDER</p>}
+				{treatment === "PSR" && <Slide6PSR />}
 			</Carousel>
 			<Button.Group>
 				<Button

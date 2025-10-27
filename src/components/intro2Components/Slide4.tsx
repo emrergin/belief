@@ -13,7 +13,7 @@ const Slide4 = () => {
 			<List className={customStyles.entryText}>
 				<List.Item>
 					Kullanılan torbanın <b className={circleStyles.redText}>kırmızı</b>{" "}
-					yahut <b className={circleStyles.blueText}>mavi</b> olma ihtimalini
+					yahut <b className={circleStyles.blueText}>mavi</b> olma ihtimalini{" "}
 					<b>
 						<i>(yüzde olarak)</i>
 					</b>{" "}

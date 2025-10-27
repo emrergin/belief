@@ -26,21 +26,24 @@ const Slide3 = ({
 					.
 				</List.Item>
 				<List.Item>
-					Bilgisayarın bir zar atışı yaptığını ve {diceText[0]} gelirse mavi,{" "}
-					{diceText[1]} gelirse kırmızı torbayı seçtiğini düşünebilirsiniz.
+					Bilgisayarın bir zar atışı yaptığını ve {diceText[1]} gelirse{" "}
+					<b className={circleStyles.redText}>kırmızı</b>, {diceText[0]} gelirse{" "}
+					<b className={circleStyles.blueText}>mavi</b> torbayı seçtiğini
+					düşünebilirsiniz.
 				</List.Item>
 				<List.Item>
 					Bilgisayarın hangi torbayı seçtiğini bilmeyeceksiniz.
 				</List.Item>
 				<List.Item>
-					Bilgisayar torbayıtorbayı seçtikten sonra, bu torbadan rastgele bir
-					veya birden fazla bilye çekecek. Her bilye çekildikten sonra torbaya
-					geri konulacak.
+					Bilgisayar torbayı seçtikten sonra, bu torbadan rastgele bir veya
+					birden fazla bilye çekecek. Her bilye çekildikten sonra torbaya geri
+					konulacak.
 				</List.Item>
 				<List.Item>
 					Çekiliş sonuçlarını gördükten sonra sizden bilgisayarın seçtiği
-					torbanın <b className={circleStyles.redText}>kırmızı</b> olma
-					ihtimalini <b>yüzde</b> olarak belirlemenizi isteyeceğiz.
+					torbanın <b className={circleStyles.redText}>kırmızı</b> yahut{" "}
+					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini{" "}
+					<b>yüzde</b> olarak belirlemenizi isteyeceğiz.
 				</List.Item>
 			</List>
 		</Carousel.Slide>

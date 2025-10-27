@@ -6,7 +6,7 @@ import circleStyles from "@/styles/Circles.module.css";
 import Slider from "../experimentComponents/Slider";
 import { useState } from "react";
 
-const Slide4 = () => {
+const Slide2 = () => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>
@@ -46,4 +46,4 @@ const Slide4 = () => {
 	);
 };
 
-export default Slide4;
+export default Slide2;

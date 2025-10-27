@@ -47,7 +47,9 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 			/>
 			{phase === Phase.Intro && <Intro nameFunction={generateNewParticipant} />}
 			{phase === Phase.Intro2 &&
-				(data.treatment === "QSR" || data.treatment === "BSR") && (
+				(data.treatment === "QSR" ||
+					data.treatment === "BSR" ||
+					data.treatment === "PSR") && (
 					<IntroBayesian
 						aBlue={data.num_of_blue_a}
 						bBlue={data.num_of_blue_b}
@@ -58,7 +60,9 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 					/>
 				)}
 			{phase === Phase.Intro2 &&
-				(data.treatment === "QSR2" || data.treatment === "BSR2") && (
+				(data.treatment === "QSR2" ||
+					data.treatment === "BSR2" ||
+					data.treatment === "PSR2") && (
 					<IntroGuess
 						treatment={data.treatment}
 						phaseFunction={setPhase}

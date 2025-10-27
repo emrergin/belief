@@ -15,8 +15,10 @@ const Slide5 = ({ treatment }: { treatment: "QSR" | "BSR" | "PSR" }) => {
 				style={{ marginTop: "0px", scale: "0.9" }}
 			>
 				<List.Item>
-					Çubuk üzerinde bilyenin kırmızı olma olasılığını seçtikten sonra,
-					deneyden elde edeceğiniz kazancı belirlemek için{" "}
+					Çubuk üzerinde torbanın{" "}
+					<b className={circleStyles.redText}>kırmızı</b> yahut{" "}
+					<b className={circleStyles.blueText}>mavi</b> olma olasılığını
+					seçtikten sonra, deneyden elde edeceğiniz kazancı belirlemek için{" "}
 					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
 					<b className={circleStyles.blueText}>mavi</b> renkte iki simit
 					kullanacağız.

@@ -3,13 +3,14 @@ import Circles from "./Circles";
 import Slider from "./Slider";
 import { Dispatch, SetStateAction } from "react";
 import customStyles from "@/styles/Custom.module.css";
+import PSR from "@/components/experimentComponents/PSR";
 
 function RoundBottom({
 	subPhase,
 	redRatio,
 	setRedRatio,
-	bsr,
-	chosenCircle,
+	treatment,
+	chosenColor,
 	setCurrentPoints,
 	pointsForCurrentRound,
 	nextSubPhase,
@@ -17,8 +18,8 @@ function RoundBottom({
 	subPhase: "result" | "input" | "drawing";
 	redRatio: number;
 	setRedRatio: (value: SetStateAction<number>) => void;
-	bsr: boolean;
-	chosenCircle: "blue" | "red";
+	treatment: "QSR" | "BSR" | "PSR" | "QSR2" | "BSR2" | "PSR2";
+	chosenColor: "blue" | "red";
 	setCurrentPoints: Dispatch<SetStateAction<number>>;
 	pointsForCurrentRound: number;
 	nextSubPhase: () => void;
@@ -26,6 +27,7 @@ function RoundBottom({
 	function updateSlider(e: React.ChangeEvent<HTMLInputElement>) {
 		setRedRatio(Number(e.target.value));
 	}
+	const isPsr = treatment === "PSR" || treatment === "PSR2";
 
 	return (
 		<>
@@ -37,12 +39,25 @@ function RoundBottom({
 				/>
 			)}
 
-			{(subPhase === "input" || subPhase === "result") && (
+			{(subPhase === "input" || subPhase === "result") && !isPsr && (
 				<Circles
-					bsr={bsr}
+					bsr={treatment === "BSR" || treatment === "BSR2"}
 					value={redRatio}
 					showResult={subPhase === "result"}
-					chooseCircle={chosenCircle}
+					chooseCircle={chosenColor}
+					setCurrentPoints={setCurrentPoints}
+					style={{
+						gap: "10ch",
+						justifyContent: "center",
+					}}
+				/>
+			)}
+
+			{(subPhase === "input" || subPhase === "result") && isPsr && (
+				<PSR
+					value={redRatio}
+					showResult={subPhase === "result"}
+					chosenColor={chosenColor}
 					setCurrentPoints={setCurrentPoints}
 					style={{
 						gap: "10ch",
