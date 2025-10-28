@@ -20,8 +20,7 @@ function PSR({
 		n1: number;
 		n2: number;
 	} | null>(null);
-	const [ordered, setOrdered] = useState(false);
-	let timeoutId: NodeJS.Timeout | null = null;
+	const [isGreen, setIsGreen] = useState(false);
 
 	function chooseRandomValues() {
 		const n1 = Math.random() * 100;
@@ -39,44 +38,49 @@ function PSR({
 			const { n1, n2 } = chooseRandomValues();
 			if (chosenColor === "red") {
 				setCurrentPoints &&
-					setCurrentPoints(value < Math.min(n1, n2) ? 10000 : 0);
+					setCurrentPoints(value > Math.max(n1, n2) ? 10000 : 0);
+				if (value > Math.max(n1, n2)) {
+					setIsGreen(true);
+				}
 			} else {
 				setCurrentPoints &&
-					setCurrentPoints(value > Math.max(n1, n2) ? 10000 : 0);
+					setCurrentPoints(value < Math.min(n1, n2) ? 10000 : 0);
+				if (value < Math.min(n1, n2)) {
+					setIsGreen(true);
+				}
 			}
 		};
 		if (showResult) {
 			calculatePointsForRound(value);
-			timeoutId && clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => {
-				setOrdered(true);
-			}, 3000);
 		}
 		if (!showResult) {
 			setRandomValues({ n1: 0, n2: 0 });
-			setOrdered(false);
+			setIsGreen(false);
 		}
 	}, [setCurrentPoints, showResult, value]);
 
 	return (
-		<div className={styles.circleHolder} ref={parent} style={style}>
-			<div>
-				{[randomValues?.n1, randomValues?.n2, value]
-					.filter((a) => a)
-					.sort((a, b) => (ordered ? 0 : (a || 0) - (b || 0)))
-					.map((v, i) => (
-						<div
-							key={i}
-							style={{
-								border: `${
-									v === value && showResult ? 2 : 0
-								}px solid ${chosenColor}`,
-							}}
-						>
-							{v}
-						</div>
-					))}
-			</div>
+		<div
+			className={styles.psrHolder}
+			ref={parent}
+			style={{ ...style, backgroundColor: isGreen ? "#5cb85c" : "white" }}
+		>
+			{[randomValues?.n1, randomValues?.n2, value]
+				.filter((a) => a)
+				.sort((a, b) => (a || 0) - (b || 0))
+				.map((v) => (
+					<div
+						key={v}
+						className={styles.psrBox}
+						style={{
+							border: `${
+								v === value && showResult ? 2 : 0
+							}px solid ${chosenColor}`,
+						}}
+					>
+						{v}
+					</div>
+				))}
 		</div>
 	);
 }

@@ -103,6 +103,23 @@
 	justify-content: center;
 }
 
+.psrHolder {
+	width: 900px;
+	margin: auto;
+	justify-content: center;
+	flex-direction: row;
+	display: flex;
+	gap: 50px;
+	transition: background-color 1000ms linear;
+}
+
+.psrBox {
+	height: 4ch;
+	margin: 1ch;
+	text-align: center;
+	width: 250px;
+}
+
 .bar-holder {
 	justify-content: space-evenly;
 }

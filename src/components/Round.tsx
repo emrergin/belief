@@ -182,18 +182,17 @@ function Round({
 					/>
 				</>
 			)}
-			{treatment !== "PSR" && treatment !== "PSR2" && (
-				<RoundBottom
-					subPhase={subPhase}
-					redRatio={redRatio}
-					setRedRatio={setRedRatio}
-					treatment={treatment}
-					chosenColor={currentColor}
-					pointsForCurrentRound={pointsForCurrentRound}
-					setCurrentPoints={setPointsForCurrentRound}
-					nextSubPhase={nextSubPhase}
-				/>
-			)}
+
+			<RoundBottom
+				subPhase={subPhase}
+				redRatio={redRatio}
+				setRedRatio={setRedRatio}
+				treatment={treatment}
+				chosenColor={currentColor}
+				pointsForCurrentRound={pointsForCurrentRound}
+				setCurrentPoints={setPointsForCurrentRound}
+				nextSubPhase={nextSubPhase}
+			/>
 		</div>
 	);
 }

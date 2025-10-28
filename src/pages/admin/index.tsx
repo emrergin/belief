@@ -145,7 +145,9 @@ export default function Home({
 						: null
 					: undefined,
 			num_of_blue_b: (value: number | string, values) =>
-				values.treatment === "QSR" || values.treatment === "BSR"
+				values.treatment === "QSR" ||
+				values.treatment === "BSR" ||
+				values.treatment === "PSR"
 					? value === ""
 						? "Lütfen mavi bilyelerin sayısını girin."
 						: null
@@ -161,7 +163,11 @@ export default function Home({
 				return null;
 			},
 			prior: (value, values) => {
-				if (values.treatment === "QSR2" || values.treatment === "BSR2") {
+				if (
+					values.treatment === "QSR2" ||
+					values.treatment === "BSR2" ||
+					values.treatment === "PSR2"
+				) {
 					return null;
 				}
 				let array = value.split(",").map((a) => a.trim());
@@ -197,6 +203,7 @@ export default function Home({
 		round_parameters: string;
 		prior: string;
 	}) {
+		console.log("here");
 		const parsedData = {
 			...data,
 			round_parameters: data.round_parameters.split(",").map(Number),

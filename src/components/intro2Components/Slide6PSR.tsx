@@ -10,7 +10,13 @@ const Slide6PSR = () => {
 	const [showResult, setShowResult] = useState(false);
 	return (
 		<Carousel.Slide>
-			<div>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					alignContent: "center",
+				}}
+			>
 				<Slider
 					value={sliderValue}
 					updatingFunction={(event) => {
@@ -23,14 +29,19 @@ const Slide6PSR = () => {
 					showResult={showResult}
 					chosenColor={Math.random() > 0.5 ? "blue" : "red"}
 				/>
+				<button
+					onClick={() => {
+						setShowResult(!showResult);
+					}}
+					style={{
+						marginInline: "auto",
+						padding: "1ch 2ch",
+						marginTop: "2ch",
+					}}
+				>
+					BAS
+				</button>
 			</div>
-			<button
-				onClick={() => {
-					setShowResult(!showResult);
-				}}
-			>
-				BAS
-			</button>
 		</Carousel.Slide>
 	);
 };
