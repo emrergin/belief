@@ -15,7 +15,7 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
 			>
 				<List.Item>
-					Sonucu Gör'e bastığınızda, eğer ödülü kazandıysanız, sayılar yeşille
+					"Sonucu Gör"e bastığınızda, eğer ödülü kazandıysanız, sayılar yeşille
 					boyanacak. Seçtiğiniz ihtimalin etrafındaki renk,{" "}
 					{isBayesian ? "torbanın" : "bilyenin"} asıl rengidir.
 				</List.Item>{" "}

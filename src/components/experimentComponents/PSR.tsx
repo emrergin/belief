@@ -60,28 +60,47 @@ function PSR({
 	}, [setCurrentPoints, showResult, value]);
 
 	return (
-		<div
-			className={styles.psrHolder}
-			ref={parent}
-			style={{ ...style, backgroundColor: isGreen ? "#5cb85c" : "white" }}
-		>
-			{[randomValues?.n1, randomValues?.n2, value]
-				.filter((a) => a)
-				.sort((a, b) => (a || 0) - (b || 0))
-				.map((v) => (
-					<div
-						key={v}
-						className={styles.psrBox}
-						style={{
-							border: `${
-								v === value && showResult ? 2 : 0
-							}px solid ${chosenColor}`,
-						}}
+		<>
+			{showResult && (
+				<div style={{ marginInline: "auto" }}>
+					<p
+						className={chosenColor === "red" ? styles.redText : styles.blueText}
 					>
-						{v === value ? v : Math.round((v || 0) * 100) / 100}
-					</div>
-				))}
-		</div>
+						Seçilen renk: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
+					</p>
+					<p>
+						Seçtiğiniz {chosenColor === "red" ? "kırmızı" : "mavi"} ihtimali{" "}
+						{chosenColor === "red" ? value : 100 - value}
+					</p>
+				</div>
+			)}
+			<div
+				className={styles.psrHolder}
+				ref={parent}
+				style={{ ...style, backgroundColor: isGreen ? "#5cb85c" : "white" }}
+			>
+				{[
+					randomValues?.n1,
+					randomValues?.n2,
+					chosenColor === "red" ? value : 100 - value,
+				]
+					.filter((a) => a)
+					.sort((a, b) => (a || 0) - (b || 0))
+					.map((v) => (
+						<div
+							key={v}
+							className={styles.psrBox}
+							style={{
+								border: `${
+									v === value && showResult ? 2 : 0
+								}px solid ${chosenColor}`,
+							}}
+						>
+							{v === value ? v : Math.round((v || 0) * 100) / 100}
+						</div>
+					))}
+			</div>
+		</>
 	);
 }
 
