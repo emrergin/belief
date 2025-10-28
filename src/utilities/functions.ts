@@ -45,8 +45,8 @@ export function getDiceText(prior: [number, number]): [string, string] {
 	const allDice = ["1", "2", "3", "4", "5", "6"];
 	console.log(prior);
 	return [
-		formatter.format(allDice.slice(0, prior[0])),
-		formatter.format(allDice.slice(-prior[1])),
+		formatter.format(allDice.slice(-prior[0])),
+		formatter.format(allDice.slice(0, prior[1])),
 	];
 }
 
