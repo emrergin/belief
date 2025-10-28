@@ -11,8 +11,8 @@ import Slide2 from "./intro3Components/Slide2";
 import Slide3 from "./intro3Components/Slide3";
 import Slide4QSR from "./intro3Components/Slide4QSR";
 import Slide4BSR from "./intro3Components/Slide4BSR";
-import Slide3PSR from "./intro3Components/Slide3PSR";
 import Slide4PSR from "./intro3Components/Slide4PSR";
+import PSRExplanation from "./intro2Components/PSRExplanation";
 
 function IntroGuess({
 	treatment,
@@ -59,7 +59,7 @@ function IntroGuess({
 			>
 				<Slide1 numberOfRounds={numberOfRounds} />
 				<Slide2 />
-				{treatment === "PSR2" && <Slide3PSR />}
+				{treatment === "PSR2" && <PSRExplanation isBayesian={false} />}
 				{treatment !== "PSR2" && <Slide3 treatment={treatment} />}
 				{treatment === "QSR2" && <Slide4QSR />}
 				{treatment === "BSR2" && <Slide4BSR />}

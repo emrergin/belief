@@ -39,7 +39,7 @@ const Slide6PSR = () => {
 						marginTop: "2ch",
 					}}
 				>
-					BAS
+					DENEMEK İÇİN BAS
 				</button>
 			</div>
 		</Carousel.Slide>

@@ -38,14 +38,14 @@ function PSR({
 			const { n1, n2 } = chooseRandomValues();
 			if (chosenColor === "red") {
 				setCurrentPoints &&
-					setCurrentPoints(value > Math.max(n1, n2) ? 10000 : 0);
-				if (value > Math.max(n1, n2)) {
+					setCurrentPoints(value > Math.min(n1, n2) ? 10000 : 0);
+				if (value > Math.min(n1, n2)) {
 					setIsGreen(true);
 				}
 			} else {
 				setCurrentPoints &&
-					setCurrentPoints(value < Math.min(n1, n2) ? 10000 : 0);
-				if (value < Math.min(n1, n2)) {
+					setCurrentPoints(value < Math.max(n1, n2) ? 10000 : 0);
+				if (value < Math.max(n1, n2)) {
 					setIsGreen(true);
 				}
 			}
@@ -78,7 +78,7 @@ function PSR({
 							}px solid ${chosenColor}`,
 						}}
 					>
-						{v}
+						{v === value ? v : Math.round((v || 0) * 100) / 100}
 					</div>
 				))}
 		</div>

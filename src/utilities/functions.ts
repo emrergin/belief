@@ -1,5 +1,4 @@
 import { RoundToDownload } from "@/pages/api/round";
-import { Round } from "@prisma/client";
 
 function arrayToCsv(data: RoundToDownload[], columnNames: string[]): string {
 	let data2: (string[] | RoundToDownload)[] = [columnNames, ...data];
@@ -44,9 +43,10 @@ export function getDiceText(prior: [number, number]): [string, string] {
 		type: "disjunction",
 	});
 	const allDice = ["1", "2", "3", "4", "5", "6"];
+	console.log(prior);
 	return [
 		formatter.format(allDice.slice(0, prior[0])),
-		formatter.format(allDice.slice(prior[1])),
+		formatter.format(allDice.slice(-prior[1])),
 	];
 }
 
@@ -64,11 +64,4 @@ export function getDateText() {
 			timeZone: "Africa/Nairobi",
 		}) + ":00"
 	);
-}
-
-async function generateNewRound(lastRound: Omit<Round, "id">) {
-	await fetch("./api/round", {
-		method: "POST",
-		body: JSON.stringify(lastRound),
-	});
 }

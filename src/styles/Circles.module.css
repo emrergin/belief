@@ -104,20 +104,22 @@
 }
 
 .psrHolder {
-	width: 900px;
+	width: 350px;
 	margin: auto;
 	justify-content: center;
 	flex-direction: row;
 	display: flex;
 	gap: 50px;
 	transition: background-color 1000ms linear;
+	border-radius: 0.25ch;
 }
 
 .psrBox {
 	height: 4ch;
 	margin: 1ch;
 	text-align: center;
-	width: 250px;
+	width: 40px;
+	border-radius: 0.25ch;
 }
 
 .bar-holder {

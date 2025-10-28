@@ -14,8 +14,8 @@ import Slide4 from "./intro2Components/Slide4";
 import Slide6QSR from "./intro2Components/Slide6QSR";
 import Slide6BSR from "./intro2Components/Slide6BSR";
 import Slide5 from "./intro2Components/Slide5";
-import Slide5PSR from "./intro2Components/Slide5PSR";
 import Slide6PSR from "./intro2Components/Slide6PSR";
+import PSRExplanation from "./intro2Components/PSRExplanation";
 
 function IntroBayesian({
 	aBlue,
@@ -72,7 +72,7 @@ function IntroBayesian({
 				<Slide3 diceText={diceText} equal={priors[0] === 0} />
 				<Slide4 />
 				{treatment !== "PSR" && <Slide5 treatment={treatment} />}
-				{treatment === "PSR" && <Slide5PSR />}
+				{treatment === "PSR" && <PSRExplanation isBayesian={true} />}
 				{treatment === "QSR" && <Slide6QSR />}
 				{treatment === "BSR" && <Slide6BSR />}
 				{treatment === "PSR" && <Slide6PSR />}
