@@ -12,8 +12,8 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 					<b className={circleStyles.redText}>kırmızı</b> yahut{" "}
 					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini yüzde
 					olarak seçeceksiniz. Ardından, bilgisayar 0 ila 100 arasında,
-					ondalıklı sayılar da dahil olmak üzere, rastgele iki tane sayı
-					seçecek. Bu sayıların seçimi birbirinden tamamıyla bağımsız.
+					ondalıklı sayılar da dahil olmak üzere, rastgele iki sayı seçecek. Bu
+					sayıların seçimi birbirinden tamamıyla bağımsız.
 				</List.Item>
 				<List.Item>
 					<p>
@@ -22,9 +22,9 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 						</b>
 					</p>
 					<p>
-						seçtiğiniz kırmızı ihtimali, bilgisayarın rastgele seçtiği sayıların
-						en az birinden <b>büyük</b>se 10000 puan, aksi takdirde sıfır puan
-						kazanacaksınız.
+						seçtiğiniz kırmızı ihtimali, bu sayıların en az birinden{" "}
+						<b>büyük</b>
+						se 10000 puan, aksi takdirde sıfır puan kazanacaksınız.
 					</p>
 				</List.Item>
 				{/* <div style={{ textAlign: "center" }}>veya</div> */}
@@ -43,9 +43,8 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 						</b>
 					</p>
 					<p>
-						seçtiğiniz mavi ihtimali, bilgisayarın rastgele seçtiği sayıların en
-						az birinden <b>büyük</b>se 10000 puan, aksi takdirde sıfır puan
-						kazanacaksınız.
+						seçtiğiniz mavi ihtimali, bu sayıların en az birinden <b>büyük</b>se
+						10000 puan, aksi takdirde sıfır puan kazanacaksınız.
 					</p>
 				</List.Item>
 

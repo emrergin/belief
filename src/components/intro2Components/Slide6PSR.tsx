@@ -5,11 +5,22 @@ import circleStyles from "@/styles/Circles.module.css";
 import { useState } from "react";
 import Slider from "../experimentComponents/Slider";
 import PSR from "../experimentComponents/PSR";
-const Slide6PSR = () => {
+const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 	const [sliderValue, setSliderValue] = useState(50);
 	const [showResult, setShowResult] = useState(false);
 	return (
 		<Carousel.Slide>
+			<List
+				className={customStyles.entryText}
+				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
+			>
+				<List.Item>
+					Sonucu Gör'e bastığınızda, eğer ödülü kazandıysanız, sayılar yeşille
+					boyanacak. Seçtiğiniz ihtimalin etrafındaki renk,{" "}
+					{isBayesian ? "torbanın" : "bilyenin"} asıl rengidir.
+				</List.Item>{" "}
+			</List>
+
 			<div
 				style={{
 					display: "flex",
@@ -39,7 +50,7 @@ const Slide6PSR = () => {
 						marginTop: "2ch",
 					}}
 				>
-					DENEMEK İÇİN BAS
+					{showResult ? "Bir Daha Dene" : "Sonucu Gör"}
 				</button>
 			</div>
 		</Carousel.Slide>

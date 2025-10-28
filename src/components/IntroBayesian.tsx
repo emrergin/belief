@@ -75,7 +75,7 @@ function IntroBayesian({
 				{treatment === "PSR" && <PSRExplanation isBayesian={true} />}
 				{treatment === "QSR" && <Slide6QSR />}
 				{treatment === "BSR" && <Slide6BSR />}
-				{treatment === "PSR" && <Slide6PSR />}
+				{treatment === "PSR" && <Slide6PSR isBayesian={true} />}
 			</Carousel>
 			<Button.Group>
 				<Button
