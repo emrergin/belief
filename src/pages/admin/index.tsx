@@ -304,7 +304,7 @@ export default function Home({
 					/>
 					{isBayesian && (
 						<TextInput
-							label="Öncüller"
+							label="Öncüller (ilki mavi)"
 							withAsterisk
 							{...form.getInputProps("prior")}
 						/>
