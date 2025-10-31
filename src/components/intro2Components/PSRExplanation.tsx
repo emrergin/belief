@@ -22,7 +22,7 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 						</b>
 					</p>
 					<p>
-						seçtiğiniz kırmızı ihtimali, bu sayıların en az birinden{" "}
+						seçtiğiniz <b>kırmızı</b> ihtimali, bu sayıların en az birinden{" "}
 						<b>büyük</b>
 						se 10000 puan, aksi takdirde sıfır puan kazanacaksınız.
 					</p>
@@ -43,8 +43,8 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 						</b>
 					</p>
 					<p>
-						seçtiğiniz mavi ihtimali, bu sayıların en az birinden <b>büyük</b>se
-						10000 puan, aksi takdirde sıfır puan kazanacaksınız.
+						seçtiğiniz <b>kırmızı</b> ihtimali, bu sayıların en az birinden{" "}
+						<b>küçük</b>se 10000 puan, aksi takdirde sıfır puan kazanacaksınız.
 					</p>
 				</List.Item>
 

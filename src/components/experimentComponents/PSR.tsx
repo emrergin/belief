@@ -20,7 +20,7 @@ function PSR({
 		n1: number;
 		n2: number;
 	} | null>(null);
-	const [isGreen, setIsGreen] = useState(false);
+	// const [isGreen, setIsGreen] = useState(false);
 
 	function chooseRandomValues() {
 		const n1 = Math.random() * 100;
@@ -39,15 +39,15 @@ function PSR({
 			if (chosenColor === "red") {
 				setCurrentPoints &&
 					setCurrentPoints(value > Math.min(n1, n2) ? 10000 : 0);
-				if (value > Math.min(n1, n2)) {
-					setIsGreen(true);
-				}
+				// if (value > Math.min(n1, n2)) {
+				// 	setIsGreen(true);
+				// }
 			} else {
 				setCurrentPoints &&
 					setCurrentPoints(value < Math.max(n1, n2) ? 10000 : 0);
-				if (value < Math.max(n1, n2)) {
-					setIsGreen(true);
-				}
+				// if (value < Math.max(n1, n2)) {
+				// 	setIsGreen(true);
+				// }
 			}
 		};
 		if (showResult) {
@@ -55,7 +55,7 @@ function PSR({
 		}
 		if (!showResult) {
 			setRandomValues({ n1: 0, n2: 0 });
-			setIsGreen(false);
+			// setIsGreen(false);
 		}
 	}, [setCurrentPoints, showResult, value]);
 
@@ -68,13 +68,36 @@ function PSR({
 					>
 						Seçilen renk: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
 					</p>
+					<p>Seçtiğiniz kırmızı ihtimali {value}</p>
 					<p>
-						Seçtiğiniz {chosenColor === "red" ? "kırmızı" : "mavi"} ihtimali{" "}
-						{chosenColor === "red" ? value : 100 - value}
+						Bilgisayarın seçtiği ilk sayı:{" "}
+						{Math.round((randomValues?.n1 || 0) * 100) / 100}
 					</p>
+					<p>
+						Bilgisayarın seçtiği ikinci sayı:{" "}
+						{Math.round((randomValues?.n2 || 0) * 100) / 100}
+					</p>
+					{chosenColor === "red" &&
+						"Seçtiğiniz sayı bilgisayarın seçtiği sayıların en az birinden büyük" +
+							(value >
+							Math.min(
+								randomValues?.n1 || Number.MAX_SAFE_INTEGER,
+								randomValues?.n2 || Number.MAX_SAFE_INTEGER,
+							)
+								? " değil."
+								: ".")}
+					{chosenColor === "blue" &&
+						"Seçtiğiniz sayı bilgisayarın seçtiği sayıların en az birinden küçük" +
+							(value <
+							Math.max(
+								randomValues?.n1 || Number.MIN_SAFE_INTEGER,
+								randomValues?.n2 || Number.MIN_SAFE_INTEGER,
+							)
+								? " değil."
+								: ".")}
 				</div>
 			)}
-			<div
+			{/* <div
 				className={styles.psrHolder}
 				ref={parent}
 				style={{ ...style, backgroundColor: isGreen ? "#5cb85c" : "white" }}
@@ -99,7 +122,7 @@ function PSR({
 							{v === value ? v : Math.round((v || 0) * 100) / 100}
 						</div>
 					))}
-			</div>
+			</div> */}
 		</>
 	);
 }
