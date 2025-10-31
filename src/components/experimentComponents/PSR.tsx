@@ -84,8 +84,8 @@ function PSR({
 								randomValues?.n1 || Number.MAX_SAFE_INTEGER,
 								randomValues?.n2 || Number.MAX_SAFE_INTEGER,
 							)
-								? " değil."
-								: ".")}
+								? "."
+								: " değil.")}
 					{chosenColor === "blue" &&
 						"Seçtiğiniz sayı bilgisayarın seçtiği sayıların en az birinden küçük" +
 							(value <
@@ -93,8 +93,8 @@ function PSR({
 								randomValues?.n1 || Number.MIN_SAFE_INTEGER,
 								randomValues?.n2 || Number.MIN_SAFE_INTEGER,
 							)
-								? " değil."
-								: ".")}
+								? "."
+								: " değil.")}
 				</div>
 			)}
 			{/* <div
