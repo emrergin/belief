@@ -8,10 +8,9 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					Çubuk üzerinde {isBayesian ? "torbanın" : "bilyenin"}{" "}
-					<b className={circleStyles.redText}>kırmızı</b> yahut{" "}
-					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini yüzde
-					olarak seçeceksiniz. Ardından, bilgisayar 0 ila 100 arasında,
+					{isBayesian ? "Torbanın" : "Bilyenin"}{" "}
+					<b className={circleStyles.redText}>kırmızı</b> olma ihtimalini yüzde
+					olarak gireceksiniz. Ardından, bilgisayar 0 ila 100 arasında,
 					ondalıklı sayılar da dahil olmak üzere, rastgele iki sayı seçecek. Bu
 					sayıların seçimi birbirinden tamamıyla bağımsız.
 				</List.Item>

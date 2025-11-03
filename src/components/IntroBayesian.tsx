@@ -69,8 +69,12 @@ function IntroBayesian({
 			>
 				<Slide1 numberOfRounds={numberOfRounds} aBlue={aBlue} bBlue={bBlue} />
 				<Slide2 aBlue={aBlue} bBlue={bBlue} diceText={diceText} />
-				<Slide3 diceText={diceText} equal={priors[0] === 0} />
-				<Slide4 />
+				<Slide3
+					diceText={diceText}
+					equal={priors[0] === priors[1]}
+					isPsr={treatment === "PSR"}
+				/>
+				{treatment !== "PSR" && <Slide4 />}
 				{treatment !== "PSR" && <Slide5 treatment={treatment} />}
 				{treatment === "PSR" && <PSRExplanation isBayesian={true} />}
 				{treatment === "QSR" && <Slide6QSR />}
@@ -94,11 +98,12 @@ function IntroBayesian({
 				>
 					<span>Sonraki</span>
 				</Button>
-				{slideIndex === 5 && (
-					<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
-						Deneye Başla!
-					</Button>
-				)}
+				{slideIndex === 5 ||
+					(slideIndex === 4 && treatment === "PSR" && (
+						<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
+							Deneye Başla!
+						</Button>
+					))}
 			</Button.Group>
 		</>
 	);

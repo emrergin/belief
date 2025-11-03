@@ -7,9 +7,11 @@ import circleStyles from "@/styles/Circles.module.css";
 const Slide3 = ({
 	diceText,
 	equal,
+	isPsr,
 }: {
 	diceText: [string, string];
 	equal: boolean;
+	isPsr: boolean;
 }) => {
 	return (
 		<Carousel.Slide>
@@ -41,9 +43,13 @@ const Slide3 = ({
 				</List.Item>
 				<List.Item>
 					Çekiliş sonuçlarını gördükten sonra sizden bilgisayarın seçtiği
-					torbanın <b className={circleStyles.redText}>kırmızı</b> yahut{" "}
-					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini{" "}
-					<b>yüzde</b> olarak belirlemenizi isteyeceğiz.
+					torbanın <b className={circleStyles.redText}>kırmızı</b>{" "}
+					{!isPsr && (
+						<span>
+							yahut <b className={circleStyles.blueText}>mavi</b>
+						</span>
+					)}
+					olma ihtimalini <b>yüzde</b> olarak belirlemenizi isteyeceğiz.
 				</List.Item>
 			</List>
 		</Carousel.Slide>

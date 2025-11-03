@@ -4,14 +4,14 @@ import customStyles from "@/styles/Custom.module.css";
 import circleStyles from "@/styles/Circles.module.css";
 import { NumberInput } from "@mantine/core";
 import { useState } from "react";
-import Slider from "../experimentComponents/Slider";
 import PSR from "../experimentComponents/PSR";
 const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 	const [sliderValue, setSliderValue] = useState<"" | number>(50);
 	const [showResult, setShowResult] = useState(false);
+	const [score, setScore] = useState(-1);
 	return (
 		<Carousel.Slide>
-			<List
+			{/* <List
 				className={customStyles.entryText}
 				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
 			>
@@ -20,9 +20,10 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 					yeşille boyanacak. Seçtiğiniz ihtimalin etrafındaki renk,{" "}
 					{isBayesian ? "torbanın" : "bilyenin"} asıl rengidir.
 				</List.Item>{" "}
-			</List>
+			</List> */}
 
 			<div
+				className={customStyles.entryText}
 				style={{
 					display: "flex",
 					flexDirection: "column",
@@ -61,7 +62,13 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 					value={Number(sliderValue)}
 					showResult={showResult}
 					chosenColor={Math.random() > 0.5 ? "blue" : "red"}
+					setCurrentPoints={setScore}
 				/>
+				{showResult && (
+					<b style={{ marginInline: "auto" }}>
+						Bu, deneyde gerçek bir tur olsaydı, {score} kazanırdınız.
+					</b>
+				)}
 				<button
 					onClick={() => {
 						setShowResult(!showResult);
