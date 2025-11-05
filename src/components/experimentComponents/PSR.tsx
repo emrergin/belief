@@ -6,12 +6,14 @@ function PSR({
 	value,
 	showResult,
 	chosenColor,
+	isBayesian,
 	setCurrentPoints = false,
 	style,
 }: {
 	value: number;
 	showResult: boolean;
 	chosenColor: "blue" | "red";
+	isBayesian: boolean;
 	setCurrentPoints?: Dispatch<SetStateAction<number>> | false;
 	style?: React.CSSProperties;
 }) {
@@ -20,7 +22,6 @@ function PSR({
 		n1: number;
 		n2: number;
 	} | null>(null);
-	// const [isGreen, setIsGreen] = useState(false);
 
 	function chooseRandomValues() {
 		const n1 = Math.random() * 100;
@@ -39,15 +40,9 @@ function PSR({
 			if (chosenColor === "red") {
 				setCurrentPoints &&
 					setCurrentPoints(value > Math.min(n1, n2) ? 10000 : 0);
-				// if (value > Math.min(n1, n2)) {
-				// 	setIsGreen(true);
-				// }
 			} else {
 				setCurrentPoints &&
 					setCurrentPoints(value < Math.max(n1, n2) ? 10000 : 0);
-				// if (value < Math.max(n1, n2)) {
-				// 	setIsGreen(true);
-				// }
 			}
 		};
 		if (showResult) {
@@ -55,20 +50,25 @@ function PSR({
 		}
 		if (!showResult) {
 			setRandomValues({ n1: 0, n2: 0 });
-			// setIsGreen(false);
 		}
 	}, [setCurrentPoints, showResult, value]);
 
 	return (
 		<>
 			{showResult && (
-				<div style={{ marginInline: "auto" }}>
+				<div style={{ marginInline: "auto", width: "max-content" }}>
 					<p
 						className={chosenColor === "red" ? styles.redText : styles.blueText}
 					>
-						Seçilen renk: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
+						{isBayesian
+							? "Bilgisayarın seçtiği torba"
+							: "Seçilen bilyenin rengi"}{" "}
+						: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
 					</p>
-					<p>Seçtiğiniz kırmızı ihtimali {value}</p>
+					<p>
+						Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
+						verdiğiniz ihtimal: {value}
+					</p>
 					<p>
 						Bilgisayarın seçtiği ilk sayı:{" "}
 						{Math.round((randomValues?.n1 || 0) * 100) / 100}
@@ -97,32 +97,6 @@ function PSR({
 								: " değil.")}
 				</div>
 			)}
-			{/* <div
-				className={styles.psrHolder}
-				ref={parent}
-				style={{ ...style, backgroundColor: isGreen ? "#5cb85c" : "white" }}
-			>
-				{[
-					randomValues?.n1,
-					randomValues?.n2,
-					chosenColor === "red" ? value : 100 - value,
-				]
-					.filter((a) => a)
-					.sort((a, b) => (a || 0) - (b || 0))
-					.map((v) => (
-						<div
-							key={v}
-							className={styles.psrBox}
-							style={{
-								border: `${
-									v === value && showResult ? 2 : 0
-								}px solid ${chosenColor}`,
-							}}
-						>
-							{v === value ? v : Math.round((v || 0) * 100) / 100}
-						</div>
-					))}
-			</div> */}
 		</>
 	);
 }

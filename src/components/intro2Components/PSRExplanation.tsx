@@ -21,20 +21,11 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 						</b>
 					</p>
 					<p>
-						seçtiğiniz <b>kırmızı</b> ihtimali, bu sayıların en az birinden{" "}
-						<b>büyük</b>
+						ve <b>kırmızı</b> {isBayesian ? "torbaya" : "bilyeye"} verdiğiniz
+						ihtimal, bu sayıların en az birinden <b>büyük</b>
 						se 10000 puan, aksi takdirde sıfır puan kazanacaksınız.
 					</p>
 				</List.Item>
-				{/* <div style={{ textAlign: "center" }}>veya</div> */}
-				{/* <List.Item>
-					Eğer {isBayesian ? "torbanın" : "bilyenin"} mavi olma olasılığı için
-					belirlediğiniz yüzdelik, bilgisayarın rastgele seçtiği sayıların en az
-					birinden <b>büyük</b>se ve {isBayesian ? "torbanın" : "bilyenin"}{" "}
-					gerçek rengi <b className={circleStyles.blueText}>mavi</b>
-					yse,
-				</List.Item> */}
-
 				<List.Item>
 					<p>
 						<b className={circleStyles.blueText}>
@@ -42,14 +33,11 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 						</b>
 					</p>
 					<p>
-						seçtiğiniz <b>kırmızı</b> ihtimali, bu sayıların en az birinden{" "}
-						<b>küçük</b>se 10000 puan, aksi takdirde sıfır puan kazanacaksınız.
+						ve <b>kırmızı</b> {isBayesian ? "torbaya" : "bilyeye"} verdiğiniz
+						ihtimal, bu sayıların en az birinden <b>küçük</b>se 10000 puan, aksi
+						takdirde sıfır puan kazanacaksınız.
 					</p>
 				</List.Item>
-
-				{/* <div style={{ textAlign: "center", marginTop: "5ch" }}>
-					10000 puan, aksi takdirde sıfır puan kazanacaksınız.
-				</div> */}
 			</List>
 		</Carousel.Slide>
 	);

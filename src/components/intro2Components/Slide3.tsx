@@ -49,7 +49,7 @@ const Slide3 = ({
 							yahut <b className={circleStyles.blueText}>mavi</b>
 						</span>
 					)}
-					olma ihtimalini <b>yüzde</b> olarak belirlemenizi isteyeceğiz.
+					olma ihtimalini belirlemenizi isteyeceğiz.
 				</List.Item>
 			</List>
 		</Carousel.Slide>

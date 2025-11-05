@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, NumberInput } from "@mantine/core";
 import Circles from "./Circles";
 import Slider from "./Slider";
 import { Dispatch, SetStateAction } from "react";
@@ -27,15 +27,28 @@ function RoundBottom({
 	function updateSlider(e: React.ChangeEvent<HTMLInputElement>) {
 		setRedRatio(Number(e.target.value));
 	}
+	function setRatioForPSR(value: number | "") {
+		setRedRatio(value === "" ? 0 : value);
+	}
 	const isPsr = treatment === "PSR" || treatment === "PSR2";
 
 	return (
 		<>
-			{subPhase === "input" && (
+			{subPhase === "input" && !isPsr && (
 				<Slider
 					updatingFunction={updateSlider}
 					value={redRatio}
 					disabled={subPhase !== "input"}
+				/>
+			)}
+			{subPhase === "input" && isPsr && (
+				<NumberInput
+					label="Kırmızı torbaya verdiğiniz ihtimal"
+					description="Yüzdelik değer"
+					placeholder="0-100"
+					onChange={setRatioForPSR}
+					value={redRatio}
+					style={{ width: "15ch", marginInline: "auto", marginBottom: "5ch" }}
 				/>
 			)}
 
@@ -59,6 +72,7 @@ function RoundBottom({
 					showResult={subPhase === "result"}
 					chosenColor={chosenColor}
 					setCurrentPoints={setCurrentPoints}
+					isBayesian={treatment === "PSR"}
 					style={{
 						gap: "10ch",
 						justifyContent: "center",

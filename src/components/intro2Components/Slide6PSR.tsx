@@ -30,28 +30,8 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 					alignContent: "center",
 				}}
 			>
-				{/* <Slider
-					value={sliderValue}
-					updatingFunction={(event) => {
-						setSliderValue(Number(event.target.value));
-					}}
-					disabled={showResult}
-				/> */}
-				{/* <input
-					type="number"
-					min="0"
-					max="100"
-					step="1"
-					value={sliderValue}
-					onChange={(e) => {
-						setSliderValue(Number(e.currentTarget.value));
-					}}
-					style={{ width: "15ch", marginInline: "auto" }}
-					disabled={showResult}
-				/> */}
-
 				<NumberInput
-					label="Kırmızı ihtimali"
+					label="Kırmızı torbaya verdiğiniz ihtimal"
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setSliderValue}
@@ -63,6 +43,7 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 					showResult={showResult}
 					chosenColor={Math.random() > 0.5 ? "blue" : "red"}
 					setCurrentPoints={setScore}
+					isBayesian={isBayesian}
 				/>
 				{showResult && (
 					<b style={{ marginInline: "auto" }}>
