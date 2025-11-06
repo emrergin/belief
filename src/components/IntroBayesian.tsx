@@ -93,17 +93,18 @@ function IntroBayesian({
 				<Button
 					variant="light"
 					size="lg"
-					disabled={slideIndex === 5}
+					disabled={
+						slideIndex === 5 || (slideIndex === 4 && treatment === "PSR")
+					}
 					onClick={scrollNext}
 				>
 					<span>Sonraki</span>
 				</Button>
-				{slideIndex === 5 ||
-					(slideIndex === 4 && treatment === "PSR" && (
-						<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
-							Deneye Başla!
-						</Button>
-					))}
+				{(slideIndex === 5 || (slideIndex === 4 && treatment === "PSR")) && (
+					<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
+						Deneye Başla!
+					</Button>
+				)}
 			</Button.Group>
 		</>
 	);
