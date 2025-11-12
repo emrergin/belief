@@ -11,17 +11,6 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 	const [score, setScore] = useState(-1);
 	return (
 		<Carousel.Slide>
-			{/* <List
-				className={customStyles.entryText}
-				// style={{ marginTop: "0px", fontSize: "0.8rem" }}
-			>
-				<List.Item>
-					Sonucu Gör&apos;e bastığınızda, eğer ödülü kazandıysanız, sayılar
-					yeşille boyanacak. Seçtiğiniz ihtimalin etrafındaki renk,{" "}
-					{isBayesian ? "torbanın" : "bilyenin"} asıl rengidir.
-				</List.Item>{" "}
-			</List> */}
-
 			<div
 				className={customStyles.entryText}
 				style={{
@@ -37,6 +26,7 @@ const Slide6PSR = ({ isBayesian }: { isBayesian: boolean }) => {
 					onChange={setSliderValue}
 					value={sliderValue}
 					style={{ width: "15ch", marginInline: "auto" }}
+					disabled={showResult}
 				/>
 				<PSR
 					value={Number(sliderValue)}

@@ -48,6 +48,7 @@ function RoundBottom({
 					placeholder="0-100"
 					onChange={setRatioForPSR}
 					value={redRatio}
+					disabled={subPhase !== "input"}
 					style={{ width: "15ch", marginInline: "auto", marginBottom: "5ch" }}
 				/>
 			)}

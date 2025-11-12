@@ -48,7 +48,7 @@ const Slide3 = ({
 						<span>
 							yahut <b className={circleStyles.blueText}>mavi</b>
 						</span>
-					)}
+					)}{" "}
 					olma ihtimalini belirlemenizi isteyeceğiz.
 				</List.Item>
 			</List>

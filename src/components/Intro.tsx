@@ -36,8 +36,8 @@ function Intro({ nameFunction }: { nameFunction: (a: string) => void }) {
 				</List.Item>
 				<List.Item>
 					Deneyden erken ayrılabilirsiniz. Bulunduğunuz sayfayı değiştirmeniz ve
-					yenilemeniz gibi durumlarda da deneyden erken ayrılmış sayılırsınız.
-					Erken ayrılmanız durumunda yalnızca katılım ücreti ödenir.
+					yenilemeniz gibi durumlarda da erken ayrılmış sayılırsınız. Erken
+					ayrılmanız durumunda yalnızca katılım ücreti ödenir.
 				</List.Item>
 			</List>
 			<div className={customStyles.nameEntry}>
