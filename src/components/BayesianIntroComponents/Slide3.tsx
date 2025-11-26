@@ -7,11 +7,11 @@ import circleStyles from "@/styles/Circles.module.css";
 const Slide3 = ({
 	diceText,
 	equal,
-	isPsr,
+	isOurTreatment,
 }: {
 	diceText: [string, string];
 	equal: boolean;
-	isPsr: boolean;
+	isOurTreatment: boolean;
 }) => {
 	return (
 		<Carousel.Slide>
@@ -44,7 +44,7 @@ const Slide3 = ({
 				<List.Item>
 					Çekiliş sonuçlarını gördükten sonra sizden bilgisayarın seçtiği
 					torbanın <b className={circleStyles.redText}>kırmızı</b>{" "}
-					{!isPsr && (
+					{isOurTreatment && (
 						<span>
 							yahut <b className={circleStyles.blueText}>mavi</b>
 						</span>

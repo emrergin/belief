@@ -159,6 +159,9 @@ export default function Home({
 					if (!isInDesiredForm(line)) {
 						return "Negatif olmayan tam sayılar girmeniz bekleniyor.";
 					}
+					if (Number(line) > 100) {
+						return "Bu parametrenin en çok 100 olması gerekiyor.";
+					}
 				}
 				return null;
 			},
@@ -166,7 +169,8 @@ export default function Home({
 				if (
 					values.treatment === "QSR2" ||
 					values.treatment === "BSR2" ||
-					values.treatment === "PSR2"
+					values.treatment === "PSR2" ||
+					values.treatment === "NSR2"
 				) {
 					return null;
 				}

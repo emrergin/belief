@@ -6,20 +6,20 @@ import { Phase } from "@/utilities/types";
 
 import { Carousel, Embla } from "@mantine/carousel";
 
-import Slide1 from "./intro3Components/Slide1";
-import Slide2 from "./intro3Components/Slide2";
-import Slide3 from "./intro3Components/Slide3";
-import Slide4QSR from "./intro3Components/Slide4QSR";
-import Slide4BSR from "./intro3Components/Slide4BSR";
-import Slide4PSR from "./intro3Components/Slide4PSR";
-import PSRExplanation from "./intro2Components/PSRExplanation";
+import Slide1 from "./GuessIntroComponents/Slide1";
+import Slide2 from "./GuessIntroComponents/Slide2";
+import Slide3 from "./GuessIntroComponents/Slide3";
+import Slide4QSR from "./GuessIntroComponents/Slide4QSR";
+import Slide4BSR from "./GuessIntroComponents/Slide4BSR";
+import Slide4PSR from "./GuessIntroComponents/Slide4PSR";
+import PSRExplanation from "./BayesianIntroComponents/PSRExplanation";
 
 function IntroGuess({
 	treatment,
 	numberOfRounds,
 	phaseFunction,
 }: {
-	treatment: "QSR2" | "BSR2" | "PSR2";
+	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2";
 	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {
@@ -42,6 +42,8 @@ function IntroGuess({
 		setSlideIndex(embla.selectedScrollSnap() || 0);
 	}, [embla]);
 
+	const isOurTreatment = treatment == "QSR2" || treatment == "BSR2";
+
 	return (
 		<>
 			<Carousel
@@ -57,10 +59,13 @@ function IntroGuess({
 					marginBottom: "2rem",
 				}}
 			>
-				<Slide1 numberOfRounds={numberOfRounds} />
+				<Slide1
+					numberOfRounds={numberOfRounds}
+					isOurTreatment={isOurTreatment}
+				/>
 				<Slide2 />
 				{treatment === "PSR2" && <PSRExplanation isBayesian={false} />}
-				{treatment !== "PSR2" && <Slide3 treatment={treatment} />}
+				{isOurTreatment && <Slide3 treatment={treatment} />}
 				{treatment === "QSR2" && <Slide4QSR />}
 				{treatment === "BSR2" && <Slide4BSR />}
 				{treatment === "PSR2" && <Slide4PSR />}

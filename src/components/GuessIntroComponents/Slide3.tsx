@@ -6,7 +6,7 @@ import { List } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { useState } from "react";
 
-const Slide3 = ({ treatment }: { treatment: "QSR2" | "BSR2" | "PSR2" }) => {
+const Slide3 = ({ treatment }: { treatment: "QSR2" | "BSR2" }) => {
 	const [sliderValue, setSliderValue] = useState(50);
 	return (
 		<Carousel.Slide>
@@ -16,17 +16,15 @@ const Slide3 = ({ treatment }: { treatment: "QSR2" | "BSR2" | "PSR2" }) => {
 				style={{ marginTop: "0px", scale: "0.9" }}
 			>
 				<List.Item>
-					Çubuk üzerinde bilyenin{" "}
-					<b className={circleStyles.redText}>kırmızı</b> yahut{" "}
-					<b className={circleStyles.blueText}>mavi</b> olma olasılığını
-					seçtikten sonra, deneyden elde edeceğiniz kazancı belirlemek için{" "}
+					Tahminlerinizi yaptıktan sonra seçtikten sonra, deneyden elde
+					edeceğiniz kazancı belirlemek için{" "}
 					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
 					<b className={circleStyles.blueText}>mavi</b> renkte iki simit
 					kullanacağız.
 				</List.Item>
 				<List.Item>
-					Çubuğun üzerindeki gri yuvarlağı sağa veya sola sürüklediğinizde
-					simitlerin boyutlarının değiştiğini göreceksiniz.
+					Kaydırma çubuğunu hareket ettirdiğinizde simitlerin boyutlarının
+					değiştiğini göreceksiniz.
 				</List.Item>
 			</List>
 			<div

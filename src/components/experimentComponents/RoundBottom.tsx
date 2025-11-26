@@ -4,6 +4,7 @@ import Slider from "./Slider";
 import { Dispatch, SetStateAction } from "react";
 import customStyles from "@/styles/Custom.module.css";
 import PSR from "@/components/experimentComponents/PSR";
+import NSR from "./NSR";
 
 function RoundBottom({
 	subPhase,
@@ -18,7 +19,8 @@ function RoundBottom({
 	subPhase: "result" | "input" | "drawing";
 	redRatio: number;
 	setRedRatio: (value: SetStateAction<number>) => void;
-	treatment: "QSR" | "BSR" | "PSR" | "QSR2" | "BSR2" | "PSR2";
+	// treatment: "QSR" | "BSR" | "PSR" | "QSR2" | "BSR2" | "PSR2";
+	treatment: "QSR" | "BSR" | "PSR" | "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NSR";
 	chosenColor: "blue" | "red";
 	setCurrentPoints: Dispatch<SetStateAction<number>>;
 	pointsForCurrentRound: number;
@@ -31,6 +33,12 @@ function RoundBottom({
 		setRedRatio(value === "" ? 0 : value);
 	}
 	const isPsr = treatment === "PSR" || treatment === "PSR2";
+	const isNsr = treatment === "NSR2" || treatment === "NSR";
+	const isBayesian =
+		treatment === "QSR" ||
+		treatment === "BSR" ||
+		treatment === "NSR" ||
+		treatment === "PSR";
 
 	return (
 		<>
@@ -41,9 +49,9 @@ function RoundBottom({
 					disabled={subPhase !== "input"}
 				/>
 			)}
-			{subPhase === "input" && isPsr && (
+			{subPhase === "input" && (isPsr || isNsr) && (
 				<NumberInput
-					label="Kırmızı torbaya verdiğiniz ihtimal"
+					label={`Kırmızı ${isBayesian ? "torbay" : "top"}a verdiğiniz ihtimal`}
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setRatioForPSR}
@@ -74,6 +82,20 @@ function RoundBottom({
 					chosenColor={chosenColor}
 					setCurrentPoints={setCurrentPoints}
 					isBayesian={treatment === "PSR"}
+					style={{
+						gap: "10ch",
+						justifyContent: "center",
+					}}
+				/>
+			)}
+
+			{(subPhase === "input" || subPhase === "result") && isNsr && (
+				<NSR
+					value={redRatio}
+					showResult={subPhase === "result"}
+					chosenColor={chosenColor}
+					setCurrentPoints={setCurrentPoints}
+					isBayesian={treatment === "NSR"}
 					style={{
 						gap: "10ch",
 						justifyContent: "center",

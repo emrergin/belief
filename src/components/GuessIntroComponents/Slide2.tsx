@@ -12,21 +12,19 @@ const Slide2 = () => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					Çekilen bilyenin <b className={circleStyles.redText}>kırmızı</b> yahut{" "}
-					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini{" "}
-					<b>
-						<i>(yüzde olarak)</i>
-					</b>{" "}
-					aşağıdaki çubuk üzerindeki gri yuvarlağı sağa veya sola sürükleyerek
-					belirtmenizi isteyeceğiz.
+					Ekranda bir kaydırma çubuğu göreceksiniz. Çekilen bilyenin{" "}
+					<b className={circleStyles.redText}>kırmızı</b> yahut{" "}
+					<b className={circleStyles.blueText}>mavi</b> olmasına verdiğiniz
+					ihtimali, çubuk üzerindeki gri yuvarlağı sağa veya sola sürükleyerek
+					belirteceksiniz.
 				</List.Item>
 				<List.Item>
 					Soldaki <b className={circleStyles.redText}>kırmızı</b> renkle yazılan
 					rakam, çekilen bilyenin{" "}
-					<b className={circleStyles.redText}>kırmızı</b> olma ihtimalini, mavi
-					renkle yazılan rakam ise yine çekilen bilyenin{" "}
-					<b className={circleStyles.blueText}>mavi</b> olma ihtimalini
-					göstermektedir.
+					<b className={circleStyles.redText}>kırmızı</b> olmsına verdiğiniz
+					ihtimali, mavi renkle yazılan rakam ise yine çekilen bilyenin{" "}
+					<b className={circleStyles.blueText}>mavi</b> olmasına verdiğiniz
+					ihtimali gösterir.
 				</List.Item>
 				<div
 					style={{

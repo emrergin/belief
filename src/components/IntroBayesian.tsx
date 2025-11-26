@@ -7,15 +7,15 @@ import { Phase } from "@/utilities/types";
 import { Carousel, Embla } from "@mantine/carousel";
 
 import { getDiceText } from "@/utilities/functions";
-import Slide1 from "./intro2Components/Slide1";
-import Slide2 from "./intro2Components/Slide2";
-import Slide3 from "./intro2Components/Slide3";
-import Slide4 from "./intro2Components/Slide4";
-import Slide6QSR from "./intro2Components/Slide6QSR";
-import Slide6BSR from "./intro2Components/Slide6BSR";
-import Slide5 from "./intro2Components/Slide5";
-import Slide6PSR from "./intro2Components/Slide6PSR";
-import PSRExplanation from "./intro2Components/PSRExplanation";
+import Slide1 from "./BayesianIntroComponents/Slide1";
+import Slide2 from "./BayesianIntroComponents/Slide2";
+import Slide3 from "./BayesianIntroComponents/Slide3";
+import Slide4 from "./BayesianIntroComponents/Slide4";
+import Slide6QSR from "./BayesianIntroComponents/Slide6QSR";
+import Slide6BSR from "./BayesianIntroComponents/Slide6BSR";
+import Slide5 from "./BayesianIntroComponents/Slide5";
+import Slide6PSR from "./BayesianIntroComponents/Slide6PSR";
+import PSRExplanation from "./BayesianIntroComponents/PSRExplanation";
 
 function IntroBayesian({
 	aBlue,
@@ -52,6 +52,8 @@ function IntroBayesian({
 		setSlideIndex(embla.selectedScrollSnap() || 0);
 	}, [embla]);
 
+	const isOurTreatment = treatment === "QSR" || treatment === "BSR";
+
 	return (
 		<>
 			<Carousel
@@ -72,10 +74,10 @@ function IntroBayesian({
 				<Slide3
 					diceText={diceText}
 					equal={priors[0] === priors[1]}
-					isPsr={treatment === "PSR"}
+					isOurTreatment={isOurTreatment}
 				/>
-				{treatment !== "PSR" && <Slide4 />}
-				{treatment !== "PSR" && <Slide5 treatment={treatment} />}
+				{isOurTreatment && <Slide4 />}
+				{isOurTreatment && <Slide5 treatment={treatment} />}
 				{treatment === "PSR" && <PSRExplanation isBayesian={true} />}
 				{treatment === "QSR" && <Slide6QSR />}
 				{treatment === "BSR" && <Slide6BSR />}
@@ -93,14 +95,12 @@ function IntroBayesian({
 				<Button
 					variant="light"
 					size="lg"
-					disabled={
-						slideIndex === 5 || (slideIndex === 4 && treatment === "PSR")
-					}
+					disabled={slideIndex === 5 || (slideIndex === 4 && !isOurTreatment)}
 					onClick={scrollNext}
 				>
 					<span>Sonraki</span>
 				</Button>
-				{(slideIndex === 5 || (slideIndex === 4 && treatment === "PSR")) && (
+				{(slideIndex === 5 || (slideIndex === 4 && !isOurTreatment)) && (
 					<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
 						Deneye Başla!
 					</Button>

@@ -4,7 +4,13 @@ import { Carousel } from "@mantine/carousel";
 import customStyles from "@/styles/Custom.module.css";
 import circleStyles from "@/styles/Circles.module.css";
 
-const Slide1 = ({ numberOfRounds }: { numberOfRounds: number }) => {
+const Slide1 = ({
+	numberOfRounds,
+	isOurTreatment,
+}: {
+	numberOfRounds: number;
+	isOurTreatment: boolean;
+}) => {
 	return (
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
@@ -14,14 +20,13 @@ const Slide1 = ({ numberOfRounds }: { numberOfRounds: number }) => {
 				<List.Item>
 					{" "}
 					Her turda, bilgisayar size içinde 100 tane bilye bulunan bir torba
-					sunacak. Topların bazıları{" "}
-					<b className={circleStyles.redText}>kırmızı</b>, bazıları ise{" "}
-					<b className={circleStyles.blueText}>mavi</b>dir. Her turun başında
-					size yeni bir torba verilecek. Bu nedenle, torbanın bileşimi her turda
-					farklı olacak.
+					sunacak. Torbadaki bilyeler{" "}
+					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
+					<b className={circleStyles.blueText}>mavi</b> renkte olacak. Torbanın
+					içeriği her tur değişir.
 				</List.Item>
 				<List.Item>
-					Her turun torbada kaç tane{" "}
+					Tur başlarında torbada kaç tane{" "}
 					<b className={circleStyles.redText}>kırmızı</b> bilye ve kaç tane{" "}
 					<b className={circleStyles.blueText}>mavi</b> bilye olduğunu
 					göreceksiniz. Bilgisayar daha sonra torbadan rastgele bir bilye
@@ -29,10 +34,20 @@ const Slide1 = ({ numberOfRounds }: { numberOfRounds: number }) => {
 				</List.Item>
 				<List.Item>
 					Göreviniz bilgisayar tarafından rastgele çekilen bilyenin{" "}
-					<b className={circleStyles.redText}>kırmızı</b> olma olasılığını
-					tahmin etmek. Tahmininizi yapmak için 0 ile 100 arasında bir sayı
-					seçmeniz gerekecek. Daha yüksek bir sayı, bilyenin kırmızı olma
-					ihtimalinin daha yüksek olduğunu düşündüğünüz anlamına gelir.
+					<b className={circleStyles.redText}>kırmızı</b>{" "}
+					{isOurTreatment && (
+						<span>
+							yahut <b className={circleStyles.blueText}>mavi</b>
+						</span>
+					)}{" "}
+					olma ihtimalini tahmin etmek. Tahmininizi yapmak için 0 ile 100
+					arasında bir sayı seçmeniz gerekecek.{" "}
+					{!isOurTreatment && (
+						<span>
+							Daha yüksek bir sayı, bilyenin kırmızı olma ihtimalinin daha
+							yüksek olduğunu düşündüğünüz anlamına gelir.
+						</span>
+					)}{" "}
 				</List.Item>
 			</List>
 		</Carousel.Slide>
