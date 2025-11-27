@@ -10,6 +10,79 @@
 	margin-top: 0.75em;
 }
 
+.subList {
+	text-align: left;
+	font-size: 1rem;
+	max-width: 75ch;
+	padding-inline: 2ch;
+	margin: 0.5rem auto 1rem auto;
+}
+
+.fraction {
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	line-height: 2;
+	margin-top: 10px;
+}
+
+.fraction > *:not(hr) {
+	margin-inline: auto;
+}
+
+.fraction > hr {
+	border: none;
+	height: 2px;
+	background-color: #333; /* Modern Browsers */
+}
+
+.fraction > hr {
+	width: 100%;
+}
+
+.outerBracket {
+	font-size: 4rem;
+	align-items: center;
+	line-height: 0.5;
+	display: block;
+	height: 100%;
+}
+
+.paranthesis {
+	font-size: 3rem;
+	align-items: center;
+	line-height: 0.5;
+	display: block;
+	height: 100%;
+}
+
+.sup {
+	font-size: 1rem;
+	margin-left: -0.5rem;
+}
+
+.minus {
+	font-size: 2rem;
+	align-items: center;
+	display: block;
+	height: 100%;
+	line-height: 0.65;
+}
+
+.one {
+	margin-top: 3%;
+	display: block;
+	line-height: 0.5;
+}
+.fullExpression {
+	display: flex;
+	flex-direction: row;
+	justify-items: center;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1.2rem;
+}
+
 .mainWrapper {
 	max-width: 1200px;
 }

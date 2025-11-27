@@ -13,6 +13,8 @@ import Slide4QSR from "./GuessIntroComponents/Slide4QSR";
 import Slide4BSR from "./GuessIntroComponents/Slide4BSR";
 import Slide4PSR from "./GuessIntroComponents/Slide4PSR";
 import PSRExplanation from "./BayesianIntroComponents/PSRExplanation";
+import Slide2NSR from "./GuessIntroComponents/Slide2NSR";
+import Slide3NSR from "./GuessIntroComponents/Slide3NSR";
 
 function IntroGuess({
 	treatment,
@@ -63,9 +65,14 @@ function IntroGuess({
 					numberOfRounds={numberOfRounds}
 					isOurTreatment={isOurTreatment}
 				/>
-				<Slide2 />
+				{/* 2 */}
+				{isOurTreatment && <Slide2 />}
+				{treatment === "NSR2" && <Slide2NSR />}
 				{treatment === "PSR2" && <PSRExplanation isBayesian={false} />}
+				{/* 3 */}
 				{isOurTreatment && <Slide3 treatment={treatment} />}
+				{treatment === "NSR2" && <Slide3NSR />}
+				{/* 4 */}
 				{treatment === "QSR2" && <Slide4QSR />}
 				{treatment === "BSR2" && <Slide4BSR />}
 				{treatment === "PSR2" && <Slide4PSR />}

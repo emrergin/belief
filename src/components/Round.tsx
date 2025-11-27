@@ -37,7 +37,7 @@ function Round({
 			type: "bayesian";
 	  }
 	| {
-			treatment: "QSR2" | "BSR2" | "PSR2";
+			treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2";
 			roundParameters: number[];
 			priors?: undefined;
 			aBlue?: undefined;

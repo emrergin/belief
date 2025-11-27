@@ -281,6 +281,7 @@ export default function Home({
 							<Radio value="QSR2" label="G_QSR" />
 							<Radio value="BSR2" label="G_BSR" />
 							<Radio value="PSR2" label="G_PSR" />
+							<Radio value="NSR2" label="G_NSR" />
 						</Group>
 					</Radio.Group>
 					{isBayesian && (
