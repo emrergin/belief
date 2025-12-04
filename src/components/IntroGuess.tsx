@@ -1,20 +1,53 @@
 import { useState, useCallback } from "react";
 
 import { Button } from "@mantine/core";
+import { Carousel, Embla } from "@mantine/carousel";
 
 import { Phase } from "@/utilities/types";
 
-import { Carousel, Embla } from "@mantine/carousel";
-
 import Slide1 from "./GuessIntroComponents/Slide1";
 import Slide2 from "./GuessIntroComponents/Slide2";
+import Slide2NSR from "./GuessIntroComponents/Slide2NSR";
+import Slide2PSR from "./BayesianIntroComponents/PSRExplanation";
 import Slide3 from "./GuessIntroComponents/Slide3";
 import Slide4QSR from "./GuessIntroComponents/Slide4QSR";
 import Slide4BSR from "./GuessIntroComponents/Slide4BSR";
-import Slide4PSR from "./GuessIntroComponents/Slide4PSR";
-import PSRExplanation from "./BayesianIntroComponents/PSRExplanation";
-import Slide2NSR from "./GuessIntroComponents/Slide2NSR";
+import Slide3PSR from "./GuessIntroComponents/Slide3PSR";
 import Slide3NSR from "./GuessIntroComponents/Slide3NSR";
+import Slide4NSR from "./GuessIntroComponents/Slide4NSR";
+import Slide5NSR from "./GuessIntroComponents/Slide5NSR";
+
+function getCurrentSlides(treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2") {
+	const QSRSlides = [
+		<Slide2 key="2" />,
+		<Slide3 treatment="QSR2" key="3" />,
+		<Slide4QSR key="4" />,
+	];
+	const BSRSlides = [
+		<Slide2 key="2" />,
+		<Slide3 treatment="BSR2" key="3" />,
+		<Slide4BSR key="4" />,
+	];
+	const NSRSlides = [
+		<Slide2NSR key="2" />,
+		<Slide3NSR key="3" />,
+		<Slide4NSR key="4" />,
+		<Slide5NSR key="5" />,
+	];
+	const PSRSlides = [
+		<Slide2PSR key="2" isBayesian={false} />,
+		<Slide3PSR key="3" />,
+	];
+
+	if (treatment === "BSR2") {
+		return BSRSlides;
+	} else if (treatment === "PSR2") {
+		return PSRSlides;
+	} else if (treatment === "NSR2") {
+		return NSRSlides;
+	}
+	return QSRSlides;
+}
 
 function IntroGuess({
 	treatment,
@@ -44,7 +77,8 @@ function IntroGuess({
 		setSlideIndex(embla.selectedScrollSnap() || 0);
 	}, [embla]);
 
-	const isOurTreatment = treatment == "QSR2" || treatment == "BSR2";
+	const isOurTreatment = treatment === "BSR2" || treatment === "QSR2";
+	const currentSlides = getCurrentSlides(treatment);
 
 	return (
 		<>
@@ -65,17 +99,7 @@ function IntroGuess({
 					numberOfRounds={numberOfRounds}
 					isOurTreatment={isOurTreatment}
 				/>
-				{/* 2 */}
-				{isOurTreatment && <Slide2 />}
-				{treatment === "NSR2" && <Slide2NSR />}
-				{treatment === "PSR2" && <PSRExplanation isBayesian={false} />}
-				{/* 3 */}
-				{isOurTreatment && <Slide3 treatment={treatment} />}
-				{treatment === "NSR2" && <Slide3NSR />}
-				{/* 4 */}
-				{treatment === "QSR2" && <Slide4QSR />}
-				{treatment === "BSR2" && <Slide4BSR />}
-				{treatment === "PSR2" && <Slide4PSR />}
+				{currentSlides}
 			</Carousel>
 			<Button.Group>
 				<Button
@@ -89,12 +113,12 @@ function IntroGuess({
 				<Button
 					variant="light"
 					size="lg"
-					disabled={slideIndex === 3}
+					disabled={slideIndex === currentSlides.length}
 					onClick={scrollNext}
 				>
 					<span>Sonraki</span>
 				</Button>
-				{slideIndex === 3 && (
+				{slideIndex === currentSlides.length && (
 					<Button size="lg" onClick={() => phaseFunction(Phase.Main)}>
 						Deneye Başla!
 					</Button>

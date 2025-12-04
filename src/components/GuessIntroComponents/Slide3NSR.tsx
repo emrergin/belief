@@ -1,5 +1,4 @@
 import customStyles from "@/styles/Custom.module.css";
-import circleStyles from "@/styles/Circles.module.css";
 import { List } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import NSRExpression from "../experimentComponents/NSRExpression";

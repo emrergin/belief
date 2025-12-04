@@ -1,11 +1,11 @@
 import { Carousel } from "@mantine/carousel";
 
-const Slide4PSR = () => {
+const Slide3PSR = () => {
 	return (
 		<Carousel.Slide>
-			<p>PLACEHOLDER2</p>
+			<p>PLACEHOLDER</p>
 		</Carousel.Slide>
 	);
 };
 
-export default Slide4PSR;
+export default Slide3PSR;

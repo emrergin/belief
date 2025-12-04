@@ -1,7 +1,5 @@
 import { Carousel } from "@mantine/carousel";
-import { List } from "@mantine/core";
 import customStyles from "@/styles/Custom.module.css";
-import circleStyles from "@/styles/Circles.module.css";
 import { NumberInput } from "@mantine/core";
 import { useState } from "react";
 import PSR from "../experimentComponents/PSR";

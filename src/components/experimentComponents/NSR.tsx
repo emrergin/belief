@@ -34,45 +34,39 @@ function NSR({
 			calculatePointsForRound();
 		}
 		if (!showResult) {
-			const ifRed = (1 - (100 - value) ** 2 / 10000) * 100;
-			const ifBlue = (1 - value ** 2 / 10000) * 100;
+			const ifRed = 100 - (100 - value) ** 2 / 100;
+			const ifBlue = 100 - value ** 2 / 100;
 			setChance({ ifRed, ifBlue });
 		}
 	}, [setCurrentPoints, showResult, value]);
 
 	return (
-		<>
+		<div style={{ marginInline: "auto", width: "max-content" }}>
 			{showResult && (
-				<div style={{ marginInline: "auto", width: "max-content" }}>
-					<p
-						className={chosenColor === "red" ? styles.redText : styles.blueText}
-					>
-						{isBayesian
-							? "Bilgisayarın seçtiği torba"
-							: "Seçilen bilyenin rengi"}{" "}
-						: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
-					</p>
-					<p>
-						Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
-						verdiğiniz ihtimal: {value}
-					</p>
-					{chance?.ifRed !== undefined && (
-						<p>
-							{isBayesian ? "Torba " : "Bilye "} gerçekte{" "}
-							<b className={styles.redText}>kırmızı</b>ysa kazanma ihtimaliniz:{" "}
-							{chance?.ifRed}
-						</p>
-					)}
-					{chance?.ifBlue !== undefined && (
-						<p>
-							{isBayesian ? "Torba " : "Bilye "} gerçekte{" "}
-							<b className={styles.redText}>mavi</b>yse kazanma ihtimaliniz:{" "}
-							{chance?.ifBlue}
-						</p>
-					)}
-				</div>
+				<p className={chosenColor === "red" ? styles.redText : styles.blueText}>
+					{isBayesian ? "Bilgisayarın seçtiği torba" : "Seçilen bilyenin rengi"}{" "}
+					: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
+				</p>
 			)}
-		</>
+			<p>
+				Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
+				verdiğiniz ihtimal: {value}
+			</p>
+			{chance?.ifRed !== undefined && (
+				<p>
+					{isBayesian ? "Torba " : "Bilye "} gerçekte{" "}
+					<b className={styles.redText}>kırmızı</b>ysa kazanma ihtimaliniz:{" "}
+					{chance?.ifRed}
+				</p>
+			)}
+			{chance?.ifBlue !== undefined && (
+				<p>
+					{isBayesian ? "Torba " : "Bilye "} gerçekte{" "}
+					<b className={styles.blueText}>mavi</b>yse kazanma ihtimaliniz:{" "}
+					{chance?.ifBlue}
+				</p>
+			)}
+		</div>
 	);
 }
 
