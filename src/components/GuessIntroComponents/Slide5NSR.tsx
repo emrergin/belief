@@ -20,8 +20,8 @@ const Slide5NSR = () => {
 				</List.Item>
 				<List.Item>
 					Bir önceki ekrandaki birinci örnekte, bilgisayarın rastgele çektiği
-					sayı 91'e eşit veya 91'den küçükse, 1000 puan kazanırsınız, aksi
-					takdirde 0 puan kazanırsınız.
+					sayı 91&apos;e eşit veya 91&apos;den küçükse, 1000 puan kazanırsınız,
+					aksi takdirde 0 puan kazanırsınız.
 				</List.Item>
 			</List>
 			<div style={{ display: "flex", maxWidth: "90ch", marginInline: "auto" }}>
