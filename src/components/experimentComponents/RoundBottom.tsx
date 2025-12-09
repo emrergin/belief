@@ -39,6 +39,11 @@ function RoundBottom({
 		treatment === "BSR" ||
 		treatment === "NSR" ||
 		treatment === "PSR";
+	const isOurTreatment =
+		treatment === "QSR" ||
+		treatment === "BSR" ||
+		treatment === "QSR2" ||
+		treatment === "BSR2";
 
 	return (
 		<>
@@ -61,7 +66,7 @@ function RoundBottom({
 				/>
 			)}
 
-			{(subPhase === "input" || subPhase === "result") && !isPsr && !isNsr && (
+			{(subPhase === "input" || subPhase === "result") && isOurTreatment && (
 				<Circles
 					bsr={treatment === "BSR" || treatment === "BSR2"}
 					value={redRatio}

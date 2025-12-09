@@ -34,8 +34,8 @@ function NSR({
 			calculatePointsForRound();
 		}
 		if (!showResult) {
-			const ifRed = 100 - (100 - value) ** 2 / 100;
-			const ifBlue = 100 - value ** 2 / 100;
+			const ifRed = (10000 - (100 - value) ** 2) / 100;
+			const ifBlue = (10000 - value ** 2) / 100;
 			setChance({ ifRed, ifBlue });
 		}
 	}, [setCurrentPoints, showResult, value]);
