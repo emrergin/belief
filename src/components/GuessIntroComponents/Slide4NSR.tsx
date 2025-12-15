@@ -8,13 +8,13 @@ const Slide4NSR = () => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					Aşağıda 10000 puan kazanmanızın nasıl hem tahmininize hem de
-					bilgisayarın çektiği bilyeye bağlı olduğuna dair iki örnek daha var.
+					İşte, 10000 puan kazanmanızın nasıl hem tahmininize hem de
+					bilgisayarın çektiği bilyeye bağlı olduğuna dair iki örnek daha.
 				</List.Item>
 				<List.Item>
 					<b>Örnek 1.</b> Varsayalım ki, bilgisayarın çektiği bilyenin kırmızı
-					olma ihtimalini 70 olarak seçtiniz. Turun sonunda, bilgisayar rastgele
-					bir şekilde kırmızı bir bilye çektiğini gösterdi. O zaman, 10000 puan
+					olmasına %70 ihtimal verdiniz. Turun sonunda, bilgisayar rastgele bir
+					şekilde kırmızı bir bilye çektiğini gösterdi. O zaman, 10000 puan
 					kazanma ihtimaliniz,{" "}
 					<NSRExpression nominator="100-70" inline={true} /> = 91 olur.
 				</List.Item>

@@ -47,7 +47,7 @@ function RoundBottom({
 
 	return (
 		<>
-			{subPhase === "input" && !isPsr && (
+			{subPhase === "input" && isOurTreatment && (
 				<Slider
 					updatingFunction={updateSlider}
 					value={redRatio}

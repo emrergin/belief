@@ -8,11 +8,11 @@ const Slide3NSR = () => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					Bilyenin kırmızı olması için yüksek bir rakam belirlediğinizi
-					varsayalım. Az önceki formüller, 10000 kazanmanızın ihtimalinin
-					bilgisayar kırmızı bir bilye çekerse yüksek, mavi bir bilye çekerse
-					ise düşük olduğunu gösterir. Bu yüzden, bilgisayarın kırmızı mı yoksa
-					mavi bir bilye mi çekmesinin daha olası olduğunu dikkate almalısınız.
+					Diyelim ki, bilyenin kırmızı olmasına yüksek bir ihtimal verdiniz. Az
+					önceki formüller, 10000 kazanmanızın ihtimalinin bilgisayar kırmızı
+					bir bilye çekerse yüksek, mavi bir bilye çekerse ise düşük olduğunu
+					gösterir. Bu yüzden, bilgisayarın kırmızı mı yoksa mavi bir bilye mi
+					çekmesinin daha olası olduğunu dikkate almalısınız.
 				</List.Item>
 				<List.Item>
 					Bir örnek olarak, bilgisayarın kırmızı bir bilye çekme ihtimalini 100
@@ -20,9 +20,9 @@ const Slide3NSR = () => {
 					bilye çekerse 10000 puan kazanma ihtimaliniz,{" "}
 					<NSRExpression nominator="100-100" inline={true} /> = 100 olur. Eğer
 					bilgisayar mavi bir bilye çekerse, 10000 puan kazanma ihtimaliniz,{" "}
-					<NSRExpression nominator="100" inline={true} /> = 0 olur. Bu yüzden,
-					tahmininiz bu iki durumun hangisinin daha olası olduğu konusundaki
-					fikrinize bağlı olmalıdır.
+					<NSRExpression nominator="100" inline={true} /> = 0 olur. Dolayısıyla,
+					tahmininiz bilyelerden hangisine daha yüksek ihtimal verdiğinize bağlı
+					olmalıdır.
 				</List.Item>
 			</List>
 		</Carousel.Slide>

@@ -20,10 +20,12 @@ function NSR({
 		ifRed: number;
 		ifBlue: number;
 	} | null>(null);
+	const [chosenNumber, setChosenNumber] = useState<number | null>(null);
 
 	useEffect(() => {
 		const calculatePointsForRound = () => {
 			const n1 = Math.random() * 100;
+			setChosenNumber(n1);
 			if (chosenColor === "red" && chance?.ifRed !== undefined) {
 				setCurrentPoints && setCurrentPoints(n1 < chance?.ifRed ? 10000 : 0);
 			} else if (chosenColor === "blue" && chance?.ifBlue !== undefined) {
@@ -41,7 +43,13 @@ function NSR({
 	}, [setCurrentPoints, showResult, value]);
 
 	return (
-		<div style={{ marginInline: "auto", width: "max-content" }}>
+		<div
+			style={{
+				marginInline: "auto",
+				width: "max-content",
+				marginBottom: "2ch",
+			}}
+		>
 			{showResult && (
 				<p className={chosenColor === "red" ? styles.redText : styles.blueText}>
 					{isBayesian ? "Bilgisayarın seçtiği torba" : "Seçilen bilyenin rengi"}{" "}
@@ -65,6 +73,9 @@ function NSR({
 					<b className={styles.blueText}>mavi</b>yse kazanma ihtimaliniz:{" "}
 					{chance?.ifBlue}
 				</p>
+			)}
+			{showResult && chosenNumber && (
+				<p>Bilgisayarın seçtiği sayı: {Math.round(chosenNumber * 100) / 100}</p>
 			)}
 		</div>
 	);
