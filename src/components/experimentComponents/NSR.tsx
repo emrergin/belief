@@ -39,6 +39,7 @@ function NSR({
 			const ifRed = (10000 - (100 - value) ** 2) / 100;
 			const ifBlue = (10000 - value ** 2) / 100;
 			setChance({ ifRed, ifBlue });
+			setChosenNumber(null);
 		}
 	}, [setCurrentPoints, showResult, value]);
 
