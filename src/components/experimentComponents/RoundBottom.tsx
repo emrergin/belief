@@ -56,7 +56,9 @@ function RoundBottom({
 			)}
 			{subPhase === "input" && (isPsr || isNsr) && (
 				<NumberInput
-					label={`Kırmızı ${isBayesian ? "torbay" : "top"}a verdiğiniz ihtimal`}
+					label={`Kırmızı ${
+						isBayesian ? "torbaya" : "bilyeye"
+					} verdiğiniz ihtimal`}
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setRatioForPSR}

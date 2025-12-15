@@ -20,13 +20,13 @@ const Slide5NSR = () => {
 				</List.Item>
 				<List.Item>
 					Bir önceki ekrandaki birinci örnekte, bilgisayarın rastgele çektiği
-					sayı 91&apos;e eşit veya 91&apos;den küçükse, 1000 puan kazanırsınız,
+					sayı 91&apos;e eşit veya 91&apos;den küçükse, 10000 puan kazanırsınız,
 					aksi takdirde 0 puan kazanırsınız.
 				</List.Item>
 			</List>
 			<div style={{ display: "flex", maxWidth: "90ch", marginInline: "auto" }}>
 				<NumberInput
-					label="Kırmızı torbaya verdiğiniz ihtimal"
+					label="Kırmızı bilyeye verdiğiniz ihtimal"
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setSliderValue}
