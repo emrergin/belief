@@ -78,7 +78,7 @@ function PSR({
 						{Math.round((randomValues?.n2 || 0) * 100) / 100}
 					</p>
 					{chosenColor === "red" &&
-						"Seçtiğiniz sayı bilgisayarın seçtiği sayıların en az birinden büyük" +
+						"Tahmininiz bilgisayarın seçtiği sayıların en az birinden büyük" +
 							(value >
 							Math.min(
 								randomValues?.n1 || Number.MAX_SAFE_INTEGER,
@@ -87,7 +87,7 @@ function PSR({
 								? "."
 								: " değil.")}
 					{chosenColor === "blue" &&
-						"Seçtiğiniz sayı bilgisayarın seçtiği sayıların en az birinden küçük" +
+						"Tahmininiz bilgisayarın seçtiği sayıların en az birinden küçük" +
 							(value <
 							Math.max(
 								randomValues?.n1 || Number.MIN_SAFE_INTEGER,
