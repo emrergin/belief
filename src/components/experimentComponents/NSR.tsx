@@ -54,8 +54,8 @@ function NSR({
 			{showResult && (
 				<p className={chosenColor === "red" ? styles.redText : styles.blueText}>
 					{isBayesian
-						? "Bilgisayarın içinden çektiği torba"
-						: "Bilgisayarın çektiği bilye"}{" "}
+						? "Bilgisayarın belirlediği torba"
+						: "Çekilen bilyenin rengi"}{" "}
 					: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
 				</p>
 			)}
