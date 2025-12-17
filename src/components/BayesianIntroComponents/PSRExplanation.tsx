@@ -8,12 +8,18 @@ const PSRExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
 				<List.Item>
-					{/* {isBayesian ? "Torbanın" : "Bilyenin"}{" "}
-					<b className={circleStyles.redText}>kırmızı</b> olma ihtimalini yüzde
-					olarak gireceksiniz.  */}
-					Ardından, bilgisayar 0 ila 100 arasında, ondalıklı sayılar da dahil
-					olmak üzere, rastgele iki sayı seçecek. Bu sayıların seçimi
-					birbirinden tamamıyla bağımsız.
+					Her tur, 10000 yahut 0 puan kazanacaksınız. Kazancınız, hem
+					tahmininize, hem de bilgisayarın rastgele{" "}
+					{isBayesian ? "belirlediği torbanın" : "çektiği bilyenin"} rengine
+					bağlıdır.
+				</List.Item>{" "}
+				<List.Item>
+					10000 puanı kazanma ihtimaliniz şu şekilde hesaplanır:
+				</List.Item>
+				<List.Item>
+					Tahmininizi yaptıktan sonra, bilgisayar 0 ila 100 arasında, ondalıklı
+					sayılar da dahil olmak üzere, rastgele iki sayı seçecek. Bu sayıların
+					seçimi birbirinden tamamıyla bağımsız.
 				</List.Item>
 				<List.Item>
 					<p>

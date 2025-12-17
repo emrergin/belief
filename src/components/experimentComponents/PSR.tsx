@@ -61,8 +61,8 @@ function PSR({
 						className={chosenColor === "red" ? styles.redText : styles.blueText}
 					>
 						{isBayesian
-							? "Bilgisayarın seçtiği torba"
-							: "Seçilen bilyenin rengi"}{" "}
+							? "Bilgisayarın belirlediği torba"
+							: "Çekilen bilyenin rengi"}{" "}
 						: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
 					</p>
 					<p>

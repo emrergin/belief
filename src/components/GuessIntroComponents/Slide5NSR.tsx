@@ -13,13 +13,13 @@ const Slide5NSR = () => {
 			<List className={customStyles.entryText}>
 				<List.Item>
 					10000 puan kazanıp kazanmadığınıza karar vermek için bilgisayar 0 ila
-					100 arasında bir sayı çekecek. Bütün sayıların çekilme ihtimalleri
-					aynıdır. Eğer bilgisayarın çektiği sayı sizin 10000 puan kazanma
+					100 arasında bir sayı seçecek. Bütün sayıların seçilme ihtimalleri
+					aynıdır. Eğer bilgisayarın seçtiği sayı sizin 10000 puan kazanma
 					ihtimalinizden küçükse veya bu ihtimale eşitse, o zaman 10000 puanı
 					kazanırsınız. Aksi takdirde, 0 puan kazanırsınız.
 				</List.Item>
 				<List.Item>
-					Bir önceki ekrandaki birinci örnekte, bilgisayarın rastgele çektiği
+					Bir önceki ekrandaki birinci örnekte, bilgisayarın rastgele seçtiği
 					sayı 91&apos;e eşit veya 91&apos;den küçükse, 10000 puan kazanırsınız,
 					aksi takdirde 0 puan kazanırsınız.
 				</List.Item>
