@@ -70,11 +70,11 @@ function PSR({
 						verdiğiniz ihtimal: {value}
 					</p>
 					<p>
-						Bilgisayarın seçtiği ilk sayı:{" "}
+						Bilgisayarın seçtiği sayıların ilki:{" "}
 						{Math.round((randomValues?.n1 || 0) * 100) / 100}
 					</p>
 					<p>
-						Bilgisayarın seçtiği ikinci sayı:{" "}
+						Bilgisayarın seçtiği sayıların ikincisi:{" "}
 						{Math.round((randomValues?.n2 || 0) * 100) / 100}
 					</p>
 					{chosenColor === "red" &&
