@@ -16,8 +16,12 @@ import Slide3PSR from "./GuessIntroComponents/Slide3PSR";
 import Slide3NSR from "./GuessIntroComponents/Slide3NSR";
 import Slide4NSR from "./GuessIntroComponents/Slide4NSR";
 import Slide5NSR from "./GuessIntroComponents/Slide5NSR";
+import Slide2NIT from "./GuessIntroComponents/Slide2NIT";
+import Slide3NIT from "./GuessIntroComponents/Slide3NIT";
 
-function getCurrentSlides(treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2") {
+function getCurrentSlides(
+	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NIT2",
+) {
 	const QSRSlides = [
 		<Slide2 key="2" />,
 		<Slide3 treatment="QSR2" key="3" />,
@@ -38,6 +42,10 @@ function getCurrentSlides(treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2") {
 		<Slide2PSR key="2" isBayesian={false} />,
 		<Slide3PSR key="3" />,
 	];
+	const NITSlides = [
+		<Slide2NIT key="2" isBayesian={false} />,
+		<Slide3NIT key="3" />,
+	];
 
 	if (treatment === "BSR2") {
 		return BSRSlides;
@@ -45,6 +53,8 @@ function getCurrentSlides(treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2") {
 		return PSRSlides;
 	} else if (treatment === "NSR2") {
 		return NSRSlides;
+	} else if (treatment === "NIT2") {
+		return NITSlides;
 	}
 	return QSRSlides;
 }
@@ -54,7 +64,7 @@ function IntroGuess({
 	numberOfRounds,
 	phaseFunction,
 }: {
-	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2";
+	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NIT2";
 	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {

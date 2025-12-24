@@ -8,6 +8,7 @@ function PSR({
 	chosenColor,
 	isBayesian,
 	setCurrentPoints = false,
+	information = true,
 	style,
 }: {
 	value: number;
@@ -15,6 +16,7 @@ function PSR({
 	chosenColor: "blue" | "red";
 	isBayesian: boolean;
 	setCurrentPoints?: Dispatch<SetStateAction<number>> | false;
+	information?: boolean;
 	style?: React.CSSProperties;
 }) {
 	const parent = useRef(null);
@@ -69,15 +71,20 @@ function PSR({
 						Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
 						verdiğiniz ihtimal: {value}
 					</p>
-					<p>
-						Bilgisayarın seçtiği sayıların ilki:{" "}
-						{Math.round((randomValues?.n1 || 0) * 100) / 100}
-					</p>
-					<p>
-						Bilgisayarın seçtiği sayıların ikincisi:{" "}
-						{Math.round((randomValues?.n2 || 0) * 100) / 100}
-					</p>
+					{information && (
+						<p>
+							Bilgisayarın seçtiği sayıların ilki:{" "}
+							{Math.round((randomValues?.n1 || 0) * 100) / 100}
+						</p>
+					)}
+					{information && (
+						<p>
+							Bilgisayarın seçtiği sayıların ikincisi:{" "}
+							{Math.round((randomValues?.n2 || 0) * 100) / 100}
+						</p>
+					)}
 					{chosenColor === "red" &&
+						information &&
 						"Tahmininiz bilgisayarın seçtiği sayıların en az birinden büyük" +
 							(value >
 							Math.min(
@@ -87,6 +94,7 @@ function PSR({
 								? "."
 								: " değil.")}
 					{chosenColor === "blue" &&
+						information &&
 						"Tahmininiz bilgisayarın seçtiği sayıların en az birinden küçük" +
 							(value <
 							Math.max(

@@ -282,6 +282,7 @@ export default function Home({
 							<Radio value="BSR2" label="G_BSR" />
 							<Radio value="PSR2" label="G_PSR" />
 							<Radio value="NSR2" label="G_NSR" />
+							<Radio value="NIT2" label="G_NIT" />
 						</Group>
 					</Radio.Group>
 					{isBayesian && (
@@ -394,7 +395,6 @@ export const getServerSideProps: GetServerSideProps<{
 			start_time: (start_time?.toISOString() ?? null) as any,
 			end_time: (end_time?.toISOString() ?? null) as any,
 		}));
-	console.log(allSessions.map((a) => a._count.Participant));
 
 	return {
 		props: {

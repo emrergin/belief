@@ -24,7 +24,7 @@ function Round({
 	type,
 }:
 	| {
-			treatment: "QSR" | "BSR" | "PSR";
+			treatment: "QSR" | "BSR" | "PSR" | "NIT";
 			roundParameters: number[];
 			priors: [number, number];
 			aBlue: number;
@@ -37,7 +37,7 @@ function Round({
 			type: "bayesian";
 	  }
 	| {
-			treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2";
+			treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NIT2";
 			roundParameters: number[];
 			priors?: undefined;
 			aBlue?: undefined;

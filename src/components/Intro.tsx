@@ -3,15 +3,21 @@ import { SetStateAction, useState } from "react";
 
 import { Button, TextInput, List } from "@mantine/core";
 
-function Intro({ nameFunction }: { nameFunction: (a: string) => void }) {
+function Intro({
+	nameFunction,
+}: {
+	nameFunction: (a: string) => Promise<void>;
+}) {
 	const [name, setName] = useState("");
+	const [generating, setGenerating] = useState(false);
 
 	const onChange = (event: { target: { value: SetStateAction<string> } }) => {
 		setName(event.target.value);
 	};
 
 	async function assignName() {
-		nameFunction(name);
+		setGenerating(true);
+		await nameFunction(name);
 		let elem = document.querySelector("html");
 
 		if (elem) {
@@ -51,7 +57,7 @@ function Intro({ nameFunction }: { nameFunction: (a: string) => void }) {
 				/>
 
 				{name && (
-					<Button size="lg" onClick={assignName}>
+					<Button size="lg" onClick={assignName} disabled={generating}>
 						Deneye başla!
 					</Button>
 				)}

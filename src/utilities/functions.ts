@@ -56,12 +56,12 @@ export function getDateText() {
 		return new Date(Math.ceil(date.getTime() / p) * p);
 	}
 
-	return (
-		roundToHour(new Date()).toLocaleString("tr-TR", {
-			month: "long",
-			day: "numeric",
-			hour: "2-digit",
-			timeZone: "Africa/Nairobi",
-		}) + ":00"
-	);
+	return roundToHour(new Date()).toLocaleString("tr-TR", {
+		month: "long",
+		day: "numeric",
+		hour: "2-digit",
+		timeZone: "Africa/Nairobi",
+		year: "2-digit",
+		minute: "2-digit",
+	});
 }

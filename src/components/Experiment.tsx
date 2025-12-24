@@ -39,12 +39,14 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 	const isBayesian =
 		data.treatment === "QSR" ||
 		data.treatment === "BSR" ||
+		data.treatment === "NIT" ||
 		data.treatment === "PSR";
 
 	const notBayesian =
 		data.treatment === "QSR2" ||
 		data.treatment === "BSR2" ||
 		data.treatment === "PSR2" ||
+		data.treatment === "NIT2" ||
 		data.treatment === "NSR2";
 
 	return (

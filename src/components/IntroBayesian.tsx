@@ -28,7 +28,7 @@ function IntroBayesian({
 	aBlue: number;
 	bBlue: number;
 	priors: [number, number];
-	treatment: "QSR" | "BSR" | "PSR";
+	treatment: "QSR" | "BSR" | "PSR" | "NIT";
 	numberOfRounds: number;
 	phaseFunction: (p: Phase) => void;
 }) {

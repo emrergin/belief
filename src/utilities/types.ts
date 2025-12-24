@@ -6,7 +6,7 @@ export interface SessionType
 		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
 	> {
 	prior: [number, number];
-	treatment: "QSR" | "BSR" | "PSR";
+	treatment: "QSR" | "BSR" | "PSR" | "NIT";
 	num_of_blue_a: number;
 	num_of_blue_b: number;
 }
@@ -16,7 +16,7 @@ export interface SessionType2
 		Session,
 		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
 	> {
-	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2";
+	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NIT2";
 }
 
 export enum Phase {

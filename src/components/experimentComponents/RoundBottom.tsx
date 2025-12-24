@@ -20,7 +20,17 @@ function RoundBottom({
 	redRatio: number;
 	setRedRatio: (value: SetStateAction<number>) => void;
 	// treatment: "QSR" | "BSR" | "PSR" | "QSR2" | "BSR2" | "PSR2";
-	treatment: "QSR" | "BSR" | "PSR" | "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NSR";
+	treatment:
+		| "QSR"
+		| "BSR"
+		| "PSR"
+		| "QSR2"
+		| "BSR2"
+		| "PSR2"
+		| "NSR2"
+		| "NSR"
+		| "NIT"
+		| "NIT2";
 	chosenColor: "blue" | "red";
 	setCurrentPoints: Dispatch<SetStateAction<number>>;
 	pointsForCurrentRound: number;
@@ -32,7 +42,12 @@ function RoundBottom({
 	function setRatioForPSR(value: number | "") {
 		setRedRatio(value === "" ? 0 : value);
 	}
-	const isPsr = treatment === "PSR" || treatment === "PSR2";
+	const isPsr =
+		treatment === "PSR" ||
+		treatment === "PSR2" ||
+		treatment === "NIT2" ||
+		treatment === "NIT";
+	const withInfo = treatment !== "NIT2" && treatment !== "NIT";
 	const isNsr = treatment === "NSR2" || treatment === "NSR";
 	const isBayesian =
 		treatment === "QSR" ||
@@ -89,6 +104,7 @@ function RoundBottom({
 					chosenColor={chosenColor}
 					setCurrentPoints={setCurrentPoints}
 					isBayesian={treatment === "PSR"}
+					information={withInfo}
 					style={{
 						gap: "10ch",
 						justifyContent: "center",
