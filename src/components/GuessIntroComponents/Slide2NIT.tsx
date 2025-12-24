@@ -13,7 +13,7 @@ const NITExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 					bağlıdır.
 				</List.Item>{" "}
 				<List.Item>
-					Bu deneyde kullanılan ödeme kuralı, , SİZCE en doğru tahmininizi
+					Bu deneyde kullanılan ödeme kuralı, SİZCE en doğru tahmininizi
 					bildirerek ödülü kazanma şansınızı en üst düzeye çıkarmanızı
 					sağlayacak şekilde tasarlanmıştır. Deney sonunda talep edenlere, bu
 					kuralın ayrıntıları yazılı olarak verilecek.

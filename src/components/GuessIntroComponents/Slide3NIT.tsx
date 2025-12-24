@@ -45,7 +45,14 @@ const Slide3NIT = () => {
 				>
 					{showResult ? "Bir Daha Dene" : "Sonucu Gör"}
 				</button>
-				<div style={{ width: "55ch" }}>
+				<div
+					style={{
+						width: "55ch",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
 					<PSR
 						value={Number(sliderValue)}
 						showResult={showResult}
@@ -55,7 +62,11 @@ const Slide3NIT = () => {
 						information={false}
 					/>
 					{showResult && (
-						<b style={{ marginInline: "auto" }}>
+						<b
+							style={{
+								display: "block",
+							}}
+						>
 							Bu, deneyde gerçek bir tur olsaydı, {score} kazanırdınız.
 						</b>
 					)}

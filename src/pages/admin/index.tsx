@@ -170,7 +170,8 @@ export default function Home({
 					values.treatment === "QSR2" ||
 					values.treatment === "BSR2" ||
 					values.treatment === "PSR2" ||
-					values.treatment === "NSR2"
+					values.treatment === "NSR2" ||
+					values.treatment === "NIT2"
 				) {
 					return null;
 				}
@@ -229,7 +230,8 @@ export default function Home({
 	const isBayesian =
 		form.getInputProps("treatment").value === "QSR" ||
 		form.getInputProps("treatment").value === "BSR" ||
-		form.getInputProps("treatment").value === "PSR";
+		form.getInputProps("treatment").value === "PSR" ||
+		form.getInputProps("treatment").value === "NIT";
 
 	return (
 		<Container size="lg" px="md" style={{ marginTop: "5ch" }}>
