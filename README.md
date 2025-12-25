@@ -40,3 +40,7 @@ Some introductory readings for the concepts.
 - For autoanimate to work as expected, the parent element needs to have a specified width.
 - My first use case of ``Intl.ListFormat``.
 - I learned that `new Date()` is not safe to use with Next.js outside of a useEffect call.
+
+## This is not using the latest Next.js? Am I gonna get attacked?
+
+The application uses the Next.js Pages Router exclusively and does not use the App Router, Server Actions, Route Handlers, middleware, or the Next.js image optimization pipeline. The reported Next.js advisories apply only to those features and do not affect the runtime behavior of this application. This has been verified by project structure and dependency usage. As a result, no upgrade is required to mitigate these advisories.

@@ -41,10 +41,12 @@ function Demographics({
 			diff: Number(data.diff),
 			sure: Number(data.sure),
 		};
-		await fetch(`./api/participant/${participantId}`, {
-			method: "PUT",
-			body: JSON.stringify(castedData),
-		});
+		if (participantId !== "no-id-given") {
+			await fetch(`./api/participant/${participantId}`, {
+				method: "PUT",
+				body: JSON.stringify(castedData),
+			});
+		}
 		phaseFunction(Phase.Gps);
 	}
 

@@ -47,11 +47,12 @@ function Gps({
 	}
 
 	async function sendData() {
-		console.log("Final Data: ", gpsDataRef.current);
-		await fetch(`./api/participant/${participantId}`, {
-			method: "PUT",
-			body: JSON.stringify(gpsDataRef.current),
-		});
+		if (participantId !== "no-id-given") {
+			await fetch(`./api/participant/${participantId}`, {
+				method: "PUT",
+				body: JSON.stringify(gpsDataRef.current),
+			});
+		}
 		phaseFunction(Phase.End);
 	}
 

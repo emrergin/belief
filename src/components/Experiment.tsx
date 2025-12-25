@@ -23,11 +23,13 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 	const [participant, setParticipant] = useState<Participant | {}>({});
 
 	async function generateNewParticipant(name: string) {
-		const respond = await fetch("./api/participant", {
-			method: "POST",
-			body: JSON.stringify({ name_surname: name, sessionId: data.id }),
-		});
-		setParticipant(await respond.json());
+		if (data.id !== "demo") {
+			const respond = await fetch("./api/participant", {
+				method: "POST",
+				body: JSON.stringify({ name_surname: name, sessionId: data.id }),
+			});
+			setParticipant(await respond.json());
+		}
 		setPhase(Phase.Intro2);
 	}
 

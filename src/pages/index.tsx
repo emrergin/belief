@@ -5,11 +5,18 @@ import { GetServerSideProps } from "next";
 import { prisma } from "@/database";
 import { Session } from "@prisma/client";
 import { SessionType, SessionType2 } from "@/utilities/types";
+import { useRouter } from "next/router";
 
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-	return <Experiment data={data} />;
+	const router = useRouter();
+	const { experiment } = router.query;
+	if (experiment === "bsr2" || experiment === "gbsr") {
+		return <Experiment data={defaultSessionForBsr2} />;
+	} else {
+		return <Experiment data={data} />;
+	}
 }
 
 const defaultSession: Omit<Session, "id"> = {
@@ -22,6 +29,16 @@ const defaultSession: Omit<Session, "id"> = {
 	treatment: "QSR",
 	round_parameters: [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
 	prior: [3, 3],
+};
+
+const defaultSessionForBsr2: SessionType2 = {
+	start_time: new Date(),
+	end_time: null,
+	name: "BSR2_demo",
+	location: null,
+	treatment: "BSR2",
+	round_parameters: [10, 25, 50, 75, 90, 10, 25, 50, 75, 90],
+	id: "demo",
 };
 
 export const getServerSideProps: GetServerSideProps<{

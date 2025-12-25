@@ -101,10 +101,12 @@ function Round({
 	}
 
 	async function generateNewRound(lastRound: Omit<RoundT, "id">) {
-		await fetch("./api/round", {
-			method: "POST",
-			body: JSON.stringify(lastRound),
-		});
+		if (participantId !== "no-id-given") {
+			await fetch("./api/round", {
+				method: "POST",
+				body: JSON.stringify(lastRound),
+			});
+		}
 	}
 
 	function nextRound() {
