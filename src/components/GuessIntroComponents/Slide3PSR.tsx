@@ -8,6 +8,8 @@ const Slide3PSR = () => {
 	const [sliderValue, setSliderValue] = useState<"" | number>(50);
 	const [showResult, setShowResult] = useState(false);
 	const [score, setScore] = useState(-1);
+	const [color, setColor] = useState<"blue" | "red">("red");
+
 	return (
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
@@ -35,6 +37,7 @@ const Slide3PSR = () => {
 				/>
 				<button
 					onClick={() => {
+						setColor(Math.random() > 0.5 ? "blue" : "red");
 						setShowResult(!showResult);
 					}}
 					style={{
@@ -50,7 +53,7 @@ const Slide3PSR = () => {
 					<PSR
 						value={Number(sliderValue)}
 						showResult={showResult}
-						chosenColor={Math.random() > 0.5 ? "blue" : "red"}
+						chosenColor={color}
 						setCurrentPoints={setScore}
 						isBayesian={false}
 					/>

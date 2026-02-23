@@ -12,7 +12,7 @@ const Slide4QSR = () => {
 		<Carousel.Slide>
 			<List className={customStyles.entryText} style={{ scale: "0.9" }}>
 				<List.Item>
-					Daha büyük bir simit daha yüksek bir puana denk gelmektedir.Puanlar
+					Daha büyük bir simit daha yüksek bir puana denk gelmektedir. Puanlar
 					simidin ortasında belirtilmiştir.
 				</List.Item>
 				<List.Item>

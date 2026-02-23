@@ -8,6 +8,7 @@ const Slide5NSR = () => {
 	const [sliderValue, setSliderValue] = useState<"" | number>(70);
 	const [showResult, setShowResult] = useState(false);
 	const [score, setScore] = useState(-1);
+	const [color, setColor] = useState<"blue" | "red">("red");
 	return (
 		<Carousel.Slide>
 			<List className={customStyles.entryText}>
@@ -36,6 +37,7 @@ const Slide5NSR = () => {
 				/>
 				<button
 					onClick={() => {
+						setColor(Math.random() > 0.5 ? "blue" : "red");
 						setShowResult(!showResult);
 					}}
 					style={{
@@ -51,7 +53,7 @@ const Slide5NSR = () => {
 					<NSR
 						value={Number(sliderValue)}
 						showResult={showResult}
-						chosenColor={Math.random() > 0.5 ? "blue" : "red"}
+						chosenColor={color}
 						setCurrentPoints={setScore}
 						isBayesian={false}
 					/>

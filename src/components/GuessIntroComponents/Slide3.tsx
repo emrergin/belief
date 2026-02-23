@@ -16,9 +16,8 @@ const Slide3 = ({ treatment }: { treatment: "QSR2" | "BSR2" }) => {
 				style={{ marginTop: "0px", scale: "0.9" }}
 			>
 				<List.Item>
-					Tahminlerinizi yaptıktan sonra seçtikten sonra, deneyden elde
-					edeceğiniz kazancı belirlemek için{" "}
-					<b className={circleStyles.redText}>kırmızı</b> ve{" "}
+					Tahminlerinizi yaptıktan sonra, deneyden elde edeceğiniz kazancı
+					belirlemek için <b className={circleStyles.redText}>kırmızı</b> ve{" "}
 					<b className={circleStyles.blueText}>mavi</b> renkte iki simit
 					kullanacağız.
 				</List.Item>

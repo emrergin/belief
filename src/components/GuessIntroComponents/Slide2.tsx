@@ -21,7 +21,7 @@ const Slide2 = () => {
 				<List.Item>
 					Soldaki <b className={circleStyles.redText}>kırmızı</b> renkle yazılan
 					rakam, çekilen bilyenin{" "}
-					<b className={circleStyles.redText}>kırmızı</b> olmsına verdiğiniz
+					<b className={circleStyles.redText}>kırmızı</b> olmasına verdiğiniz
 					ihtimali, mavi renkle yazılan rakam ise yine çekilen bilyenin{" "}
 					<b className={circleStyles.blueText}>mavi</b> olmasına verdiğiniz
 					ihtimali gösterir.
