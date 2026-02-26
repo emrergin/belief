@@ -80,6 +80,8 @@ function RoundBottom({
 					value={redRatio}
 					disabled={subPhase !== "input"}
 					style={{ width: "15ch", marginInline: "auto", marginBottom: "5ch" }}
+					max={100}
+					min={0}
 				/>
 			)}
 

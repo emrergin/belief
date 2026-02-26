@@ -34,6 +34,8 @@ const Slide5NSR = () => {
 					value={sliderValue}
 					style={{ width: "15ch", marginInline: "auto" }}
 					disabled={showResult}
+					max={100}
+					min={0}
 				/>
 				<button
 					onClick={() => {
