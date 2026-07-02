@@ -19,6 +19,14 @@ export interface SessionType2
 	treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NIT2";
 }
 
+export interface SessionType3
+	extends Omit<
+		Session,
+		"prior" | "treatment" | "num_of_blue_a" | "num_of_blue_b"
+	> {
+	treatment: "BSR3" | "PSR3" | "NSR3" | "NIT3";
+}
+
 export enum Phase {
 	Intro = "INTRO",
 	Intro2 = "INTRO2",
@@ -69,3 +77,10 @@ export interface SubTypeRound extends DrawingT {
 	is_blue: boolean;
 	decision_time: number;
 }
+
+export type Question = {
+	Difficulty: number;
+	Question_TR: string;
+	Actual: number;
+	ID: number;
+};

@@ -4,11 +4,13 @@ import Drawing from "./experimentComponents/Drawing";
 import BagHolder from "./experimentComponents/BagHolder";
 
 import { Round as RoundT } from "@prisma/client";
-import { DrawingT, Phase, SubTypeRound } from "@/utilities/types";
+import { DrawingT, Phase, Question, SubTypeRound } from "@/utilities/types";
 import { getDiceText } from "@/utilities/functions";
 import RoundBottom from "./experimentComponents/RoundBottom";
 import BagHolder2 from "./experimentComponents/BagHolder2";
 import Drawing2 from "./experimentComponents/Drawing2";
+import { Button } from "@mantine/core";
+import circleStyles from "@/styles/Circles.module.css";
 
 function Round({
 	treatment,
@@ -22,6 +24,7 @@ function Round({
 	currentRound,
 	roundFunction,
 	type,
+	questions,
 }:
 	| {
 			treatment: "QSR" | "BSR" | "PSR" | "NIT";
@@ -35,6 +38,7 @@ function Round({
 			currentRound: number;
 			roundFunction: (r: number) => void;
 			type: "bayesian";
+			questions?: undefined;
 	  }
 	| {
 			treatment: "QSR2" | "BSR2" | "PSR2" | "NSR2" | "NIT2";
@@ -48,6 +52,21 @@ function Round({
 			currentRound: number;
 			roundFunction: (r: number) => void;
 			type: "guess";
+			questions?: undefined;
+	  }
+	| {
+			treatment: "BSR3" | "PSR3" | "NSR3" | "NIT3";
+			questions: Question[];
+			roundParameters: number[];
+			priors?: undefined;
+			aBlue?: undefined;
+			bBlue?: undefined;
+			phaseFunction: (p: Phase) => void;
+			pointFunction: Dispatch<SetStateAction<number>>;
+			participantId: string;
+			currentRound: number;
+			roundFunction: (r: number) => void;
+			type: "question";
 	  }) {
 	const [redRatio, setRedRatio] = useState(50);
 	const numberOfRounds = roundParameters.length;
@@ -56,9 +75,11 @@ function Round({
 	if (type === "bayesian") {
 		startingColor =
 			Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red";
-	} else {
+	} else if (type === "guess") {
 		startingColor =
 			Math.random() < roundParameters[currentRound] / 100 ? "blue" : "red";
+	} else {
+		startingColor = questions[0].Actual === 1 ? "blue" : "red";
 	}
 
 	const [currentColor, setCurrentColor] = useState<"blue" | "red">(
@@ -116,7 +137,10 @@ function Round({
 			chosen_probability: 100 - redRatio,
 			reward: pointsForCurrentRound,
 			round: currentRound + 1,
-			round_parameter: roundParameters[currentRound],
+			round_parameter:
+				type !== "question"
+					? roundParameters[currentRound]
+					: questions[currentRound].ID,
 		};
 		console.log(lastRound);
 		console.log(roundParameters[currentRound]);
@@ -130,12 +154,14 @@ function Round({
 				const newBag =
 					Math.random() < priors[0] / (priors[0] + priors[1]) ? "blue" : "red";
 				newColor = newBag;
-			} else {
+			} else if (type === "guess") {
 				const newBall =
 					Math.random() < roundParameters[currentRound + 1] / 100
 						? "blue"
 						: "red";
 				newColor = newBall;
+			} else {
+				newColor = questions[currentRound + 1].Actual === 1 ? "blue" : "red";
 			}
 			setCurrentColor(newColor);
 			setSubPhase("drawing");
@@ -170,21 +196,49 @@ function Round({
 					/>
 				</>
 			) : (
-				<>
-					<BagHolder2
-						aBlue={roundParameters[currentRound]}
-						showBalls={subPhase === "drawing"}
-					/>
-					<Drawing2
-						nextFunction={endDrawing}
-						fullView={subPhase === "drawing"}
-						key={currentRound}
-						result={subPhase === "result"}
-						isBlue={currentColor === "blue"}
-					/>
-				</>
+				type === "guess" && (
+					<>
+						<BagHolder2
+							aBlue={roundParameters[currentRound]}
+							showBalls={subPhase === "drawing"}
+						/>
+						<Drawing2
+							nextFunction={endDrawing}
+							fullView={subPhase === "drawing"}
+							key={currentRound}
+							result={subPhase === "result"}
+							isBlue={currentColor === "blue"}
+						/>
+					</>
+				)
 			)}
-
+			{type === "question" && <p>{questions[currentRound].Question_TR}</p>}
+			{type === "question" && subPhase === "drawing" && (
+				<Button
+					size="lg"
+					onClick={() => setSubPhase("input")}
+					style={{ display: "block", margin: "auto" }}
+					disabled={false}
+				>
+					Tahmine hazırım!
+				</Button>
+			)}
+			{type === "question" && subPhase === "input" && (
+				<div
+					style={{
+						display: "flex",
+						marginInline: "5vw",
+						justifyContent: "space-between",
+					}}
+				>
+					<p className={circleStyles.redText} style={{ fontSize: "2em" }}>
+						Yanlış
+					</p>
+					<p className={circleStyles.blueText} style={{ fontSize: "2em" }}>
+						Doğru
+					</p>
+				</div>
+			)}
 			<RoundBottom
 				subPhase={subPhase}
 				redRatio={redRatio}

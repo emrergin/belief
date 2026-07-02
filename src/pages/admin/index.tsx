@@ -153,8 +153,27 @@ export default function Home({
 						: null
 					: undefined,
 			treatment: isNotEmpty("Lütfen bir deney tipi girin."),
-			round_parameters: (value) => {
+			round_parameters: (value, values) => {
 				let array = value.split(",").map((a) => a.trim());
+				if (
+					values.treatment === "BSR3" ||
+					values.treatment === "PSR3" ||
+					values.treatment === "NSR3" ||
+					values.treatment === "NIT3"
+				) {
+					for (let line of array) {
+						if (
+							Number(line) !== 1 &&
+							Number(line) !== 2 &&
+							Number(line) !== 3 &&
+							Number(line) !== 4 &&
+							Number(line) !== 5
+						) {
+							return "Soruların zorluğu 1'den 5'e kadar tamsayılardan oluşmalı.";
+						}
+					}
+				}
+
 				for (let line of array) {
 					if (!isInDesiredForm(line)) {
 						return "Negatif olmayan tam sayılar girmeniz bekleniyor.";
@@ -171,7 +190,11 @@ export default function Home({
 					values.treatment === "BSR2" ||
 					values.treatment === "PSR2" ||
 					values.treatment === "NSR2" ||
-					values.treatment === "NIT2"
+					values.treatment === "NIT2" ||
+					values.treatment === "BSR3" ||
+					values.treatment === "PSR3" ||
+					values.treatment === "NSR3" ||
+					values.treatment === "NIT3"
 				) {
 					return null;
 				}
@@ -232,6 +255,16 @@ export default function Home({
 		form.getInputProps("treatment").value === "BSR" ||
 		form.getInputProps("treatment").value === "PSR" ||
 		form.getInputProps("treatment").value === "NIT";
+	const hasBalls =
+		form.getInputProps("treatment").value === "QSR" ||
+		form.getInputProps("treatment").value === "BSR" ||
+		form.getInputProps("treatment").value === "PSR" ||
+		form.getInputProps("treatment").value === "NIT" ||
+		form.getInputProps("treatment").value === "QSR2" ||
+		form.getInputProps("treatment").value === "BSR2" ||
+		form.getInputProps("treatment").value === "PSR2" ||
+		form.getInputProps("treatment").value === "NSR2" ||
+		form.getInputProps("treatment").value === "NIT2";
 
 	return (
 		<Container size="lg" px="md" style={{ marginTop: "5ch" }}>
@@ -285,6 +318,10 @@ export default function Home({
 							<Radio value="PSR2" label="G_PSR" />
 							<Radio value="NSR2" label="G_NSR" />
 							<Radio value="NIT2" label="G_NIT" />
+							<Radio value="BSR3" label="Q_BSR" />
+							<Radio value="PSR3" label="Q_PSR" />
+							<Radio value="NSR3" label="Q_NSR" />
+							<Radio value="NIT3" label="Q_NIT" />
 						</Group>
 					</Radio.Group>
 					{isBayesian && (
@@ -304,10 +341,20 @@ export default function Home({
 
 					<TextInput
 						label={
-							isBayesian ? "Çekiliş sayıları" : "Torbalardaki mavi sayıları"
+							isBayesian
+								? "Çekiliş sayıları"
+								: hasBalls
+								? "Torbalardaki mavi sayıları"
+								: "Soruların zorlukları"
 						}
 						withAsterisk
-						placeholder={isBayesian ? "1,2,3,1,2,3" : "10,25,50,75,90"}
+						placeholder={
+							isBayesian
+								? "1,2,3,1,2,3"
+								: hasBalls
+								? "10,25,50,75,90"
+								: "1,2,3,4,5"
+						}
 						{...form.getInputProps("round_parameters")}
 					/>
 					{isBayesian && (

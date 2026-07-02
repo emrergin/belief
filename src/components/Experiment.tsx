@@ -15,11 +15,18 @@ import {
 	GpsQuestion,
 	SessionType,
 	SessionType2,
+	SessionType3,
+	Question,
 } from "@/utilities/types";
 import Round from "./Round";
 import IntroGuess from "./IntroGuess";
+import IntroQuestion from "./IntroQuestion";
 
-function Experiment({ data }: { data: SessionType | SessionType2 }) {
+function Experiment({
+	data,
+}: {
+	data: SessionType | SessionType2 | (SessionType3 & { questions: Question[] });
+}) {
 	const [participant, setParticipant] = useState<Participant | {}>({});
 
 	async function generateNewParticipant(name: string) {
@@ -51,6 +58,12 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 		data.treatment === "NIT2" ||
 		data.treatment === "NSR2";
 
+	const isQuestion =
+		data.treatment === "BSR3" ||
+		data.treatment === "PSR3" ||
+		data.treatment === "NIT3" ||
+		data.treatment === "NSR3";
+
 	return (
 		<main className={styles.main} style={{ userSelect: "none" }}>
 			<TopBar
@@ -73,6 +86,13 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 			)}
 			{phase === Phase.Intro2 && notBayesian && (
 				<IntroGuess
+					treatment={data.treatment}
+					phaseFunction={setPhase}
+					numberOfRounds={data.round_parameters.length}
+				/>
+			)}
+			{phase === Phase.Intro2 && isQuestion && (
+				<IntroQuestion
 					treatment={data.treatment}
 					phaseFunction={setPhase}
 					numberOfRounds={data.round_parameters.length}
@@ -104,6 +124,19 @@ function Experiment({ data }: { data: SessionType | SessionType2 }) {
 					currentRound={currentRound}
 					roundFunction={setCurrentRound}
 					type="guess"
+				/>
+			)}
+			{isQuestion && phase === Phase.Main && (
+				<Round
+					roundParameters={data.round_parameters}
+					treatment={data.treatment}
+					questions={data.questions}
+					phaseFunction={setPhase}
+					pointFunction={setPoints}
+					participantId={"id" in participant ? participant.id : "no-id-given"}
+					currentRound={currentRound}
+					roundFunction={setCurrentRound}
+					type="question"
 				/>
 			)}
 			{phase === Phase.Demographics && (

@@ -30,7 +30,11 @@ function RoundBottom({
 		| "NSR2"
 		| "NSR"
 		| "NIT"
-		| "NIT2";
+		| "NIT2"
+		| "BSR3"
+		| "PSR3"
+		| "NSR3"
+		| "NIT3";
 	chosenColor: "blue" | "red";
 	setCurrentPoints: Dispatch<SetStateAction<number>>;
 	pointsForCurrentRound: number;
@@ -58,7 +62,8 @@ function RoundBottom({
 		treatment === "QSR" ||
 		treatment === "BSR" ||
 		treatment === "QSR2" ||
-		treatment === "BSR2";
+		treatment === "BSR2" ||
+		treatment === "BSR3";
 
 	return (
 		<>
@@ -87,7 +92,9 @@ function RoundBottom({
 
 			{(subPhase === "input" || subPhase === "result") && isOurTreatment && (
 				<Circles
-					bsr={treatment === "BSR" || treatment === "BSR2"}
+					bsr={
+						treatment === "BSR" || treatment === "BSR2" || treatment === "BSR3"
+					}
 					value={redRatio}
 					showResult={subPhase === "result"}
 					chooseCircle={chosenColor}
