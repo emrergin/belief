@@ -25,12 +25,13 @@ const Slide1 = ({
 				<List.Item>
 					Göreviniz size gösterilen cümlenin doğru yahut yanlış olma ihtimalini
 					tahmin etmek. Tahmininizi yapmak için 0 ile 100 arasında bir sayı
-					seçmeniz gerekecek. {/* {!isOurTreatment && ( */}
-					<span>
-						Daha yüksek bir sayı, cümlenin doğru olma ihtimalinin daha yüksek
-						olduğunu düşündüğünüz anlamına gelir.
-					</span>
-					{/* )}{" "} */}
+					seçmeniz gerekecek.{" "}
+					{!isOurTreatment && (
+						<span>
+							Daha yüksek bir sayı, cümlenin doğru olma ihtimalinin daha yüksek
+							olduğunu düşündüğünüz anlamına gelir.
+						</span>
+					)}{" "}
 				</List.Item>
 			</List>
 		</Carousel.Slide>

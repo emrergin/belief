@@ -3,6 +3,7 @@ import Circles from "./Circles";
 import Slider from "./Slider";
 import { Dispatch, SetStateAction } from "react";
 import customStyles from "@/styles/Custom.module.css";
+import circleStyles from "@/styles/Circles.module.css";
 import PSR from "@/components/experimentComponents/PSR";
 import NSR from "./NSR";
 
@@ -67,6 +68,21 @@ function RoundBottom({
 
 	return (
 		<>
+			{treatment === "BSR3" && subPhase === "input" && (
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-evenly",
+					}}
+				>
+					<p className={circleStyles.redText} style={{ fontSize: "2em" }}>
+						Yanlış
+					</p>
+					<p className={circleStyles.blueText} style={{ fontSize: "2em" }}>
+						Doğru
+					</p>
+				</div>
+			)}
 			{subPhase === "input" && isOurTreatment && (
 				<Slider
 					updatingFunction={updateSlider}

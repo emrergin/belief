@@ -10,7 +10,7 @@ import RoundBottom from "./experimentComponents/RoundBottom";
 import BagHolder2 from "./experimentComponents/BagHolder2";
 import Drawing2 from "./experimentComponents/Drawing2";
 import { Button } from "@mantine/core";
-import circleStyles from "@/styles/Circles.module.css";
+import customStyles from "@/styles/Custom.module.css";
 
 function Round({
 	treatment,
@@ -212,7 +212,11 @@ function Round({
 					</>
 				)
 			)}
-			{type === "question" && <p>{questions[currentRound].Question_TR}</p>}
+			{type === "question" && (
+				<p className={customStyles.bagHolder}>
+					{questions[currentRound].Question_TR}
+				</p>
+			)}
 			{type === "question" && subPhase === "drawing" && (
 				<Button
 					size="lg"
@@ -223,22 +227,7 @@ function Round({
 					Tahmine hazırım!
 				</Button>
 			)}
-			{type === "question" && subPhase === "input" && (
-				<div
-					style={{
-						display: "flex",
-						marginInline: "5vw",
-						justifyContent: "space-between",
-					}}
-				>
-					<p className={circleStyles.redText} style={{ fontSize: "2em" }}>
-						Yanlış
-					</p>
-					<p className={circleStyles.blueText} style={{ fontSize: "2em" }}>
-						Doğru
-					</p>
-				</div>
-			)}
+
 			<RoundBottom
 				subPhase={subPhase}
 				redRatio={redRatio}
