@@ -140,7 +140,8 @@ function Round({
 			round_parameter:
 				type !== "question"
 					? roundParameters[currentRound]
-					: questions[currentRound].ID,
+					: questions[currentRound].ID +
+					  (questions[currentRound].Difficulty - 1) * 100,
 		};
 		console.log(lastRound);
 		console.log(roundParameters[currentRound]);
