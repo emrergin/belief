@@ -7,6 +7,7 @@ function PSR({
 	showResult,
 	chosenColor,
 	isBayesian,
+	isQuestion = false,
 	setCurrentPoints = false,
 	information = true,
 	style,
@@ -15,6 +16,7 @@ function PSR({
 	showResult: boolean;
 	chosenColor: "blue" | "red";
 	isBayesian: boolean;
+	isQuestion?: boolean;
 	setCurrentPoints?: Dispatch<SetStateAction<number>> | false;
 	information?: boolean;
 	style?: React.CSSProperties;
@@ -62,15 +64,28 @@ function PSR({
 					<p
 						className={chosenColor === "red" ? styles.redText : styles.blueText}
 					>
-						{isBayesian
+						{isQuestion
+							? "Cümle aslında"
+							: isBayesian
 							? "Bilgisayarın belirlediği torba"
 							: "Çekilen bilyenin rengi"}{" "}
-						: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
+						:{" "}
+						{isQuestion
+							? chosenColor === "red"
+								? "Yanlıştı"
+								: "Doğruydu"
+							: chosenColor === "red"
+							? "Kırmızı"
+							: "Mavi"}
 					</p>
-					<p>
-						Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
-						verdiğiniz ihtimal: {value}
-					</p>
+					{!isQuestion && (
+						<p>
+							Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
+							verdiğiniz ihtimal: {value}
+						</p>
+					)}
+					{isQuestion && <p>Cümlenin yanlış olmasına verdiğiniz ihtimal:</p>}
+
 					{information && (
 						<p>
 							Bilgisayarın seçtiği sayıların ilki:{" "}

@@ -16,13 +16,12 @@ const Slide4QSR = () => {
 					simidin ortasında belirtilmiştir.
 				</List.Item>
 				<List.Item>
-					Eğer bir <b className={circleStyles.redText}>kırmızı</b> bilye
-					çekilmiş ise, kazancınız kırmızı simidin karşılık geldiği miktar
-					olacak.
+					Eğer gösterilen cümle <b className={circleStyles.redText}>yanlış</b>
+					tıysa, kazancınız kırmızı simidin karşılık geldiği miktar olacak.
 				</List.Item>
 				<List.Item>
-					Eğer bir <b className={circleStyles.blueText}>mavi</b> bilye
-					çekilmişse, kazancınız mavi simidin karşılık geldiği miktar olacak.
+					Eğer cümle <b className={circleStyles.blueText}>doğru</b>yduysa,
+					kazancınız mavi simidin karşılık geldiği miktar olacak.
 				</List.Item>
 			</List>
 			<div

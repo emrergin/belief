@@ -8,8 +8,7 @@ const NITExplanation = ({ isBayesian }: { isBayesian: boolean }) => {
 			<List className={customStyles.entryText}>
 				<List.Item>
 					Her tur, 10000 yahut 0 puan kazanacaksınız. Kazancınız, hem
-					tahmininize, hem de bilgisayarın rastgele{" "}
-					{isBayesian ? "belirlediği torbanın" : "çektiği bilyenin"} rengine
+					tahmininize, hem de ekrandaki cümlenin doğru ya da yanlış olmasına
 					bağlıdır.
 				</List.Item>{" "}
 				<List.Item>

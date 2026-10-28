@@ -7,17 +7,16 @@ import { Phase } from "@/utilities/types";
 
 import Slide1 from "./QuestionIntroComponents/Slide1";
 import Slide2 from "./QuestionIntroComponents/Slide2";
-// import Slide2NSR from "./GuessIntroComponents/Slide2NSR";
-// import Slide2PSR from "./BayesianIntroComponents/PSRExplanation";
+import Slide2NSR from "./QuestionIntroComponents/Slide2NSR";
+import Slide2PSR from "./BayesianIntroComponents/PSRExplanation";
 import Slide3 from "./QuestionIntroComponents/Slide3";
-// import Slide4QSR from "./GuessIntroComponents/Slide4QSR";
 import Slide4BSR from "./QuestionIntroComponents/Slide4BSR";
-// import Slide3PSR from "./GuessIntroComponents/Slide3PSR";
-// import Slide3NSR from "./GuessIntroComponents/Slide3NSR";
-// import Slide4NSR from "./GuessIntroComponents/Slide4NSR";
-// import Slide5NSR from "./GuessIntroComponents/Slide5NSR";
-// import Slide2NIT from "./GuessIntroComponents/Slide2NIT";
-// import Slide3NIT from "./GuessIntroComponents/Slide3NIT";
+import Slide3PSR from "./QuestionIntroComponents/Slide3PSR";
+import Slide3NSR from "./QuestionIntroComponents/Slide3NSR";
+import Slide4NSR from "./QuestionIntroComponents/Slide4NSR";
+import Slide5NSR from "./QuestionIntroComponents/Slide5NSR";
+import Slide2NIT from "./QuestionIntroComponents/Slide2NIT";
+import Slide3NIT from "./QuestionIntroComponents/Slide3NIT";
 
 function getCurrentSlides(treatment: "BSR3" | "PSR3" | "NSR3" | "NIT3") {
 	const BSRSlides: JSX.Element[] = [
@@ -26,18 +25,18 @@ function getCurrentSlides(treatment: "BSR3" | "PSR3" | "NSR3" | "NIT3") {
 		<Slide4BSR key="4" />,
 	];
 	const NSRSlides: JSX.Element[] = [
-		// <Slide2NSR key="2" />,
-		// <Slide3NSR key="3" />,
-		// <Slide4NSR key="4" />,
-		// <Slide5NSR key="5" />,
+		<Slide2NSR key="2" />,
+		<Slide3NSR key="3" />,
+		<Slide4NSR key="4" />,
+		<Slide5NSR key="5" />,
 	];
 	const PSRSlides: JSX.Element[] = [
-		// <Slide2PSR key="2" isBayesian={false} />,
-		// <Slide3PSR key="3" />,
+		<Slide2PSR key="2" isBayesian={false} />,
+		<Slide3PSR key="3" />,
 	];
 	const NITSlides: JSX.Element[] = [
-		// <Slide2NIT key="2" isBayesian={false} />,
-		// <Slide3NIT key="3" />,
+		<Slide2NIT key="2" isBayesian={false} />,
+		<Slide3NIT key="3" />,
 	];
 
 	if (treatment === "BSR3") {

@@ -24,7 +24,7 @@ const Slide3NIT = () => {
 				}}
 			>
 				<NumberInput
-					label="Kırmızı bilyeye verdiğiniz ihtimal"
+					label="Cümlenin yanlış olmasına verdiğiniz ihtimal"
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setSliderValue}
@@ -59,6 +59,7 @@ const Slide3NIT = () => {
 						chosenColor={Math.random() > 0.5 ? "blue" : "red"}
 						setCurrentPoints={setScore}
 						isBayesian={false}
+						isQuestion={true}
 						information={false}
 					/>
 					{showResult && (

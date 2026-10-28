@@ -10,20 +10,21 @@ const Slide2NSR = () => {
 			<List className={customStyles.entryText}>
 				<List.Item>
 					Her tur, 10000 yahut 0 puan kazanacaksınız. Kazancınız, hem
-					tahmininize, hem de bilgisayarın rastgele çektiği bilyenin rengine
+					tahmininize, hem de ekrandaki cümlenin doğru ya da yanlış olmasına
 					bağlıdır.
 				</List.Item>
 				<List.Item>
 					10000 puanı kazanma ihtimaliniz şu şekilde hesaplanır:
 					<List className={customStyles.subList}>
 						<List.Item>
-							Bilye <b className={circleStyles.redText}>kırmızı</b>ysa 10000
+							Cümle <b className={circleStyles.redText}>yanlıştı</b>ysa 10000
 							puan kazanma ihtimaliniz:
 							<NSRExpression nominator={"100 - tahmininiz"} />
 						</List.Item>
 						<List.Item>
-							Bilye <b className={circleStyles.blueText}>mavi</b>yse 10000 puan
-							kazanma ihtimaliniz: <NSRExpression nominator={"tahmininiz"} />
+							Cümle <b className={circleStyles.blueText}>doğru</b>yduysa 10000
+							puan kazanma ihtimaliniz:{" "}
+							<NSRExpression nominator={"tahmininiz"} />
 						</List.Item>
 					</List>
 				</List.Item>

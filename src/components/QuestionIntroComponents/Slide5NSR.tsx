@@ -27,7 +27,7 @@ const Slide5NSR = () => {
 			</List>
 			<div style={{ display: "flex", maxWidth: "90ch", marginInline: "auto" }}>
 				<NumberInput
-					label="Kırmızı bilyeye verdiğiniz ihtimal"
+					label="Cümlenin yanlış olmasına verdiğiniz ihtimal"
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setSliderValue}
@@ -58,6 +58,7 @@ const Slide5NSR = () => {
 						chosenColor={color}
 						setCurrentPoints={setScore}
 						isBayesian={false}
+						isQuestion={true}
 					/>
 					{showResult && (
 						<b style={{ marginInline: "auto" }}>

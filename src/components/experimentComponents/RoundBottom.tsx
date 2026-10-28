@@ -51,9 +51,12 @@ function RoundBottom({
 		treatment === "PSR" ||
 		treatment === "PSR2" ||
 		treatment === "NIT2" ||
-		treatment === "NIT";
+		treatment === "NIT" ||
+		treatment === "NIT3" ||
+		treatment === "PSR3";
 	const withInfo = treatment !== "NIT2" && treatment !== "NIT";
-	const isNsr = treatment === "NSR2" || treatment === "NSR";
+	const isNsr =
+		treatment === "NSR2" || treatment === "NSR" || treatment === "NSR3";
 	const isBayesian =
 		treatment === "QSR" ||
 		treatment === "BSR" ||
@@ -65,6 +68,11 @@ function RoundBottom({
 		treatment === "QSR2" ||
 		treatment === "BSR2" ||
 		treatment === "BSR3";
+	const isQuestion =
+		treatment === "BSR3" ||
+		treatment === "NIT3" ||
+		treatment === "NSR3" ||
+		treatment === "PSR3";
 
 	return (
 		<>
@@ -92,9 +100,13 @@ function RoundBottom({
 			)}
 			{subPhase === "input" && (isPsr || isNsr) && (
 				<NumberInput
-					label={`Kırmızı ${
-						isBayesian ? "torbaya" : "bilyeye"
-					} verdiğiniz ihtimal`}
+					label={
+						isQuestion
+							? "Cümlenin yanlış olmasına verdiğiniz ihtimal"
+							: `Kırmızı ${
+									isBayesian ? "torbaya" : "bilyeye"
+							  } verdiğiniz ihtimal`
+					}
 					description="Yüzdelik değer"
 					placeholder="0-100"
 					onChange={setRatioForPSR}
@@ -129,6 +141,7 @@ function RoundBottom({
 					chosenColor={chosenColor}
 					setCurrentPoints={setCurrentPoints}
 					isBayesian={treatment === "PSR"}
+					isQuestion={isQuestion}
 					information={withInfo}
 					style={{
 						gap: "10ch",
@@ -144,6 +157,7 @@ function RoundBottom({
 					chosenColor={chosenColor}
 					setCurrentPoints={setCurrentPoints}
 					isBayesian={treatment === "NSR"}
+					isQuestion={isQuestion}
 					style={{
 						gap: "10ch",
 						justifyContent: "center",

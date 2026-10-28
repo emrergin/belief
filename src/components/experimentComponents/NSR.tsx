@@ -6,6 +6,7 @@ function NSR({
 	showResult,
 	chosenColor,
 	isBayesian,
+	isQuestion = false,
 	setCurrentPoints = false,
 	style,
 }: {
@@ -13,6 +14,7 @@ function NSR({
 	showResult: boolean;
 	chosenColor: "blue" | "red";
 	isBayesian: boolean;
+	isQuestion?: boolean;
 	setCurrentPoints?: Dispatch<SetStateAction<number>> | false;
 	style?: React.CSSProperties;
 }) {
@@ -53,28 +55,52 @@ function NSR({
 		>
 			{showResult && (
 				<p className={chosenColor === "red" ? styles.redText : styles.blueText}>
-					{isBayesian
+					{isQuestion
+						? "Cümle aslında"
+						: isBayesian
 						? "Bilgisayarın belirlediği torba"
 						: "Çekilen bilyenin rengi"}{" "}
-					: {chosenColor === "red" ? "Kırmızı" : "Mavi"}
+					:{" "}
+					{isQuestion
+						? chosenColor === "red"
+							? "Yanlıştı"
+							: "Doğruydu"
+						: chosenColor === "red"
+						? "Kırmızı"
+						: "Mavi"}
 				</p>
 			)}
-			<p>
-				Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
-				verdiğiniz ihtimal: {value}
-			</p>
-			{chance?.ifRed !== undefined && (
+			{!isQuestion && (
+				<p>
+					Kırmızı {isBayesian ? "torbaya " : "bilyeye "}
+					verdiğiniz ihtimal: {value}
+				</p>
+			)}
+			{isQuestion && <p>Cümlenin yanlış olmasına verdiğiniz ihtimal:</p>}
+			{chance?.ifRed !== undefined && !isQuestion ? (
 				<p>
 					{isBayesian ? "Torba " : "Bilye "} gerçekte{" "}
 					<b className={styles.redText}>kırmızı</b>ysa kazanma ihtimaliniz:{" "}
 					{chance?.ifRed}
 				</p>
+			) : (
+				<p>
+					Cümle aslında
+					<b className={styles.redText}>yanlış</b>tıysa kazanma ihtimaliniz:{" "}
+					{chance?.ifRed}
+				</p>
 			)}
-			{chance?.ifBlue !== undefined && (
+			{chance?.ifBlue !== undefined && !isQuestion ? (
 				<p>
 					{isBayesian ? "Torba " : "Bilye "} gerçekte{" "}
 					<b className={styles.blueText}>mavi</b>yse kazanma ihtimaliniz:{" "}
 					{chance?.ifBlue}
+				</p>
+			) : (
+				<p>
+					Cümle aslında
+					<b className={styles.redText}>doğru</b>yduysa kazanma ihtimaliniz:{" "}
+					{chance?.ifRed}
 				</p>
 			)}
 			{showResult && chosenNumber && (
