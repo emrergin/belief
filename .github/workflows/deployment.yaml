@@ -64,5 +64,5 @@ jobs:
           script: |
             cp /home/${{ secrets.USERNAME }}/servers/.env /home/${{ secrets.USERNAME }}/servers/belief/standalone/.env
             sed -i 's/3000/3002/g' /home/${{ secrets.USERNAME }}/servers/belief/standalone/server.js
-            pm2 restart /home/${{ secrets.USERNAME }}/servers/belief/standalone/server.js --name belief
+            HOSTNAME=127.0.0.1 pm2 restart /home/${{ secrets.USERNAME }}/servers/belief/standalone/server.js --name belief --update-env
             pm2 save
